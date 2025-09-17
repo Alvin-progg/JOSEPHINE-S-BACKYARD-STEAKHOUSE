@@ -1,8 +1,7 @@
 
 // domcontedLoaded for login 
 document.addEventListener('DOMContentLoaded', () => {
-    // get the id of the form 
-    // validate the form (option chaining)
+    // get the id of the form and validate the form (option chaining) 
     document.getElementById('loginForm')?.addEventListener('submit', async(e) => {
         e.preventDefault();
 
@@ -16,12 +15,33 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // fetch request to the server
-        try {
-            const response = await fetch('')
-        } catch (error) {
-            
-        }
+       try {
+    const response = await fetch('/api/auth/login.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+    });
+
+    if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
+    }
+
+    const data = await response.json(); 
+    const {status, message} = data;
+
+    console.log(status, message);
+    
+    
+
+
+ 
+
+} catch (error) {
+    console.error("Fetch error:", error);
+}
+
     })
     //
 })
