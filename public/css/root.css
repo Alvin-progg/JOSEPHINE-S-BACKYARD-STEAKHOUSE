@@ -4,9 +4,13 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-    color: #fffeee
+    color: #fffeee;
+    overflow: hidden;
+  
 }
-
+body{
+  background-color: #121212;
+}
 .fonto {
   font-family: 'Lobster', serif;
 }
