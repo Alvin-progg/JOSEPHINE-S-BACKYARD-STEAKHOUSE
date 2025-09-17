@@ -15,13 +15,22 @@
             <a href="#" class="text-3xl">Steak House</a>
           </div>
           <ul class="flex gap-6 text-2xl">
-            <li><a href="">Home</a></li>
+            <li><a href="" class="">Home</a></li>
             <li><a href="">About</a></li>
             <li><a href="">Menu</a></li>
-            <li class="relative group"><a href="#">Gallery <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[var(--color-primary-600)] transition-all duration-300 group-hover:w-full"></span> </a></li>
+            <li className="relative group">
+              <a href="#" className="relative inline-block">
+                Gallery
+                <div
+                  className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[var(--color-primary-600)] transition-all duration-300 group-hover:w-full"
+                ></div>
+              </a>
+            </li>
           </ul>
           <div class="">
-            <a href="#" class="text-2xl bg-[var(--color-primary-700)] py-3 px-4 rounded-2xl text-black font-semibold"
+            <a
+              href="#"
+              class="text-2xl bg-[var(--color-primary-700)] py-3 px-4 rounded-2xl text-black font-semibold"
               >Reserve Now</a
             >
           </div>
@@ -29,25 +38,35 @@
       </nav>
     </header>
     <main>
-      <section id="hero" class="w-full flex items-center h-[90vh] ">
-        <div class=" flex justify-between gap-14 w-full mx-64">
+      <section id="hero" class="w-full flex items-center h-[90vh]">
+        <div class="flex justify-between gap-14 w-full mx-64">
           <div class="flex flex-col">
             <div class="flex flex-col gap-6">
-            <h1 class="text-6xl">JOSEPHINE&apos;S</h1>
-            <h2 class="text-5xl">BACKYARD STEAKHOUSE</h2>
-            <p class="text-3xl">“Bold Cuts. Big Flavor.”</p>
-          </div>
-          <div class="flex gap-6 my-10 text-xl">
-            <a href="#" class="text-2xl bg-[var(--color-primary-700)] py-3 px-4 rounded-2xl text-black font-semibold">
+              <h1 class="text-6xl">JOSEPHINE&apos;S</h1>
+              <h2 class="text-5xl">BACKYARD STEAKHOUSE</h2>
+              <p class="text-3xl">“Bold Cuts. Big Flavor.”</p>
+            </div>
+            <div class="flex gap-6 my-10 text-xl">
+              <a
+                href="#"
+                class="text-2xl bg-[var(--color-primary-700)] py-3 px-4 rounded-2xl text-black font-semibold"
+              >
                 Explore Menu
-            </a>
-            <a href="#" class="text-2xl bg-[var(--color-primary-700)] py-3 px-4 rounded-2xl text-black font-semibold">
+              </a>
+              <a
+                href="#"
+                class="text-2xl bg-[var(--color-primary-700)] py-3 px-4 rounded-2xl text-black font-semibold"
+              >
                 Order Now
-            </a>
-          </div>
+              </a>
+            </div>
           </div>
           <div>
-            <img src="./public/images/josephine.jpg" alt="" class="w-[400px] h-[500px] rounded-3xl"/>
+            <img
+              src="./public/images/josephine.jpg"
+              alt=""
+              class="w-[400px] h-[500px] rounded-3xl"
+            />
           </div>
         </div>
       </section>
