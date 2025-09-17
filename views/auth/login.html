@@ -1,25 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
-    <link rel="stylesheet" href="../../public/css/root.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="../../public/css/root.css">
+   <script src="https://cdn.jsdelivr.net/tailwindcss.com"></script>
+
+  <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
 </head>
-<body>
-    <main class="flex justify-center items-center min-h-screen">
+<body >
+  <main class="flex justify-center items-center min-h-screen">
+    
+    <!-- Container -->
+    <div class="flex  h-[550px] w-[750px] rounded-xl overflow-hidden shadow-lg border border-gray-600">
+      
+      <!-- Left Side: Image -->
+      <div class="w-1/2 bg-cover bg-center bg-no-repeat" style="background-image: url('../../public/images/heroBG.jpg')">
+      </div>
 
-        <!-- container -->
-<form  class="flex  h-[400px] w-[600px]">
-<div>
+      <!-- Right Side: Login Form -->
+      <div class="w-1/2 bg-[var(--color-primary-900)] flex flex-col justify-center px-10">
+        <h2 class="text-3xl font-bold mb-6 text-center">LOGIN</h2>
+        
+        <form class="flex flex-col space-y-5">
+          <!-- Email -->
+          <div>
+            <input 
+              type="text" 
+              placeholder="Enter your email/username" 
+              class="w-full bg-transparent border-b border-gray-300 focus:outline-none focus:border-[var(--color-primary-500)] py-2"
+            >
+          </div>
 
-</div>
+          <!-- Password -->
+          <div class="relative">
+            <input 
+              type="password" 
+              id="password" 
+              placeholder="Enter your password" 
+              class="w-full bg-transparent border-b border-gray-300 focus:outline-none focus:border-[var(--color-primary-500)] py-2 pr-10"
+            >
+            <button type="button" onclick="togglePassword()" class="absolute right-2 top-2 text-gray-300">
+              <i id="eyeIcon" class="fas fa-eye-slash"></i>
+            </button>
+          </div>
 
+          <!-- Login Button -->
+          <button 
+            type="submit" 
+            class="w-full border border-gray-300 py-2 rounded-md hover:bg-[var(--color-primary-700)] transition">
+            Login
+          </button>
+        </form>
 
-
-</form>
-
-    </main>
+        <!-- Register -->
+        <p class="text-center mt-6 text-sm">
+          Doesn't Have an Account? 
+          <a href="#" class="underline text-[var(--color-primary-300)]">Register Here</a>
+        </p>
+      </div>
+    </div>
+  </main> 
 </body>
 </html>
