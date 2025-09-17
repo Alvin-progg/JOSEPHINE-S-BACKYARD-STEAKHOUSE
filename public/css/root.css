@@ -1,8 +1,23 @@
 
-
-
 * { 
     background: #121212;
     color: #fffeee
 }
+
+:root {
+  --color-primary-50: #FEFBE8;
+  --color-primary-100: #FDF7C4;
+  --color-primary-200: #FDEC8B;
+  --color-primary-300: #FBDA49;
+  --color-primary-400: #F7C518;
+  --color-primary-500: #E7AD08;
+  --color-primary-600: #C88506;
+  --color-primary-700: #9F5F09;
+  --color-primary-800: #844A0F;
+  --color-primary-900: #703D13;
+  --color-primary-950: #572909;
+}
+
+
+
 
