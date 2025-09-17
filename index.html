@@ -8,29 +8,54 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <header class="">
-      <nav class="flex justify-between items-center p-4 py-10">
+    <header class=" ">
+      <nav class="flex justify-between items-center p-4 py-9 bg-[#121212]">
         <div class="flex justify-between items-center w-full mx-64">
           <div>
-            <a href="#" class="text-3xl">Steak House</a>
+            <a
+              href="#"
+              class="text-3xl hover:text-[var(--color-primary-600)] duration-300"
+              >Steak House</a
+            >
           </div>
           <ul class="flex gap-6 text-2xl">
-            <li><a href="" class="">Home</a></li>
-            <li><a href="">About</a></li>
-            <li><a href="">Menu</a></li>
-            <li className="relative group">
-              <a href="#" className="relative inline-block">
-                Gallery
+            <li>
+              <a href="" class="relative group"
+                >Home
                 <div
-                  className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[var(--color-primary-600)] transition-all duration-300 group-hover:w-full"
+                  class="absolute left-0 -bottom-1 w-0 h-[2px] bg-[var(--color-primary-600)] transition-all duration-300 group-hover:w-full"
+                ></div
+              ></a>
+            </li>
+            <li>
+              <a href="" class="relative group"
+                >Menu
+                <div
+                  class="absolute left-0 -bottom-1 w-0 h-[2px] bg-[var(--color-primary-600)] transition-all duration-300 group-hover:w-full"
                 ></div>
               </a>
+            </li>
+            <li class="relative">
+              <a href="#" class="relative inline-block group">
+                Gallery
+                <div
+                  class="absolute left-0 -bottom-1 w-0 h-[2px] bg-[var(--color-primary-600)] transition-all duration-300 group-hover:w-full"
+                ></div>
+              </a>
+            </li>
+            <li>
+              <a href="" class="relative group"
+                >Contact Us
+                <div
+                  class="absolute left-0 -bottom-1 w-0 h-[2px] bg-[var(--color-primary-600)] transition-all duration-300 group-hover:w-full"
+                ></div
+              ></a>
             </li>
           </ul>
           <div class="">
             <a
               href="#"
-              class="text-2xl bg-[var(--color-primary-700)] py-3 px-4 rounded-2xl text-black font-semibold"
+              class="text-xl text-black relative transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl group font-bold cursor-pointer px-4 py-3 max-md:text-2xl max-md:px-3 max-md:py-2 bg-[var(--color-primary-600)] hover:bg-[var(--color-primary-800)] text-secondary-200 rounded-xl overflow-hidden"
               >Reserve Now</a
             >
           </div>
@@ -38,38 +63,39 @@
       </nav>
     </header>
     <main>
-      <section id="hero" class="w-full flex items-center h-[90vh]">
-        <div class="flex justify-between gap-14 w-full mx-64">
+      <section
+        id="hero"
+        class="relative w-full flex items-center h-[90vh] bg-[url(./public/images/heroBG.jpg)] bg-cover bg-center"
+      >
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-black/50"></div>
+
+        <!-- Content -->
+        <div class="relative z-10 flex justify-between gap-14 w-full mx-64">
           <div class="flex flex-col">
-            <div class="flex flex-col gap-6">
-              <h1 class="text-6xl">JOSEPHINE&apos;S</h1>
-              <h2 class="text-5xl">BACKYARD STEAKHOUSE</h2>
-              <p class="text-3xl">“Bold Cuts. Big Flavor.”</p>
+            <div class="flex flex-col gap-6 font-semibold">
+              <h1 class="text-6xl text-white fonto">JOSEPHINE&apos;S</h1>
+              <h2 class="text-5xl text-white fonto">BACKYARD STEAKHOUSE</h2>
+              <p class="text-3xl text-white">“Bold Cuts. Big Flavor.”</p>
             </div>
-            <div class="flex gap-6 my-10 text-xl">
+            <div class="flex gap-6 my-10 text-xl text-black">
               <a
                 href="#"
-                class="text-2xl bg-[var(--color-primary-700)] py-3 px-4 rounded-2xl text-black font-semibold"
+                class="text-xl relative transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl group font-bold cursor-pointer px-4 py-3 bg-[var(--color-primary-600)] hover:bg-[var(--color-primary-800)] text-secondary-200 rounded-xl"
               >
                 Explore Menu
               </a>
               <a
                 href="#"
-                class="text-2xl bg-[var(--color-primary-700)] py-3 px-4 rounded-2xl text-black font-semibold"
+                class="text-xl relative transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl group font-bold cursor-pointer px-4 py-3 bg-[var(--color-primary-600)] hover:bg-[var(--color-primary-800)] text-secondary-200 rounded-xl"
               >
                 Order Now
               </a>
             </div>
           </div>
-          <div>
-            <img
-              src="./public/images/josephine.jpg"
-              alt=""
-              class="w-[400px] h-[500px] rounded-3xl"
-            />
-          </div>
         </div>
       </section>
+      <section></section>
     </main>
   </body>
 </html>

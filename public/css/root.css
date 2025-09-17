@@ -1,9 +1,15 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 * { 
-    background: #121212;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
     color: #fffeee
 }
 
+.fonto {
+  font-family: 'Lobster', serif;
+}
 :root {
   --color-primary-50: #FEFBE8;
   --color-primary-100: #FDF7C4;
