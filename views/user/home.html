@@ -64,20 +64,31 @@
               </a>
             </li>
           </ul>
-          <div class="flex gap-10 items-center">
-            <p class="text-xl text-[#fffeee] max-sm:text-base">Alvin Aloya</p>
+          <div class="relative">
             <button
-              onclick="window.location.href='/views/auth/login.html'"
-              class="rounded-3xl bg-[var(--color-primary-600)] text-black px-8 py-4 text-base font-bold transition-all duration-300 hover:-translate-y-1 hover:bg-[var(--color-primary-800)] hover:shadow-2xl max-sm:px-4 max-sm:py-2 max-sm:text-base md:text-xl"
+              onclick="toggleDropdown()"
+              class="flex items-center gap-2 text-xl text-[#fffeee] px-4 py-2 rounded-md hover:bg-[#2a2a2a] transition-colors duration-300 max-sm:text-base"
             >
-              Logout
+              John Doe
+              <i class="bi bi-chevron-down"></i>
             </button>
+            <div
+              id="dropdown-menu"
+              class="absolute right-0 mt-2 w-48 bg-[#1e1e1e] rounded-md shadow-lg hidden z-10"
+            >
+              <a
+                href="/views/auth/login.html"
+                class="block px-4 py-2 text-sm text-[#fffeee] hover:bg-[var(--color-primary-600)] hover:text-black transition-colors duration-300"
+              >
+                <i class="bi bi-box-arrow-right mr-2"></i>Logout
+              </a>
+            </div>
           </div>
         </div>
       </nav>
     </header>
     <main>
-      <section class="w-full overflow-hidden my-20">
+      <section class="w-full overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 py-8">
           <div class="flex flex-col lg:flex-row gap-8">
             <!-- Reservations Table (Left) -->
@@ -160,11 +171,11 @@
                       <td class="py-4 px-6 text-sm">ORD124</td>
                       <td class="py-4 px-6 text-sm">Pasta Alfredo, Salad</td>
                       <td class="py-4 px-6 text-sm">$18.50</td>
-                      <td class="py-4 px-6 text-sm">Pending</td>
+                      <td class="py-4 px-6 text-sm">Delivered</td>
                       <td class="py-4 px-6 text-sm">
                         <button
-                          class="bg-red-600 text-[#fffeee] px-4 py-2 rounded-md "
-                          
+                          class="bg-gray-600 text-[#fffeee] px-4 py-2 rounded-md cursor-not-allowed"
+                          disabled
                         >
                           <i class="bi bi-x-circle mr-2"></i>Cancel
                         </button>
@@ -206,5 +217,6 @@
         </div>
       </section>
     </main>
+    <script src="../../public/js/main.js"></script>
   </body>
 </html>
