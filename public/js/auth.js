@@ -27,16 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!response.ok) {
         throw new Error(`Server error: ${response.status}`);
     }
-
-    const data = await response.json(); 
-    const {status, message} = data;
-
-    console.log(status, message);
+    const data = await response.json();
     
+    console.log(data);
     
-
-
- 
 
 } catch (error) {
     console.error("Fetch error:", error);

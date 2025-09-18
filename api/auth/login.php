@@ -15,6 +15,15 @@ $password = $data['password'];
 
 // validate the data 
 if (!isset($username) || !isset($password)) {
-    echo json_encode(["error" => "Username and password are required."]);
+    echo json_encode([        
+        "error" => "Username and password are required."
+    ]);
     exit();
 }
+echo json_encode([
+    "message" => "Hell yeah",
+    "username" => $username,
+    "password" => $password
+]);
+
+
