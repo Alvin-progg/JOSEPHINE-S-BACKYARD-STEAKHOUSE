@@ -44,12 +44,12 @@
               </a>
             </li>
             <li>
-              <a href="#" class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full">
+              <a href="./order.html" class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full">
                 Order
               </a>
             </li>
             <li>
-              <a href="#" class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full">
+              <a href="./reservation.html" class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full">
                 Reserve Table
               </a>
             </li>
@@ -59,15 +59,15 @@
           <div class="relative hidden lg:block">
             <button onclick="toggleDropdown()" class="flex items-center gap-2 text-xl text-[#fffeee] px-4 py-2 rounded-md hover:bg-[#2a2a2a] transition-colors duration-300">
               <i class="bi bi-person-circle mr-1"></i>
-              Alvin Aloya
+              <span id="user"></span>
               <i class="bi bi-chevron-down"></i>
             </button>
             <div id="dropdown-menu" class="absolute right-0 mt-2 w-48 bg-[#1e1e1e] rounded-md shadow-lg hidden z-10 border border-gray-700">
 
               <hr class="border-gray-600">
-              <a href="/views/auth/login.html" class="block px-4 py-2 text-sm text-[#fffeee] hover:bg-red-600 hover:text-white transition-colors duration-300 rounded-b-md">
+              <button id="logout" class="w-full px-4 py-2 text-sm text-[#fffeee] hover:bg-red-600 hover:text-white transition-colors duration-300 rounded-b-md">
                 <i class="bi bi-box-arrow-right mr-2"></i>Logout
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -90,7 +90,7 @@
             <hr class="border-gray-600 my-3">
             <div class="flex items-center gap-2 text-[#fffeee] py-2">
               <i class="bi bi-person-circle"></i>
-              <span>Alvin Aloya</span>
+              <span id="user"></span>
             </div>
             <button class="block text-red-400 hover:text-red-300 transition-colors duration-300 py-2 pl-4">
               <i class="bi bi-box-arrow-right mr-2"></i>Logout
