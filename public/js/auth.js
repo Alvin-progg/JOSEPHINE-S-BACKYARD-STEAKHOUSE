@@ -1,6 +1,8 @@
 
 // domcontedLoaded for login 
 document.addEventListener('DOMContentLoaded', () => {
+
+
     // get the id of the form and validate the form (option chaining) 
     document.getElementById('loginForm')?.addEventListener('submit', async(e) => {
         e.preventDefault();
@@ -31,11 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = await response.json();    
     console.log(data);
 } catch (error) {
-    console.error("Fetch error:", error);
-}
+        console.log(error?.response.data?.message);
 
-    })
+
+    }
     //
+})
 })
 
 // domcontentLoaded for register
@@ -46,3 +49,4 @@ document.addEventListener('DOMContentLoaded', () => {
     
         // fetch request to the server
 })
+''
