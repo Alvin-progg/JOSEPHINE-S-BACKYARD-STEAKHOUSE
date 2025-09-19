@@ -15,6 +15,7 @@ if (!isset($username) || !isset($password)) {
   exit();
 };
 
+
 // Find user
 $stmt = $connection->prepare("SELECT id, username, password FROM users WHERE username = ?");
 $stmt->bind_param("s", $username);
@@ -46,6 +47,14 @@ $_SESSION['user'] = [
 ];
 
 http_response_code(200);
-echo json_encode(["message" => "Welcome back, " . $user['username'] . "!"]);
+echo json_encode([
+"message" => "Login successful. Welcome back, " . $user['username'] . "!",
+"token" => session_id(),
+"username" => $username,
+]);
+
+$stmt->close();
+$connection->close();
+
 
 

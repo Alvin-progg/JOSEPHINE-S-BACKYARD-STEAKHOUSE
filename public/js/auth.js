@@ -24,7 +24,7 @@ const successMessage = async(title, text, timer=1500) => {
     })
 }
 
-
+// domcontentLoaded for login
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -50,24 +50,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // parse to raw text and parse it to json
             const text = await response.text();
+           const data = JSON.parse(text);
 
-
-            const data = text ? JSON.parse(text) : {};
-
-            console.log(data);
             
             if (!response.ok) {
                 alertMessage('error', 'Login Failed', data.message || 'Something went wrong.', 2000);
-                e.target.reset();
                 return;
             }
 
             // Success
-            await successMessage('Login Successful', data.message || 'You have successfully logged in.', 2000);
+             successMessage('Login Successful', data.message || 'You have successfully logged in.', 2000);
+             // get the token from the response and store it in local storage
+             console.log(data.token);
+             console.log(data.username);
+             
+             localStorage.setItem('token', data.token);
+             localStorage.setItem('username', data.username);
+             // Redirect to dashboard after a short delay
+            setTimeout(() => {
+                window.location.href = 'http://localhost:8000/views/user/home.html';
+            }, 2001);
 
         } catch (error) {
             alertMessage('error', 'Login Failed', error.message, 2000);
-            e.target.reset();
         }
     });
 });
@@ -75,8 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // domcontentLoaded for register
 document.addEventListener('DOMContentLoaded', () => {
-
- 
 
     // get the id of the form and validate the form (option chaining) 
     document.getElementById('registerForm')?.addEventListener('submit', async(e) => {
@@ -102,12 +105,24 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({ username,email,  password })
     });
 
+    // parse to raw text and parse it to json
+const text = await response.text();
+
+const data = JSON.parse(text);
+
     if (!response.ok) {
-       alertMessage('error', 'Registration Failed', `Server error: ${response.status}`, 2000);
+       alertMessage('error', 'Registration Failed',  2000);
        return;
     }
-    const data = await response.json();    
-    console.log(data);
+alertMessage('success', 'Registration Successful', data.message || 'You have successfully registered.', 2000);
+
+             console.log(data.username);
+
+localStorage.setItem('token', data.token);
+localStorage.setItem('username', data.username);
+setTimeout(() => {
+    window.location.href = '/views/user/home.html';
+}, 2001);
 } catch (error) {
       alertMessage('error', 'Login Failed', error.message   , 2000);
 

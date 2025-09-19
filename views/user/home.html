@@ -57,17 +57,18 @@
           
           <!-- User Dropdown -->
           <div class="relative hidden lg:block">
-            <button onclick="toggleDropdown()" class="flex items-center gap-2 text-xl text-[#fffeee] px-4 py-2 rounded-md hover:bg-[#2a2a2a] transition-colors duration-300">
-              <i class="bi bi-person-circle mr-1"></i>
-              Alvin Aloya
+            <button onclick="toggleDropdown()" class="flex items-center gap-2 text-xl text-[#fffeee] px-4 py-2 rounded-md hover:bg-[#2a2a2a] transition-colors duration-300" >
+              <i class="bi bi-person-circle mr-1" ></i>
+             
+              <span id="user"></span>
               <i class="bi bi-chevron-down"></i>
             </button>
             <div id="dropdown-menu" class="absolute right-0 mt-2 w-48 bg-[#1e1e1e] rounded-md shadow-lg hidden z-10 border border-gray-700">
 
               <hr class="border-gray-600">
-              <a href="/views/auth/login.html" class="block px-4 py-2 text-sm text-[#fffeee] hover:bg-red-600 hover:text-white transition-colors duration-300 rounded-b-md">
+              <button id="logout" class="block px-4 py-2 text-sm text-[#fffeee] hover:bg-red-600 hover:text-white transition-colors duration-300 rounded-b-md">
                 <i class="bi bi-box-arrow-right mr-2"></i>Logout
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -90,9 +91,9 @@
             <hr class="border-gray-600 my-3">
             <div class="flex items-center gap-2 text-[#fffeee] py-2">
               <i class="bi bi-person-circle"></i>
-              <span>John Doe</span>
+              <span id="user"></span>
             </div>
-            <button class="block text-red-400 hover:text-red-300 transition-colors duration-300 py-2 pl-4">
+            <button  id="logout" class="block text-red-400 hover:text-red-300 transition-colors duration-300 py-2 pl-4" href="/views/auth/login.html">
               <i class="bi bi-box-arrow-right mr-2"></i>Logout
             </button>
           </div>
@@ -105,7 +106,8 @@
       <section class="bg-gradient-to-r from-[var(--color-primary-900)] to-[var(--color-primary-800)] py-8 mb-8">
         <div class="max-w-7xl mx-auto px-4">
           <div class="text-center">
-            <h1 class="text-4xl font-['Lobster_Two'] text-[#fffeee] mb-2">Welcome back, Alvin Aloya</h1>
+             
+            <h1 class="text-4xl font-['Lobster_Two'] text-[#fffeee] mb-2" >Welcome back, <span id="user"></span>  </h1>
             <p class="text-[var(--color-primary-200)] text-lg">Here's your dashboard overview</p>
           </div>
         </div>
@@ -415,6 +417,6 @@
     </main>
 
     <script src="../../public/js/main.js"></script>
-    
+    <script src="../../public/js/authguard.js"></script>
   </body>
 </html>

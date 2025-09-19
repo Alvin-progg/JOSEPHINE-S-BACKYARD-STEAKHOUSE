@@ -61,6 +61,7 @@ if (!$stmt->execute()) {
 // start the session
 session_start();
 $_SESSION['user'] = [
+    "id" => $stmt->insert_id,
     "username" => $username,
     "email" => $email,
     "loggedin" => true,
@@ -68,10 +69,11 @@ $_SESSION['user'] = [
 // successmessage
 http_response_code(201);
 echo json_encode([
-    "message"=> "Welcome to Josephine's Backyard Steakhouse, " . $username . "!"
+    "message"=> "Welcome to Josephine's Backyard Steakhouse, " . $username . "!",
+    "token" => session_id(),
+    "username" => $username,
 ]);
 
-?>
 
 
 

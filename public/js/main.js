@@ -102,5 +102,50 @@
       document.querySelectorAll('button[onclick*="cancel"]').forEach(button => {
         button.addEventListener('click', function() {
           addLoadingState(this);
-        });
+        }); 
       });
+
+// localstorage user display
+const username = localStorage.getItem('username');
+console.log(username)
+
+// domcontentLoaded for displaying username
+document.addEventListener('DOMContentLoaded', () => {
+    const userElements = document.querySelectorAll('#user');
+userElements.forEach(el => {
+el.innerText = username;
+})
+})
+
+
+// domcontent for logout function
+document.addEventListener('DOMContentLoaded', () => {
+
+// get the logout buttons
+const logoutButtons = document.querySelectorAll('#logout');
+logoutButtons.forEach((btn) => {
+
+btn.addEventListener('click', async() => {
+ // fetch the data first before clearing local storage
+  const response  = await fetch('/api/logout/logout.php', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    credentials: "include",
+  });
+  const text = await response.text();
+  const data = JSON.parse(text);
+  if (!response.ok) {
+    alertMessage('error', 'Logout Failed', data.message || 'Something went wrong.', 2000);
+    return;
+  }
+  // clear local storage
+  localStorage.removeItem('token');
+  localStorage.removeItem('username');
+  // redirect to login page
+  window.location.href = '/views/auth/login.html';
+})
+})
+})
+
