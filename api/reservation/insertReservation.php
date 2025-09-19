@@ -39,24 +39,6 @@ $guests = $data['guests'];
 if (empty($date) || empty($time) || empty($guests)) {
     sendResponse(false, "All fields must be non-empty", 400);
 }
-
-// Validate date (must be a valid date and not in the past)
-$today = (new DateTime())->format('Y-m-d');
-if (!DateTime::createFromFormat('Y-m-d', $date) || $date < $today) {
-    sendResponse(false, "Invalid or past date", 400);
-}
-
-// Validate time (ensure valid format and within operating hours, e.g., 09:00–22:00)
-if (!DateTime::createFromFormat('H:i', $time) || $time < "09:00" || $time > "22:00") {
-    sendResponse(false, "Invalid time or outside operating hours (09:00–22:00)", 400);
-}
-
-// Since guests comes from <select>, ensure it's a valid integer string
-$guests = filter_var($guests, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'max_range' => 20]]);
-if ($guests === false) {
-    sendResponse(false, "Guests must be a number between 1 and 20", 400);
-}
-
 // Connect to the database
 require_once("../../db/config.php");
 
