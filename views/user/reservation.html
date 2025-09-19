@@ -18,88 +18,410 @@
     />
   </head>
   <body class="bg-[#121212]">
-<header>
-      <nav class="flex items-center justify-between px-4 py-5 bg-[#121212] sticky top-0 z-50 border-b border-gray-800">
-        <div class="mx-auto flex w-full max-w-7xl items-center justify-between max-lg:px-4 max-md:px-0">
+    <header>
+      <nav
+        class="flex items-center justify-between px-4 py-5 bg-[#121212] sticky top-0 z-50 border-b border-gray-800"
+      >
+        <div
+          class="mx-auto flex w-full max-w-7xl items-center justify-between max-lg:px-4 max-md:px-0"
+        >
           <!-- Logo -->
-          <a href="/index.html" class="text-3xl font-bold text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 max-sm:text-xl font-['Lobster_Two']">
+          <a
+            href="/index.html"
+            class="text-3xl font-bold text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 max-sm:text-xl font-['Lobster_Two']"
+          >
             JOSEPHINE'S
           </a>
-          
+
           <!-- Mobile Menu Button -->
-          <button id="mobile-menu-btn" class="lg:hidden text-[#fffeee] text-2xl">
+          <button
+            id="mobile-menu-btn"
+            class="lg:hidden text-[#fffeee] text-2xl"
+          >
             <i class="bi bi-list"></i>
           </button>
-          
+
           <!-- Desktop Navigation -->
           <ul id="desktop-nav" class="hidden lg:flex gap-6 text-2xl">
             <li>
-              <a href="./home.html" class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full">
+              <a
+                href="./home.html"
+                class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full"
+              >
                 Home
               </a>
             </li>
             <li>
-              <a href="./menu.html" class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full">
+              <a
+                href="./menu.html"
+                class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full"
+              >
                 Menu
               </a>
             </li>
             <li>
-              <a href="./order.html" class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full">
+              <a
+                href="./order.html"
+                class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full"
+              >
                 Order
               </a>
             </li>
             <li>
-              <a href="./reservation.html" class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full">
+              <a
+                href="./reservation.html"
+                class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full"
+              >
                 Reserve Table
               </a>
             </li>
           </ul>
-          
+
           <!-- User Dropdown -->
           <div class="relative hidden lg:block">
-            <button onclick="toggleDropdown()" class="flex items-center gap-2 text-xl text-[#fffeee] px-4 py-2 rounded-md hover:bg-[#2a2a2a] transition-colors duration-300" >
-              <i class="bi bi-person-circle mr-1" ></i>
-             
+            <button
+              onclick="toggleDropdown()"
+              class="flex items-center gap-2 text-xl text-[#fffeee] px-4 py-2 rounded-md hover:bg-[#2a2a2a] transition-colors duration-300"
+            >
+              <i class="bi bi-person-circle mr-1"></i>
               <span id="user"></span>
               <i class="bi bi-chevron-down"></i>
             </button>
-            <div id="dropdown-menu" class="absolute right-0 mt-2 w-48 bg-[#1e1e1e] rounded-md shadow-lg hidden z-10 border border-gray-700">
-
-              <hr class="border-gray-600">
-              <button id="logout" class="w-full px-4 py-2 text-sm text-[#fffeee] hover:bg-red-600 hover:text-white transition-colors duration-300 rounded-b-md">
+            <div
+              id="dropdown-menu"
+              class="absolute right-0 mt-2 w-48 bg-[#1e1e1e] rounded-md shadow-lg hidden z-10 border border-gray-700"
+            >
+              <hr class="border-gray-600" />
+              <button
+                id="logout"
+                class="w-full px-4 py-2 text-sm text-[#fffeee] hover:bg-red-600 hover:text-white transition-colors duration-300 rounded-b-md"
+              >
                 <i class="bi bi-box-arrow-right mr-2"></i>Logout
               </button>
             </div>
           </div>
         </div>
-        
+
         <!-- Mobile Navigation Menu -->
-        <div id="mobile-nav" class="hidden lg:hidden absolute top-full left-0 w-full bg-[#1e1e1e] border-b border-gray-700 z-40">
+        <div
+          id="mobile-nav"
+          class="hidden lg:hidden absolute top-full left-0 w-full bg-[#1e1e1e] border-b border-gray-700 z-40"
+        >
           <div class="px-4 py-4 space-y-3">
-            <a href="./home.html" class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2">
+            <a
+              href="./home.html"
+              class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2"
+            >
               <i class="bi bi-house mr-2"></i>Home
             </a>
-            <a href="./menu.html" class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2">
+            <a
+              href="./menu.html"
+              class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2"
+            >
               <i class="bi bi-journal-text mr-2"></i>Menu
             </a>
-            <a href="#" class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2">
+            <a
+              href="#"
+              class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2"
+            >
               <i class="bi bi-cart mr-2"></i>Order
             </a>
-            <a href="#" class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2">
+            <a
+              href="#"
+              class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2"
+            >
               <i class="bi bi-calendar-event mr-2"></i>Reserve Table
             </a>
-            <hr class="border-gray-600 my-3">
+            <hr class="border-gray-600 my-3" />
             <div class="flex items-center gap-2 text-[#fffeee] py-2">
               <i class="bi bi-person-circle"></i>
               <span id="user"></span>
             </div>
-            <button  id="logout" class="block text-red-400 hover:text-red-300 transition-colors duration-300 py-2 pl-4" href="/views/auth/login.html">
+            <button
+              id="logout"
+              class="block text-red-400 hover:text-red-300 transition-colors duration-300 py-2 pl-4"
+              href="/views/auth/login.html"
+            >
               <i class="bi bi-box-arrow-right mr-2"></i>Logout
             </button>
           </div>
         </div>
       </nav>
     </header>
+    <main>
+      <section class="flex flex-col">
+        <h1 class="text-4xl text-center text-white font-bold my-10">
+          Reserve a Table
+        </h1>
+        <!-- New Reservation Form -->
+        <div class="xl:w-1/2 w-full flex justify-center items-center mx-auto mb-10 px-4">
+          <div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden w-full max-w-4xl">
+            <div class="bg-[var(--color-primary-600)] px-6 py-4 flex justify-center items-start">
+              <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
+                <i class="bi bi-calendar-plus mr-3"></i>Make a New Reservation
+              </h2>
+            </div>
+            <div class="p-6">
+              <form id="reservation-form" class="space-y-4">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-[#fffeee]">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    class="w-full p-2 rounded-md bg-[#2a2a2a] text-[#fffeee] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-600)]"
+                  />
+                </div>
+                <div>
+                  <label for="date" class="block text-sm font-medium text-[#fffeee]">Date</label>
+                  <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    required
+                    min="2025-09-19"
+                    class="w-full p-2 rounded-md bg-[#2a2a2a] text-[#fffeee] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-600)]"
+                  />
+                </div>
+                <div>
+                  <label for="time" class="block text-sm font-medium text-[#fffeee]">Time</label>
+                  <select
+                    id="time"
+                    name="time"
+                    required
+                    class="w-full p-2 rounded-md bg-[#2a2a2a] text-[#fffeee] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-600)]"
+                  >
+                    <option value="" disabled selected>Select a time</option>
+                    <option value="12:00">12:00 PM</option>
+                    <option value="12:30">12:30 PM</option>
+                    <option value="13:00">1:00 PM</option>
+                    <option value="13:30">1:30 PM</option>
+                    <option value="14:00">2:00 PM</option>
+                    <option value="14:30">2:30 PM</option>
+                    <option value="15:00">3:00 PM</option>
+                    <option value="15:30">3:30 PM</option>
+                    <option value="16:00">4:00 PM</option>
+                    <option value="16:30">4:30 PM</option>
+                    <option value="17:00">5:00 PM</option>
+                    <option value="17:30">5:30 PM</option>
+                    <option value="18:00">6:00 PM</option>
+                    <option value="18:30">6:30 PM</option>
+                    <option value="19:00">7:00 PM</option>
+                    <option value="19:30">7:30 PM</option>
+                    <option value="20:00">8:00 PM</option>
+                    <option value="20:30">8:30 PM</option>
+                    <option value="21:00">9:00 PM</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="guests" class="block text-sm font-medium text-[#fffeee]">Number of Guests</label>
+                  <select
+                    id="guests"
+                    name="guests"
+                    required
+                    class="w-full p-2 rounded-md bg-[#2a2a2a] text-[#fffeee] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-600)]"
+                  >
+                    <option value="" disabled selected>Select number of guests</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                </div>
+                <button
+                  type="submit"
+                  class="w-full bg-[var(--color-primary-600)] text-[#121212] py-2 rounded-md hover:bg-[var(--color-primary-700)] transition-colors duration-300 font-semibold"
+                >
+                  <i class="bi bi-check-circle mr-2"></i>Submit Reservation
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- Existing Reservation Table -->
+        <div id="reserve_table" class="xl:w-1/2 w-full flex justify-center items-center mx-auto mb-10 px-4">
+          <div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden w-full max-w-4xl">
+            <div class="bg-[var(--color-primary-600)] px-6 py-4 flex justify-center items-start">
+              <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
+                <i class="bi bi-calendar-event mr-3"></i>Your Reservations
+              </h2>
+            </div>
+
+            <div class="p-6">
+              <!-- Mobile Cards View -->
+              <div class="block md:hidden space-y-4">
+                <div class="bg-[#2a2a2a] p-4 rounded-lg border border-gray-600">
+                  <div class="flex justify-between items-start mb-3">
+                    <div>
+                      <p class="text-[var(--color-primary-400)] font-semibold">
+                        RES456
+                      </p>
+                      <p class="text-[#fffeee] text-sm">September 20, 2025</p>
+                    </div>
+                    <span
+                      class="bg-green-600 text-white px-2 py-1 rounded text-xs"
+                      >Confirmed</span
+                    >
+                  </div>
+                  <div class="grid grid-cols-2 gap-4 text-sm mb-3">
+                    <div>
+                      <p class="text-gray-400">Time</p>
+                      <p class="text-[#fffeee]">7:00 PM</p>
+                    </div>
+                    <div>
+                      <p class="text-gray-400">Guests</p>
+                      <p class="text-[#fffeee]">4 people</p>
+                    </div>
+                  </div>
+                  <button
+                    onclick="cancelReservation('RES456')"
+                    class="w-full bg-red-600 text-[#fffeee] py-2 rounded-md hover:bg-red-700 transition-colors duration-300"
+                  >
+                    <i class="bi bi-x-circle mr-2"></i>Cancel Reservation
+                  </button>
+                </div>
+
+                <div class="bg-[#2a2a2a] p-4 rounded-lg border border-gray-600">
+                  <div class="flex justify-between items-start mb-3">
+                    <div>
+                      <p class="text-[var(--color-primary-400)] font-semibold">
+                        RES457
+                      </p>
+                      <p class="text-[#fffeee] text-sm">September 25, 2025</p>
+                    </div>
+                    <span
+                      class="bg-green-600 text-white px-2 py-1 rounded text-xs"
+                      >Confirmed</span
+                    >
+                  </div>
+                  <div class="grid grid-cols-2 gap-4 text-sm mb-3">
+                    <div>
+                      <p class="text-gray-400">Time</p>
+                      <p class="text-[#fffeee]">6:30 PM</p>
+                    </div>
+                    <div>
+                      <p class="text-gray-400">Guests</p>
+                      <p class="text-[#fffeee]">2 people</p>
+                    </div>
+                  </div>
+                  <button
+                    onclick="cancelReservation('RES457')"
+                    class="w-full bg-red-600 text-[#fffeee] py-2 rounded-md hover:bg-red-700 transition-colors duration-300"
+                  >
+                    <i class="bi bi-x-circle mr-2"></i>Cancel Reservation
+                  </button>
+                </div>
+              </div>
+
+              <!-- Desktop Table View -->
+              <div class="hidden md:block overflow-x-auto flex justify-center">
+                <table class="min-w-full max-w-full">
+                  <thead>
+                    <tr class="border-b border-gray-600">
+                      <th
+                        class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
+                      >
+                        Reservation ID
+                      </th>
+                      <th
+                        class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
+                      >
+                        Date
+                      </th>
+                      <th
+                        class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
+                      >
+                        Time
+                      </th>
+                      <th
+                        class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
+                      >
+                        Guests
+                      </th>
+                      <th
+                        class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
+                      >
+                        Status
+                      </th>
+                      <th
+                        class="py-3 px-4 text-center text-sm font-bold text-[#fffeee]"
+                      >
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="hover:bg-[#2a2a2a] transition-colors duration-200 border-b border-gray-700"
+                    >
+                      <td
+                        class="py-4 px-4 text-sm text-[var(--color-primary-400)] font-semibold"
+                      >
+                        RES456
+                      </td>
+                      <td class="py-4 px-4 text-sm text-[#fffeee]">
+                        2025-09-20
+                      </td>
+                      <td class="py-4 px-4 text-sm text-[#fffeee]">7:00 PM</td>
+                      <td class="py-4 px-4 text-sm text-[#fffeee]">4</td>
+                      <td class="py-4 px-4 text-sm">
+                        <span
+                          class="bg-green-600 text-white px-2 py-1 rounded text-xs"
+                          >Confirmed</span
+                        >
+                      </td>
+                      <td class="py-4 px-4 text-center">
+                        <button
+                          onclick="cancelReservation('RES456')"
+                          class="bg-red-600 text-[#fffeee] px-3 py-1 rounded-md hover:bg-red-700 transition-colors duration-300 text-sm"
+                        >
+                          <i class="bi bi-x-circle mr-1"></i>Cancel
+                        </button>
+                      </td>
+                    </tr>
+                    <tr
+                      class="hover:bg-[#2a2a2a] transition-colors duration-200"
+                    >
+                      <td
+                        class="py-4 px-4 text-sm text-[var(--color-primary-400)] font-semibold"
+                      >
+                        RES457
+                      </td>
+                      <td class="py-4 px-4 text-sm text-[#fffeee]">
+                        2025-09-25
+                      </td>
+                      <td class="py-4 px-4 text-sm text-[#fffeee]">6:30 PM</td>
+                      <td class="py-4 px-4 text-sm text-[#fffeee]">2</td>
+                      <td class="py-4 px-4 text-sm">
+                        <span
+                          class="bg-green-600 text-white px-2 py-1 rounded text-xs"
+                          >Confirmed</span
+                        >
+                      </td>
+                      <td class="py-4 px-4 text-center">
+                        <button
+                          onclick="cancelReservation('RES457')"
+                          class="bg-red-600 text-[#fffeee] px-3 py-1 rounded-md hover:bg-red-700 transition-colors duration-300 text-sm"
+                        >
+                          <i class="bi bi-x-circle mr-1"></i>Cancel
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
     <script src="../../public/js/main.js"></script>
   </body>
 </html>
