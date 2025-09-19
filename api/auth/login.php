@@ -6,6 +6,8 @@ $data = json_decode($input, true);
 $username = $data['username'] ?? null;
 $password = $data['password'] ?? null;
 
+
+
 // connect to databse
 require_once("../../db/config.php");
 
@@ -14,6 +16,7 @@ if (!isset($username) || !isset($password)) {
   echo json_encode(["message" => "Username and password are required."]);
   exit();
 };
+
 
 
 // Find user
@@ -37,7 +40,7 @@ if (!password_verify($password, $user['password'])) {
   echo json_encode(["message" => "Invalid credentials."]);
   exit();
 };
-
+$_SESSION['email'] = $user['email'];
 // Start session
 session_start();
 $_SESSION['user'] = [

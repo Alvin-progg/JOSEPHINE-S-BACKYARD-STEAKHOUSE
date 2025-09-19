@@ -20,80 +20,129 @@
   </head>
   <body class="bg-[#121212]">
     <header>
-      <nav class="flex items-center justify-between px-4 py-5 bg-[#121212] sticky top-0 z-50 border-b border-gray-800">
-        <div class="mx-auto flex w-full max-w-7xl items-center justify-between max-lg:px-4 max-md:px-0">
+      <nav
+        class="flex items-center justify-between px-4 py-5 bg-[#121212] sticky top-0 z-50 border-b border-gray-800"
+      >
+        <div
+          class="mx-auto flex w-full max-w-7xl items-center justify-between max-lg:px-4 max-md:px-0"
+        >
           <!-- Logo -->
-          <a href="/index.html" class="text-3xl font-bold text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 max-sm:text-xl font-['Lobster_Two']">
+          <a
+            href="/index.html"
+            class="text-3xl font-bold text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 max-sm:text-xl font-['Lobster_Two']"
+          >
             JOSEPHINE'S
           </a>
-          
+
           <!-- Mobile Menu Button -->
-          <button id="mobile-menu-btn" class="lg:hidden text-[#fffeee] text-2xl">
+          <button
+            id="mobile-menu-btn"
+            class="lg:hidden text-[#fffeee] text-2xl"
+          >
             <i class="bi bi-list"></i>
           </button>
-          
+
           <!-- Desktop Navigation -->
           <ul id="desktop-nav" class="hidden lg:flex gap-6 text-2xl">
             <li>
-              <a href="./home.html" class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full">
+              <a
+                href="./home.html"
+                class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full"
+              >
                 Home
               </a>
             </li>
             <li>
-              <a href="./menu.html" class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full">
+              <a
+                href="./menu.html"
+                class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full"
+              >
                 Menu
               </a>
             </li>
             <li>
-              <a href="./order.html" class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full">
+              <a
+                href="./order.html"
+                class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full"
+              >
                 Order
               </a>
             </li>
             <li>
-              <a href="./reservation.html" class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full">
+              <a
+                href="./reservation.html"
+                class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full"
+              >
                 Reserve Table
               </a>
             </li>
           </ul>
-          
+
           <!-- User Dropdown -->
           <div class="relative hidden lg:block">
-            <button onclick="toggleDropdown()" class="flex items-center gap-2 text-xl text-[#fffeee] px-4 py-2 rounded-md hover:bg-[#2a2a2a] transition-colors duration-300">
+            <button
+              onclick="toggleDropdown()"
+              class="flex items-center gap-2 text-xl text-[#fffeee] px-4 py-2 rounded-md hover:bg-[#2a2a2a] transition-colors duration-300"
+            >
               <i class="bi bi-person-circle mr-1"></i>
               <span id="user"></span>
               <i class="bi bi-chevron-down"></i>
             </button>
-            <div id="dropdown-menu" class="absolute right-0 mt-2 w-48 bg-[#1e1e1e] rounded-md shadow-lg hidden z-10 border border-gray-700">
-
-              <hr class="border-gray-600">
-              <button id="logout" class="w-full px-4 py-2 text-sm text-[#fffeee] hover:bg-red-600 hover:text-white transition-colors duration-300 rounded-b-md">
+            <div
+              id="dropdown-menu"
+              class="absolute right-0 mt-2 w-48 bg-[#1e1e1e] rounded-md shadow-lg hidden z-10 border border-gray-700"
+            >
+              <hr class="border-gray-600" />
+              <button
+                id="logout"
+                class="w-full px-4 py-2 text-sm text-[#fffeee] hover:bg-red-600 hover:text-white transition-colors duration-300 rounded-b-md"
+              >
                 <i class="bi bi-box-arrow-right mr-2"></i>Logout
               </button>
             </div>
           </div>
         </div>
-        
+
         <!-- Mobile Navigation Menu -->
-        <div id="mobile-nav" class="hidden lg:hidden absolute top-full left-0 w-full bg-[#1e1e1e] border-b border-gray-700 z-40">
+        <div
+          id="mobile-nav"
+          class="hidden lg:hidden absolute top-full left-0 w-full bg-[#1e1e1e] border-b border-gray-700 z-40"
+        >
           <div class="px-4 py-4 space-y-3">
-            <a href="./home.html" class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2">
+            <a
+              href="./home.html"
+              class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2"
+            >
               <i class="bi bi-house mr-2"></i>Home
             </a>
-            <a href="./menu.html" class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2">
+            <a
+              href="./menu.html"
+              class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2"
+            >
               <i class="bi bi-journal-text mr-2"></i>Menu
             </a>
-            <a href="#" class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2">
+            <a
+              href="./order.html"
+              class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2"
+            >
               <i class="bi bi-cart mr-2"></i>Order
             </a>
-            <a href="#" class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2">
+            <a
+              href="./reservation.html"
+              class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2"
+            >
               <i class="bi bi-calendar-event mr-2"></i>Reserve Table
             </a>
-            <hr class="border-gray-600 my-3">
+            <hr class="border-gray-600 my-3" />
             <div class="flex items-center gap-2 text-[#fffeee] py-2">
               <i class="bi bi-person-circle"></i>
               <span id="user"></span>
             </div>
-            <button class="block text-red-400 hover:text-red-300 transition-colors duration-300 py-2 pl-4">
+            <button
+              id="logout"
+              class="block text-red-400 hover:text-red-300 transition-colors duration-300 py-2 pl-4"
+              href="/views/auth/login.html"
+            >
               <i class="bi bi-box-arrow-right mr-2"></i>Logout
             </button>
           </div>
@@ -103,30 +152,52 @@
 
     <main class="px-4 max-w-7xl mx-auto">
       <section>
-        <h1 class="text-4xl font-['Lobster_Two'] text-center my-10 text-yellow-500 max-sm:text-3xl">
+        <h1
+          class="text-4xl font-['Lobster_Two'] text-center my-10 text-yellow-500 max-sm:text-3xl"
+        >
           Discover our Menu
         </h1>
-        
+
         <!-- Category Navigation - Responsive -->
-        <div class="flex flex-wrap items-center justify-center gap-4 lg:gap-20 mb-10">
-          <button class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1" onclick="showCategory('mains')">
+        <div
+          class="flex flex-wrap items-center justify-center gap-4 lg:gap-20 mb-10"
+        >
+          <button
+            class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1"
+            onclick="showCategory('mains')"
+          >
             Mains
           </button>
-          <button class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1" onclick="showCategory('breads')">
+          <button
+            class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1"
+            onclick="showCategory('breads')"
+          >
             <span class="hidden sm:inline">Breads & Pizza</span>
             <span class="sm:hidden">Pizza</span>
           </button>
-          <button class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1" onclick="showCategory('pasta')">
+          <button
+            class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1"
+            onclick="showCategory('pasta')"
+          >
             Pasta
           </button>
-          <button class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1" onclick="showCategory('coffee')">
+          <button
+            class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1"
+            onclick="showCategory('coffee')"
+          >
             Coffee
           </button>
-          <button class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1" onclick="showCategory('drinks')">
+          <button
+            class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1"
+            onclick="showCategory('drinks')"
+          >
             <span class="hidden sm:inline">Thirst Quencher</span>
             <span class="sm:hidden">Drinks</span>
           </button>
-          <button class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1" onclick="showCategory('signature')">
+          <button
+            class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1"
+            onclick="showCategory('signature')"
+          >
             <span class="hidden lg:inline">Josephine's Signature</span>
             <span class="lg:hidden">Signature</span>
           </button>
@@ -135,25 +206,48 @@
         <!-- Mains Section -->
         <div id="mains" class="menu-category">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Ribeye Steak</h2>
-              <p class="text-center text-yellow-200 mt-2">Includes creamy mashed potato, buttered veggies, and hearty mushroom soup. ₱698</p>
+              <p class="text-center text-yellow-200 mt-2">
+                Includes creamy mashed potato, buttered veggies, and hearty
+                mushroom soup. ₱698
+              </p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Tomahawk Steak</h2>
-              <p class="text-center text-yellow-200 mt-2">For sharing. Includes Scarlet's Shrimp Scampi, Aglio Olio, Josephine's Signature Salad, Mashed Potato, Buttered Veggies, and Mushroom Soup. ₱7999</p>
+              <p class="text-center text-yellow-200 mt-2">
+                For sharing. Includes Scarlet's Shrimp Scampi, Aglio Olio,
+                Josephine's Signature Salad, Mashed Potato, Buttered Veggies,
+                and Mushroom Soup. ₱7999
+              </p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Pom's Baked Ribs</h2>
               <p class="text-center text-yellow-200 mt-2">₱598</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-              <h2 class="text-xl font-medium text-center">Salmon in Lemon Garlic Sauce</h2>
-              <p class="text-center text-yellow-200 mt-2">Includes buttered veggies and white rice. ₱548</p>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
+              <h2 class="text-xl font-medium text-center">
+                Salmon in Lemon Garlic Sauce
+              </h2>
+              <p class="text-center text-yellow-200 mt-2">
+                Includes buttered veggies and white rice. ₱548
+              </p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Fish and Chips</h2>
-              <p class="text-center text-yellow-200 mt-2">Deep-fried fish served with fries and tartar sauce. ₱488</p>
+              <p class="text-center text-yellow-200 mt-2">
+                Deep-fried fish served with fries and tartar sauce. ₱488
+              </p>
             </div>
           </div>
         </div>
@@ -161,20 +255,36 @@
         <!-- Breads & Pizza Section -->
         <div id="breads" class="menu-category hidden">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-              <h2 class="text-xl font-medium text-center">Pomphens' Pizza Marinara</h2>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
+              <h2 class="text-xl font-medium text-center">
+                Pomphens' Pizza Marinara
+              </h2>
               <p class="text-center text-yellow-200 mt-2">₱498</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-              <h2 class="text-xl font-medium text-center">Pom's Chorizo De' Bilbao Pizza</h2>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
+              <h2 class="text-xl font-medium text-center">
+                Pom's Chorizo De' Bilbao Pizza
+              </h2>
               <p class="text-center text-yellow-200 mt-2">₱598</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-              <h2 class="text-xl font-medium text-center">Shrimp Ala Mode' Pizza</h2>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
+              <h2 class="text-xl font-medium text-center">
+                Shrimp Ala Mode' Pizza
+              </h2>
               <p class="text-center text-yellow-200 mt-2">₱698</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-              <h2 class="text-xl font-medium text-center">Smoked Salmon in Herb Cheese</h2>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
+              <h2 class="text-xl font-medium text-center">
+                Smoked Salmon in Herb Cheese
+              </h2>
               <p class="text-center text-yellow-200 mt-2">₱688</p>
             </div>
           </div>
@@ -183,36 +293,76 @@
         <!-- Pasta Section -->
         <div id="pasta" class="menu-category hidden">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Aglio Olio</h2>
-              <p class="text-center text-yellow-200 mt-2">Olive oil, garlic, red pepper flakes, and parmesan cheese. ₱208</p>
+              <p class="text-center text-yellow-200 mt-2">
+                Olive oil, garlic, red pepper flakes, and parmesan cheese. ₱208
+              </p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Salmon Spinach</h2>
-              <p class="text-center text-yellow-200 mt-2">Tossed in light creamy sauce, flavor-packed salmon, along with the bite of tangerine from lemon. ₱298</p>
+              <p class="text-center text-yellow-200 mt-2">
+                Tossed in light creamy sauce, flavor-packed salmon, along with
+                the bite of tangerine from lemon. ₱298
+              </p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Creamy Carbonara</h2>
-              <p class="text-center text-yellow-200 mt-2">Creamy sauce, bacon, mushrooms, and parmesan cheese. ₱248</p>
+              <p class="text-center text-yellow-200 mt-2">
+                Creamy sauce, bacon, mushrooms, and parmesan cheese. ₱248
+              </p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-              <h2 class="text-xl font-medium text-center">Meaty Cheesy Lasagna</h2>
-              <p class="text-center text-yellow-200 mt-2">100% pure beef, layered with refreshingly fresh onions & garlic, layered in a succulent sauce, topped with quality cheese. ₱268</p>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
+              <h2 class="text-xl font-medium text-center">
+                Meaty Cheesy Lasagna
+              </h2>
+              <p class="text-center text-yellow-200 mt-2">
+                100% pure beef, layered with refreshingly fresh onions & garlic,
+                layered in a succulent sauce, topped with quality cheese. ₱268
+              </p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-              <h2 class="text-xl font-medium text-center">Scarlet's Shrimp Scampi</h2>
-              <p class="text-center text-yellow-200 mt-2">Peeled prawns, garlic, tomatoes, olive oil, and parmesan cheese. ₱258</p>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
+              <h2 class="text-xl font-medium text-center">
+                Scarlet's Shrimp Scampi
+              </h2>
+              <p class="text-center text-yellow-200 mt-2">
+                Peeled prawns, garlic, tomatoes, olive oil, and parmesan cheese.
+                ₱258
+              </p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Saucy Spaghetti</h2>
-              <p class="text-center text-yellow-200 mt-2">Pure beef in signature red sauce and mushrooms topped with parmesan cheese. ₱228</p>
+              <p class="text-center text-yellow-200 mt-2">
+                Pure beef in signature red sauce and mushrooms topped with
+                parmesan cheese. ₱228
+              </p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Tuna Pesto</h2>
-              <p class="text-center text-yellow-200 mt-2">Made with homemade pesto sauce. ₱248</p>
+              <p class="text-center text-yellow-200 mt-2">
+                Made with homemade pesto sauce. ₱248
+              </p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-              <h2 class="text-xl font-medium text-center">Andrea's Shrimp Marinara</h2>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
+              <h2 class="text-xl font-medium text-center">
+                Andrea's Shrimp Marinara
+              </h2>
               <p class="text-center text-yellow-200 mt-2">₱298</p>
             </div>
           </div>
@@ -222,45 +372,67 @@
         <div id="coffee" class="menu-category hidden">
           <!-- Hot Coffee -->
           <div class="mb-8">
-            <h3 class="text-2xl font-medium text-yellow-500 text-center mb-6">☕ HOT COFFEE</h3>
+            <h3 class="text-2xl font-medium text-yellow-500 text-center mb-6">
+              ☕ HOT COFFEE
+            </h3>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Espresso</h4>
                 <p class="text-yellow-200 mt-1">₱95</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Americano</h4>
                 <p class="text-yellow-200 mt-1">₱95</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Cappuccino</h4>
                 <p class="text-yellow-200 mt-1">₱105</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Mocha</h4>
                 <p class="text-yellow-200 mt-1">₱128</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Hazelnut</h4>
                 <p class="text-yellow-200 mt-1">₱138</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Caramel</h4>
                 <p class="text-yellow-200 mt-1">₱138</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Macchiato</h4>
                 <p class="text-yellow-200 mt-1">₱140</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Matcha</h4>
                 <p class="text-yellow-200 mt-1">₱148</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Vanilla</h4>
                 <p class="text-yellow-200 mt-1">₱130</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">White Chocolate</h4>
                 <p class="text-yellow-200 mt-1">₱138</p>
               </div>
@@ -269,54 +441,86 @@
 
           <!-- Cold Coffee -->
           <div class="mb-8">
-            <h3 class="text-2xl font-medium text-yellow-500 text-center mb-6">❄️ COLD COFFEE</h3>
+            <h3 class="text-2xl font-medium text-yellow-500 text-center mb-6">
+              ❄️ COLD COFFEE
+            </h3>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Americano</h4>
                 <p class="text-yellow-200 mt-1">₱120</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Salted Caramel</h4>
                 <p class="text-yellow-200 mt-1">₱180</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Mocha</h4>
                 <p class="text-yellow-200 mt-1">₱178</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Hazelnut</h4>
                 <p class="text-yellow-200 mt-1">₱165</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Vanilla</h4>
                 <p class="text-yellow-200 mt-1">₱158</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Matcha</h4>
                 <p class="text-yellow-200 mt-1">₱180</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-                <h4 class="text-lg font-medium text-center">Caramel Macchiato</h4>
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
+                <h4 class="text-lg font-medium text-center">
+                  Caramel Macchiato
+                </h4>
                 <p class="text-yellow-200 mt-1">₱180</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Spanish Latte</h4>
                 <p class="text-yellow-200 mt-1">₱178</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">White Chocolate</h4>
                 <p class="text-yellow-200 mt-1">₱150</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-                <h4 class="text-lg font-medium text-center">Maple Frost Latte</h4>
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
+                <h4 class="text-lg font-medium text-center">
+                  Maple Frost Latte
+                </h4>
                 <p class="text-yellow-200 mt-1">₱178</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Caramel Calm</h4>
                 <p class="text-yellow-200 mt-1">₱168</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-                <h4 class="text-lg font-medium text-center">Pumpkin Spice Latte</h4>
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
+                <h4 class="text-lg font-medium text-center">
+                  Pumpkin Spice Latte
+                </h4>
                 <p class="text-yellow-200 mt-1">₱178</p>
               </div>
             </div>
@@ -324,21 +528,35 @@
 
           <!-- Frappe -->
           <div class="mb-8">
-            <h3 class="text-2xl font-medium text-yellow-500 text-center mb-6">🥤 FRAPPE</h3>
+            <h3 class="text-2xl font-medium text-yellow-500 text-center mb-6">
+              🥤 FRAPPE
+            </h3>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Oreo Delight</h4>
                 <p class="text-yellow-200 mt-1">₱195</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-                <h4 class="text-lg font-medium text-center">Strawberry Dream</h4>
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
+                <h4 class="text-lg font-medium text-center">
+                  Strawberry Dream
+                </h4>
                 <p class="text-yellow-200 mt-1">₱210</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-                <h4 class="text-lg font-medium text-center">Strawberry Oreo Madness</h4>
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
+                <h4 class="text-lg font-medium text-center">
+                  Strawberry Oreo Madness
+                </h4>
                 <p class="text-yellow-200 mt-1">₱230</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Java Chip</h4>
                 <p class="text-yellow-200 mt-1">₱220</p>
                 <p class="text-xs text-gray-400">(espresso based)</p>
@@ -348,13 +566,19 @@
 
           <!-- Add-ons -->
           <div>
-            <h3 class="text-2xl font-medium text-yellow-500 text-center mb-6">ADD ONS</h3>
+            <h3 class="text-2xl font-medium text-yellow-500 text-center mb-6">
+              ADD ONS
+            </h3>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Double Shot</h4>
                 <p class="text-yellow-200 mt-1">₱60</p>
               </div>
-              <div class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+              <div
+                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              >
                 <h4 class="text-lg font-medium text-center">Non Fat Milk</h4>
                 <p class="text-yellow-200 mt-1">₱50</p>
               </div>
@@ -365,55 +589,89 @@
         <!-- Thirst Quencher Section - Better organized -->
         <div id="drinks" class="menu-category hidden">
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-              <h2 class="text-xl font-medium text-center">Coke Float / Rootbeer</h2>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
+              <h2 class="text-xl font-medium text-center">
+                Coke Float / Rootbeer
+              </h2>
               <p class="text-center text-yellow-200 mt-2">₱328</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-              <h2 class="text-xl font-medium text-center">Josephine's Hot Chocolate</h2>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
+              <h2 class="text-xl font-medium text-center">
+                Josephine's Hot Chocolate
+              </h2>
               <p class="text-center text-yellow-200 mt-2">₱170</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-              <h2 class="text-xl font-medium text-center">Soda (Coke, Royal, Sprite)</h2>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
+              <h2 class="text-xl font-medium text-center">
+                Soda (Coke, Royal, Sprite)
+              </h2>
               <p class="text-center text-yellow-200 mt-2">₱88</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Orange Juice</h2>
               <p class="text-center text-yellow-200 mt-2">₱90</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Lime Juice</h2>
               <p class="text-center text-yellow-200 mt-2">₱90</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Passion Fruit</h2>
               <p class="text-center text-yellow-200 mt-2">₱130</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Grape Juice</h2>
               <p class="text-center text-yellow-200 mt-2">₱130</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-              <h2 class="text-xl font-medium text-center">Mixed Berries Juice</h2>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
+              <h2 class="text-xl font-medium text-center">
+                Mixed Berries Juice
+              </h2>
               <p class="text-center text-yellow-200 mt-2">₱130</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Bay Berry Juice</h2>
               <p class="text-center text-yellow-200 mt-2">₱130</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Perrier Water</h2>
               <p class="text-center text-yellow-200 mt-2">₱150</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Mineral Water</h2>
               <p class="text-center text-yellow-200 mt-2">₱40</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Sola Drink in Can</h2>
               <p class="text-center text-yellow-200 mt-2">₱88</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
               <h2 class="text-xl font-medium text-center">Sola Drink Bottle</h2>
               <p class="text-center text-yellow-200 mt-2">₱128</p>
             </div>
@@ -423,20 +681,36 @@
         <!-- Josephine's Signature Section -->
         <div id="signature" class="menu-category hidden">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-              <h2 class="text-xl font-medium text-center">Josephine's Signature Salad</h2>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
+              <h2 class="text-xl font-medium text-center">
+                Josephine's Signature Salad
+              </h2>
               <p class="text-center text-yellow-200 mt-2">₱298</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-              <h2 class="text-xl font-medium text-center">Tomato Soup and Grilled Cheese Sandwich</h2>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
+              <h2 class="text-xl font-medium text-center">
+                Tomato Soup and Grilled Cheese Sandwich
+              </h2>
               <p class="text-center text-yellow-200 mt-2">₱288</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-              <h2 class="text-xl font-medium text-center">Grilled Cheese Sandwich</h2>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
+              <h2 class="text-xl font-medium text-center">
+                Grilled Cheese Sandwich
+              </h2>
               <p class="text-center text-yellow-200 mt-2">₱180</p>
             </div>
-            <div class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300">
-              <h2 class="text-xl font-medium text-center">Smoked Salmon Caviar Crostini</h2>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+            >
+              <h2 class="text-xl font-medium text-center">
+                Smoked Salmon Caviar Crostini
+              </h2>
               <p class="text-center text-yellow-200 mt-2">₱408</p>
             </div>
           </div>
@@ -444,8 +718,7 @@
       </section>
     </main>
 
-<script src="../../public/js/main.js"></script>
+    <script src="../../public/js/main.js"></script>
     <script src="../../public/js/authguard.js"></script>
-
   </body>
 </html>

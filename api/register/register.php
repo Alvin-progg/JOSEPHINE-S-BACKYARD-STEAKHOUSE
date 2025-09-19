@@ -26,8 +26,8 @@ if (!isset($username) || !isset($email) || !isset($password)) {
 }
 
 // check if user already exist
-$stmt = $connection->prepare("SELECT user_id FROM Users WHERE username = ? OR email = ?");
-$stmt->bind_param("ss", $username, $email);
+$stmt = $connection->prepare("SELECT user_id FROM Users WHERE  email = ?");
+$stmt->bind_param("s", $email);
 $stmt->execute();
 
 // get the result
@@ -66,6 +66,8 @@ $_SESSION['user'] = [
     "email" => $email,
     "loggedin" => true,
 ];
+
+
 // successmessage
 http_response_code(201);
 echo json_encode([
