@@ -7,11 +7,6 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
-// Handle preflight OPTIONS request
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit;
-}
 
 function sendResponse($success, $message, $statusCode = 200) {
     http_response_code($statusCode);
@@ -22,10 +17,7 @@ function sendResponse($success, $message, $statusCode = 200) {
     exit;
 }
 
-// Only allow POST requests
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    sendResponse(false, "Method not allowed", 405);
-}
+
 
 // Get JSON input
 $input = file_get_contents('php://input');
@@ -46,10 +38,10 @@ if (empty($reservation_id)) {
     sendResponse(false, "Reservation ID cannot be empty", 400);
 }
 
-// Connect to the database
+
 require_once("../../db/config.php");
 
-// Make sure user is logged in
+
 if (!isset($_SESSION['user'])) {
     sendResponse(false, "Not logged in", 401);
 }
@@ -57,7 +49,7 @@ if (!isset($_SESSION['user'])) {
 $user_id = $_SESSION['user']['id'];
 
 try {
-    // First check if the reservation exists and belongs to the user
+   
     $checkStmt = $connection->prepare("
         SELECT status FROM ReservationDetails 
         WHERE reservation_id = ? AND user_id = ?
@@ -72,12 +64,14 @@ try {
     
     $reservation = $result->fetch_assoc();
     
-    // Check if already cancelled
+    
     if ($reservation['status'] === 'Cancelled') {
         sendResponse(false, "Reservation is already cancelled", 400);
     }
+    if ($reservation['status'] === 'Confirmed') {
+        sendResponse(false, "Completed reservations cannot be cancelled", 400);
+    }
     
-    // Update reservation status to cancelled
     $updateStmt = $connection->prepare("
         UPDATE ReservationDetails 
         SET status = 'Cancelled' 
