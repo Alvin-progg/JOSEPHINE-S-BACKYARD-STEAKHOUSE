@@ -8,59 +8,49 @@ function sendResponse($success, $message, $httpCode = 200) {
     exit;
 }
 
-// Start session to access user's email
+// Start session
 session_start();
-
-// Check if user is authenticated
-if (!isset($_SESSION['email'])) {
-    sendResponse(false, "Unauthorized: Please log in", 401);
-}
 
 // Read and decode input
 $input = file_get_contents("php://input");
 $data = json_decode($input, true);
 
-// Check if JSON decoding failed
+// Validate input
 if ($data === null) {
     sendResponse(false, "Invalid JSON data", 400);
 }
 
-// Check for required fields
 if (!isset($data['date']) || !isset($data['time']) || !isset($data['guests'])) {
     sendResponse(false, "Missing required fields: date, time, or guests", 400);
 }
 
-// Extract inputs
-$date = $data['date'];
-$time = $data['time'];
+$date   = $data['date'];
+$time   = $data['time'];
 $guests = $data['guests'];
 
-// Basic validation for non-empty fields
 if (empty($date) || empty($time) || empty($guests)) {
     sendResponse(false, "All fields must be non-empty", 400);
 }
+
 // Connect to the database
 require_once("../../db/config.php");
 
-try {
-    // Get user_id based on email
-    $stmt = $conn->prepare("SELECT user_id FROM Users WHERE email = ?");
-    $stmt->execute([$_SESSION['email']]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$user) {
-        sendResponse(false, "User not found", 404);
-    }
-    $user_id = $user['user_id'];
-
-    // Insert reservation into ReservationDetails
-    $stmt = $conn->prepare("INSERT INTO ReservationDetails (reservation_date, reservation_time, number_of_people, user_id, status) VALUES (?, ?, ?, ?, 'Pending')");
-    $stmt->execute([$date, $time, $guests, $user_id]);
-
-    // Success response
-    sendResponse(true, "Reservation created successfully");
-} catch (PDOException $e) {
-    // Handle database errors (e.g., constraint violations)
-    sendResponse(false, "Database error: " . $e->getMessage(), 500);
+// Make sure user is logged in
+if (!isset($_SESSION['user'])) {
+    sendResponse(false, "Not logged in", 401);
 }
-?>
+
+$user_id = $_SESSION['user']['id']; 
+
+// Insert reservation into ReservationDetails
+$stmt = $connection->prepare("INSERT INTO ReservationDetails (reservation_date, reservation_time, number_of_people, user_id, status) VALUES (?, ?, ?, ?, 'Pending')");
+$stmt->bind_param("ssii", $date, $time, $guests, $user_id);
+
+if ($stmt->execute()) {
+    sendResponse(true, "Reservation created successfully");
+} else {
+    sendResponse(false, "Database error: " . $stmt->error, 500);
+}
+
+$stmt->close();
+$connection->close();

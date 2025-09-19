@@ -16,9 +16,6 @@ if (!isset($username) || !isset($password)) {
   echo json_encode(["message" => "Username and password are required."]);
   exit();
 };
-
-
-
 // Find user
 $stmt = $connection->prepare("SELECT user_id, username, password FROM Users WHERE username = ?");
 $stmt->bind_param("s", $username);
@@ -31,16 +28,14 @@ if ($result->num_rows === 0) {
   echo json_encode(["message" => "User not found."]);
   exit();
 };
-
 $user = $result->fetch_assoc();
-
 // Verify password using compare hash
 if (!password_verify($password, $user['password'])) {
   http_response_code(401);
   echo json_encode(["message" => "Invalid credentials."]);
   exit();
 };
-
+$userId = $_SESSION['user']['id'];
 // Start session
 session_start();
 $_SESSION['user'] = [

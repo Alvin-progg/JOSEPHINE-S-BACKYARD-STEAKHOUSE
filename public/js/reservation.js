@@ -68,9 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
         timerProgressBar: true,
         showConfirmButton: false
       });
-      setTimeout(() => {
-        window.location.href = '/';
-      }, 2000);
     } catch (error) {
       const errorMsg = error.message.includes('Failed to fetch')
         ? 'Network error: Unable to connect to the server.'
