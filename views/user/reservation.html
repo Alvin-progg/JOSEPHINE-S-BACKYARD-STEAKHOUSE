@@ -122,13 +122,13 @@
               <i class="bi bi-journal-text mr-2"></i>Menu
             </a>
             <a
-              href="#"
+              href="./order.html"
               class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2"
             >
               <i class="bi bi-cart mr-2"></i>Order
             </a>
             <a
-              href="#"
+              href="./reservation.html"
               class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2"
             >
               <i class="bi bi-calendar-event mr-2"></i>Reserve Table
@@ -136,12 +136,11 @@
             <hr class="border-gray-600 my-3" />
             <div class="flex items-center gap-2 text-[#fffeee] py-2">
               <i class="bi bi-person-circle"></i>
-              <span id="user"></span>
+              <span id="mobile-user"></span>
             </div>
             <button
-              id="logout"
+              id="mobile-logout"
               class="block text-red-400 hover:text-red-300 transition-colors duration-300 py-2 pl-4"
-              href="/views/auth/login.html"
             >
               <i class="bi bi-box-arrow-right mr-2"></i>Logout
             </button>
@@ -236,6 +235,7 @@
             </div>
           </div>
         </div>
+        
         <!-- Existing Reservation Table -->
         <div id="reserve_table" class="xl:w-1/2 w-full flex justify-center items-center mx-auto mb-10 px-4">
           <div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden w-full max-w-4xl">
@@ -246,69 +246,15 @@
             </div>
 
             <div class="p-6">
+              <!-- Loading State -->
+              <div id="loading-state" class="text-center py-8 text-gray-400">
+                <i class="bi bi-hourglass-split text-4xl mb-3 animate-spin"></i>
+                <p class="text-lg">Loading your reservations...</p>
+              </div>
+
               <!-- Mobile Cards View -->
               <div class="block md:hidden space-y-4">
-                <div class="bg-[#2a2a2a] p-4 rounded-lg border border-gray-600">
-                  <div class="flex justify-between items-start mb-3">
-                    <div>
-                      <p class="text-[var(--color-primary-400)] font-semibold">
-                        RES456
-                      </p>
-                      <p class="text-[#fffeee] text-sm">September 20, 2025</p>
-                    </div>
-                    <span
-                      class="bg-green-600 text-white px-2 py-1 rounded text-xs"
-                      >Confirmed</span
-                    >
-                  </div>
-                  <div class="grid grid-cols-2 gap-4 text-sm mb-3">
-                    <div>
-                      <p class="text-gray-400">Time</p>
-                      <p class="text-[#fffeee]">7:00 PM</p>
-                    </div>
-                    <div>
-                      <p class="text-gray-400">Guests</p>
-                      <p class="text-[#fffeee]">4 people</p>
-                    </div>
-                  </div>
-                  <button
-                    onclick="cancelReservation('RES456')"
-                    class="w-full bg-red-600 text-[#fffeee] py-2 rounded-md hover:bg-red-700 transition-colors duration-300"
-                  >
-                    <i class="bi bi-x-circle mr-2"></i>Cancel Reservation
-                  </button>
-                </div>
-
-                <div class="bg-[#2a2a2a] p-4 rounded-lg border border-gray-600">
-                  <div class="flex justify-between items-start mb-3">
-                    <div>
-                      <p class="text-[var(--color-primary-400)] font-semibold">
-                        RES457
-                      </p>
-                      <p class="text-[#fffeee] text-sm">September 25, 2025</p>
-                    </div>
-                    <span
-                      class="bg-green-600 text-white px-2 py-1 rounded text-xs"
-                      >Confirmed</span
-                    >
-                  </div>
-                  <div class="grid grid-cols-2 gap-4 text-sm mb-3">
-                    <div>
-                      <p class="text-gray-400">Time</p>
-                      <p class="text-[#fffeee]">6:30 PM</p>
-                    </div>
-                    <div>
-                      <p class="text-gray-400">Guests</p>
-                      <p class="text-[#fffeee]">2 people</p>
-                    </div>
-                  </div>
-                  <button
-                    onclick="cancelReservation('RES457')"
-                    class="w-full bg-red-600 text-[#fffeee] py-2 rounded-md hover:bg-red-700 transition-colors duration-300"
-                  >
-                    <i class="bi bi-x-circle mr-2"></i>Cancel Reservation
-                  </button>
-                </div>
+                <!-- Dynamic content will be inserted here -->
               </div>
 
               <!-- Desktop Table View -->
@@ -316,95 +262,28 @@
                 <table class="min-w-full max-w-full">
                   <thead>
                     <tr class="border-b border-gray-600">
-                      <th
-                        class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
-                      >
+                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">
                         Reservation ID
                       </th>
-                      <th
-                        class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
-                      >
+                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">
                         Date
                       </th>
-                      <th
-                        class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
-                      >
+                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">
                         Time
                       </th>
-                      <th
-                        class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
-                      >
+                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">
                         Guests
                       </th>
-                      <th
-                        class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
-                      >
+                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">
                         Status
                       </th>
-                      <th
-                        class="py-3 px-4 text-center text-sm font-bold text-[#fffeee]"
-                      >
+                      <th class="py-3 px-4 text-center text-sm font-bold text-[#fffeee]">
                         Action
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr
-                      class="hover:bg-[#2a2a2a] transition-colors duration-200 border-b border-gray-700"
-                    >
-                      <td
-                        class="py-4 px-4 text-sm text-[var(--color-primary-400)] font-semibold"
-                      >
-                        RES456
-                      </td>
-                      <td class="py-4 px-4 text-sm text-[#fffeee]">
-                        2025-09-20
-                      </td>
-                      <td class="py-4 px-4 text-sm text-[#fffeee]">7:00 PM</td>
-                      <td class="py-4 px-4 text-sm text-[#fffeee]">4</td>
-                      <td class="py-4 px-4 text-sm">
-                        <span
-                          class="bg-green-600 text-white px-2 py-1 rounded text-xs"
-                          >Confirmed</span
-                        >
-                      </td>
-                      <td class="py-4 px-4 text-center">
-                        <button
-                          onclick="cancelReservation('RES456')"
-                          class="bg-red-600 text-[#fffeee] px-3 py-1 rounded-md hover:bg-red-700 transition-colors duration-300 text-sm"
-                        >
-                          <i class="bi bi-x-circle mr-1"></i>Cancel
-                        </button>
-                      </td>
-                    </tr>
-                    <tr
-                      class="hover:bg-[#2a2a2a] transition-colors duration-200"
-                    >
-                      <td
-                        class="py-4 px-4 text-sm text-[var(--color-primary-400)] font-semibold"
-                      >
-                        RES457
-                      </td>
-                      <td class="py-4 px-4 text-sm text-[#fffeee]">
-                        2025-09-25
-                      </td>
-                      <td class="py-4 px-4 text-sm text-[#fffeee]">6:30 PM</td>
-                      <td class="py-4 px-4 text-sm text-[#fffeee]">2</td>
-                      <td class="py-4 px-4 text-sm">
-                        <span
-                          class="bg-green-600 text-white px-2 py-1 rounded text-xs"
-                          >Confirmed</span
-                        >
-                      </td>
-                      <td class="py-4 px-4 text-center">
-                        <button
-                          onclick="cancelReservation('RES457')"
-                          class="bg-red-600 text-[#fffeee] px-3 py-1 rounded-md hover:bg-red-700 transition-colors duration-300 text-sm"
-                        >
-                          <i class="bi bi-x-circle mr-1"></i>Cancel
-                        </button>
-                      </td>
-                    </tr>
+                    <!-- Dynamic content will be inserted here -->
                   </tbody>
                 </table>
               </div>
@@ -413,7 +292,9 @@
         </div>
       </section>
     </main>
+    
     <script src="../../public/js/main.js"></script>
+    <script src="../../public/js/reservation.js"></script>
     <script src="../../public/js/authguard.js"></script>
   </body>
 </html>
