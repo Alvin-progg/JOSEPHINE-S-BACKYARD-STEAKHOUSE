@@ -26,7 +26,7 @@ if (!isset($username) || !isset($email) || !isset($password)) {
 }
 
 // check if user already exist
-$stmt = $connection->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
+$stmt = $connection->prepare("SELECT user_id FROM users WHERE username = ? OR email = ?");
 $stmt->bind_param("ss", $username, $email);
 $stmt->execute();
 

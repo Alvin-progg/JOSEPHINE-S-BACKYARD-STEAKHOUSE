@@ -17,7 +17,7 @@ if (!isset($username) || !isset($password)) {
 
 
 // Find user
-$stmt = $connection->prepare("SELECT id, username, password FROM users WHERE username = ?");
+$stmt = $connection->prepare("SELECT user_id, username, password FROM users WHERE username = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
 
@@ -41,7 +41,7 @@ if (!password_verify($password, $user['password'])) {
 // Start session
 session_start();
 $_SESSION['user'] = [
-  "id" => $user['id'],
+  "id" => $user['user_id'],
   "username" => $user['username'],
   "loggedin" => true
 ];
