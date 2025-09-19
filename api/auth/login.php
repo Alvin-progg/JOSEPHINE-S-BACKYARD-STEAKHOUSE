@@ -17,7 +17,7 @@ if (!isset($username) || !isset($password)) {
 
 
 // Find user
-$stmt = $connection->prepare("SELECT user_id, username, password FROM users WHERE username = ?");
+$stmt = $connection->prepare("SELECT user_id, username, password FROM Users WHERE username = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
 

@@ -1,8 +1,7 @@
 
 
-// auth guard for dashboard page
-document.addEventListener('DOMContentLoaded', () => {
-    if (!localStorage.getItem('token')) {
-        window.location.href = '/login.html';
-    }
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!localStorage.getItem('token')) {
+    window.location.href = '/views/auth/login.html';
+  }
 })

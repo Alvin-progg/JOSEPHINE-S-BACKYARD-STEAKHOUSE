@@ -26,7 +26,7 @@ if (!isset($username) || !isset($email) || !isset($password)) {
 }
 
 // check if user already exist
-$stmt = $connection->prepare("SELECT user_id FROM users WHERE username = ? OR email = ?");
+$stmt = $connection->prepare("SELECT user_id FROM Users WHERE username = ? OR email = ?");
 $stmt->bind_param("ss", $username, $email);
 $stmt->execute();
 
@@ -46,7 +46,7 @@ if ($result->num_rows > 0){
 
 // hash a password and create a new user
 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-$stmt = $connection->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+$stmt = $connection->prepare("INSERT INTO Users (username, email, password) VALUES (?, ?, ?)");
 $stmt->bind_param("sss", $username, $email, $hashedPassword);
 
 

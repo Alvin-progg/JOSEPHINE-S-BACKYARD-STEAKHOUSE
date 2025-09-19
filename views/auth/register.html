@@ -78,11 +78,12 @@
       </div>
     </main>
     <script>
-      // Auth guard for dashboard page
+      // Auth guard for n page
       document.addEventListener("DOMContentLoaded", () => {
         if (localStorage.getItem("token")) {
           window.location.href = "/views/user/home.html";
         }
+        return;
       });
     </script>
   </body>
