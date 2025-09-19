@@ -21,17 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: {
             'Content-Type': 'application/json'
         },
+        credentials: "include",
         body: JSON.stringify({ username, password })
     });
 
     if (!response.ok) {
         throw new Error(`Server error: ${response.status}`);
     }
-    const data = await response.json();
-    
+    const data = await response.json();    
     console.log(data);
-    
-
 } catch (error) {
     console.error("Fetch error:", error);
 }
