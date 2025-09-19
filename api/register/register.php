@@ -41,13 +41,37 @@ if ($result->num_rows > 0){
     ]);
     http_response_code(409);
     exit();
-
-    http_response_code();
-
 }
 
 
+// hash a password and create a new user
+$hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+$stmt = $connection->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+$stmt->bind_param("sss", $username, $email, $hashedPassword);
 
+
+// check if the user was created
+if (!$stmt->execute()) {
+    echo json_encode([
+        "message" => "Error creating user."
+    ]);
+    http_response_code(500);
+    exit();
+}
+// start the session
+session_start();
+$_SESSION['user'] = [
+    "username" => $username,
+    "email" => $email,
+    "loggedin" => true,
+];
+// successmessage
+http_response_code(201);
+echo json_encode([
+    "message"=> "Welcome to Josephine's Backyard Steakhouse, " . $username . "!"
+]);
+
+?>
 
 
 

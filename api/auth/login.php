@@ -14,6 +14,7 @@ if (!isset($username) || !isset($password)) {
   echo json_encode(["message" => "Username and password are required."]);
   exit();
 };
+
 // Find user
 $stmt = $connection->prepare("SELECT id, username, password FROM users WHERE username = ?");
 $stmt->bind_param("s", $username);
@@ -25,7 +26,6 @@ if ($result->num_rows === 0) {
   http_response_code(404);
   echo json_encode(["message" => "User not found."]);
   exit();
-
 };
 
 $user = $result->fetch_assoc();
@@ -46,4 +46,6 @@ $_SESSION['user'] = [
 ];
 
 http_response_code(200);
-echo json_encode(["message" => "Login successful."]);
+echo json_encode(["message" => "Welcome back, " . $user['username'] . "!"]);
+
+
