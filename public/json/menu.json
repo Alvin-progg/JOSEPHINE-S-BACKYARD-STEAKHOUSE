@@ -1,0 +1,49 @@
+{
+  "mains": [
+    {
+      "name": "Ribeye Steak",
+      "desc": "Includes creamy mashed potato, buttered veggies, and hearty mushroom soup.",
+      "price": "₱698"
+    },
+    {
+      "name": "Tomahawk Steak",
+      "desc": "For sharing. Includes Scarlet's Shrimp Scampi, Aglio Olio, Josephine's Signature Salad, Mashed Potato, Buttered Veggies, and Mushroom Soup.",
+      "price": "₱7999"
+    }
+  ],
+  "breads": [
+    {
+      "name": "Pomphens' Pizza Marinara",
+      "price": "₱498"
+    },
+    {
+      "name": "Pom's Chorizo De' Bilbao Pizza",
+      "price": "₱598"
+    }
+  ],
+  "pasta": [
+    {
+      "name": "Aglio Olio",
+      "desc": "Olive oil, garlic, red pepper flakes, and parmesan cheese.",
+      "price": "₱208"
+    }
+  ],
+  "coffee": {
+    "hot": [
+      { "name": "Espresso", "price": "₱95" },
+      { "name": "Americano", "price": "₱95" }
+    ],
+    "cold": [
+      { "name": "Americano", "price": "₱120" },
+      { "name": "Salted Caramel", "price": "₱180" }
+    ],
+    "frappe": [
+      { "name": "Oreo Delight", "price": "₱195" },
+      { "name": "Strawberry Dream", "price": "₱210" }
+    ],
+    "addons": [
+      { "name": "Double Shot", "price": "₱60" },
+      { "name": "Non Fat Milk", "price": "₱50" }
+    ]
+  }
+}
