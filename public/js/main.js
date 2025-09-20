@@ -105,6 +105,7 @@
         }); 
       });
 
+      
 // localstorage user display
 const username = localStorage.getItem('username');
 console.log(username)
@@ -148,5 +149,4 @@ btn.addEventListener('click', async() => {
 })
 })
 })
-
 

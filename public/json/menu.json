@@ -9,41 +9,126 @@
       "name": "Tomahawk Steak",
       "desc": "For sharing. Includes Scarlet's Shrimp Scampi, Aglio Olio, Josephine's Signature Salad, Mashed Potato, Buttered Veggies, and Mushroom Soup.",
       "price": "₱7999"
+    },
+    {
+      "name": "Pom's Baked Ribs",
+      "price": "₱598"
+    },
+    {
+      "name": "Salmon in Lemon Garlic Sauce",
+      "desc": "Includes buttered veggies and white rice.",
+      "price": "₱548"
+    },
+    {
+      "name": "Fish and Chips",
+      "desc": "Deep-fried fish served with fries and tartar sauce.",
+      "price": "₱488"
     }
   ],
   "breads": [
-    {
-      "name": "Pomphens' Pizza Marinara",
-      "price": "₱498"
-    },
-    {
-      "name": "Pom's Chorizo De' Bilbao Pizza",
-      "price": "₱598"
-    }
+    { "name": "Pomphens' Pizza Marinara", "price": "₱498" },
+    { "name": "Pom's Chorizo De' Bilbao Pizza", "price": "₱598" },
+    { "name": "Shrimp Ala Mode' Pizza", "price": "₱698" },
+    { "name": "Smoked Salmon in Herb Cheese", "price": "₱688" }
   ],
   "pasta": [
     {
       "name": "Aglio Olio",
       "desc": "Olive oil, garlic, red pepper flakes, and parmesan cheese.",
       "price": "₱208"
+    },
+    {
+      "name": "Salmon Spinach",
+      "desc": "Tossed in light creamy sauce, flavor-packed salmon, along with the bite of tangerine from lemon.",
+      "price": "₱298"
+    },
+    {
+      "name": "Creamy Carbonara",
+      "desc": "Creamy sauce, bacon, mushrooms, and parmesan cheese.",
+      "price": "₱248"
+    },
+    {
+      "name": "Meaty Cheesy Lasagna",
+      "desc": "100% pure beef, layered with refreshingly fresh onions & garlic, layered in a succulent sauce, topped with quality cheese.",
+      "price": "₱268"
+    },
+    {
+      "name": "Scarlet's Shrimp Scampi",
+      "desc": "Peeled prawns, garlic, tomatoes, olive oil, and parmesan cheese.",
+      "price": "₱258"
+    },
+    {
+      "name": "Saucy Spaghetti",
+      "desc": "Pure beef in signature red sauce and mushrooms topped with parmesan cheese.",
+      "price": "₱228"
+    },
+    {
+      "name": "Tuna Pesto",
+      "desc": "Made with homemade pesto sauce.",
+      "price": "₱248"
+    },
+    {
+      "name": "Andrea's Shrimp Marinara",
+      "price": "₱298"
     }
   ],
   "coffee": {
     "hot": [
       { "name": "Espresso", "price": "₱95" },
-      { "name": "Americano", "price": "₱95" }
+      { "name": "Americano", "price": "₱95" },
+      { "name": "Cappuccino", "price": "₱105" },
+      { "name": "Mocha", "price": "₱128" },
+      { "name": "Hazelnut", "price": "₱138" },
+      { "name": "Caramel", "price": "₱138" },
+      { "name": "Macchiato", "price": "₱140" },
+      { "name": "Matcha", "price": "₱148" },
+      { "name": "Vanilla", "price": "₱130" },
+      { "name": "White Chocolate", "price": "₱138" }
     ],
     "cold": [
       { "name": "Americano", "price": "₱120" },
-      { "name": "Salted Caramel", "price": "₱180" }
+      { "name": "Salted Caramel", "price": "₱180" },
+      { "name": "Mocha", "price": "₱178" },
+      { "name": "Hazelnut", "price": "₱165" },
+      { "name": "Vanilla", "price": "₱158" },
+      { "name": "Matcha", "price": "₱180" },
+      { "name": "Caramel Macchiato", "price": "₱180" },
+      { "name": "Spanish Latte", "price": "₱178" },
+      { "name": "White Chocolate", "price": "₱150" },
+      { "name": "Maple Frost Latte", "price": "₱178" },
+      { "name": "Caramel Calm", "price": "₱168" },
+      { "name": "Pumpkin Spice Latte", "price": "₱178" }
     ],
     "frappe": [
       { "name": "Oreo Delight", "price": "₱195" },
-      { "name": "Strawberry Dream", "price": "₱210" }
+      { "name": "Strawberry Dream", "price": "₱210" },
+      { "name": "Strawberry Oreo Madness", "price": "₱230" },
+      { "name": "Java Chip", "desc": "Espresso based", "price": "₱220" }
     ],
     "addons": [
       { "name": "Double Shot", "price": "₱60" },
       { "name": "Non Fat Milk", "price": "₱50" }
     ]
-  }
+  },
+  "drinks": [
+    { "name": "Coke Float / Rootbeer", "price": "₱328" },
+    { "name": "Josephine's Hot Chocolate", "price": "₱170" },
+    { "name": "Soda (Coke, Royal, Sprite)", "price": "₱88" },
+    { "name": "Orange Juice", "price": "₱90" },
+    { "name": "Lime Juice", "price": "₱90" },
+    { "name": "Passion Fruit", "price": "₱130" },
+    { "name": "Grape Juice", "price": "₱130" },
+    { "name": "Mixed Berries Juice", "price": "₱130" },
+    { "name": "Bay Berry Juice", "price": "₱130" },
+    { "name": "Perrier Water", "price": "₱150" },
+    { "name": "Mineral Water", "price": "₱40" },
+    { "name": "Sola Drink in Can", "price": "₱88" },
+    { "name": "Sola Drink Bottle", "price": "₱128" }
+  ],
+  "signature": [
+    { "name": "Josephine's Signature Salad", "price": "₱298" },
+    { "name": "Tomato Soup and Grilled Cheese Sandwich", "price": "₱288" },
+    { "name": "Grilled Cheese Sandwich", "price": "₱180" },
+    { "name": "Smoked Salmon Caviar Crostini", "price": "₱408" }
+  ]
 }
