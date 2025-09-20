@@ -7,11 +7,6 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
-// Handle preflight OPTIONS request
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit;
-}
 
 function sendResponse($success, $message, $statusCode = 200) {
     http_response_code($statusCode);
@@ -44,9 +39,7 @@ $date = $data['date'];
 $time = $data['time'];
 $guests = $data['guests'];
 
-if (empty($date) || empty($time) || empty($guests)) {
-    sendResponse(false, "All fields must be non-empty", 400);
-}
+
 
 // Make sure user is logged in
 if (!isset($_SESSION['user'])) {
