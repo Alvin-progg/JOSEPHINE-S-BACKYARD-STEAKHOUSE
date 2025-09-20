@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("reservation-form");
   const submitButton = form?.querySelector('button[type="submit"]');
-  window.loadingState = document.getElementById("loading-state"); // ✅ keep loadingState accessible
+  window.loadingState = document.getElementById("loading-state"); // 
 
   // Load reservations when page loads
   loadReservations();
