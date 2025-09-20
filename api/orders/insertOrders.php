@@ -15,22 +15,12 @@ session_start();
 $input = file_get_contents("php://input");
 $data = json_decode($input, true);
 
-// Validate input
-if ($data === null) {
-    sendResponse(false, "Invalid JSON data", 400);
-}
-
-if (!isset($data['date']) || !isset($data['time']) || !isset($data['guests'])) {
-    sendResponse(false, "Missing required fields: date, time, or guests", 400);
-}
 
 $date   = $data['date'];
 $time   = $data['time'];
 $guests = $data['guests'];
 
-if (empty($date) || empty($time) || empty($guests)) {
-    sendResponse(false, "All fields must be non-empty", 400);
-}
+
 
 // Connect to the database
 require_once("../../db/config.php");
