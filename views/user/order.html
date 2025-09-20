@@ -202,18 +202,45 @@
                   <label for="total" class="block text-sm font-medium text-[#fffeee]">Total Price</label>
                   <input type="text" id="total" disabled name="total" readonly class="w-full p-2 rounded-md bg-[#2a2a2a] text-[#fffeee] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-600)]" />
                 </div>
-                <button
-                  type="submit"
-                  class="w-full bg-[var(--color-primary-600)] text-[#121212] py-2 rounded-md hover:bg-[var(--color-primary-700)] transition-colors duration-300 font-semibold"
-                >
-                  <i class="bi bi-check-circle mr-2"></i>Submit Reservation
-                </button>
+               <button 
+  type="button" 
+  id="add-to-order"
+  class="w-full bg-green-600 text-[#121212] py-2 rounded-md hover:bg-green-700 transition-colors duration-300 font-semibold"
+>
+  <i class="bi bi-plus-circle mr-2"></i>Add to Order
+</button>
+
               </form>
             </div>
           </div>
         </div>
         <!-- Existing Reservation Table -->
-        
+        <div id="order_table" class="xl:w-1/2 w-full flex justify-center items-center mx-auto mb-10 px-4">
+  <div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden w-full max-w-4xl">
+    <div class="bg-[var(--color-primary-600)] px-6 py-4 flex justify-center items-start">
+      <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
+        <i class="bi bi-cart mr-3"></i>Your Order
+      </h2>
+    </div>
+    <div class="p-6 overflow-x-auto">
+      <table class="min-w-full max-w-full">
+        <thead>
+          <tr class="border-b border-gray-600">
+            <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Product</th>
+            <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Qty</th>
+            <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Price</th>
+            <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Total</th>
+            <th class="py-3 px-4 text-center text-sm font-bold text-[#fffeee]">Action</th>
+          </tr>
+        </thead>
+        <tbody id="order-items">
+          <!-- Dynamic rows here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
       </section>
     </main>
     <script src="../../public/js/main.js"></script>

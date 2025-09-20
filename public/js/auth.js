@@ -12,7 +12,7 @@ const alertMessage = (type, title, text, timer=1500) => {
         showCancelButton: false,
     })
 }
-const successMessage = async(title, text, timer=1500) => {
+ export const successMessage = async(title, text, timer=1500) => {
     Swal.fire({
         icon: 'success',
         title: title,

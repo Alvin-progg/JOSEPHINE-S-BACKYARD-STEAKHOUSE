@@ -1,3 +1,5 @@
+    let cart = [];
+
 document.addEventListener('DOMContentLoaded', async () => {
     const category = document.getElementById('category');
     const products = document.getElementById('products');
@@ -6,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const total = document.getElementById('total');
 
     // fetch the json file
-    const menu = await fetch('../../public/json/menu.json');
+    const menu = await fetch('../json/menu.json');
     const menuData = await menu.json();
 
     // populate category select
@@ -99,4 +101,56 @@ function updateTotal() {
         // You can now send this to your backend 👇
         // await fetch('/api/order', { method:'POST', body: JSON.stringify({...}) })
     });
+
+
+function renderCart() {
+  const tbody = document.getElementById('order-items');
+  tbody.innerHTML = "";
+
+  if (cart.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" class="text-center text-gray-400 py-4">No products added</td></tr>`;
+    return;
+  }
+
+  cart.forEach((item, index) => {
+    const row = document.createElement('tr');
+    row.classList.add("border-b", "border-gray-600");
+
+    row.innerHTML = `
+      <td class="py-2 px-4 text-[#fffeee]">${item.name}</td>
+      <td class="py-2 px-4 text-[#fffeee]">${item.quantity}</td>
+      <td class="py-2 px-4 text-[#fffeee]">₱${item.price.toFixed(2)}</td>
+      <td class="py-2 px-4 text-[#fffeee]">₱${(item.price * item.quantity).toFixed(2)}</td>
+      <td class="py-2 px-4 text-center">
+        <button class="text-red-500 hover:text-red-400" onclick="removeFromCart(${index})">
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    `;
+
+    tbody.appendChild(row);
+  });
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  renderCart();
+}
+
+// Add to cart button
+document.getElementById('add-to-order').addEventListener('click', (e) => {
+  if (!products.value || !quantity.value) return;
+
+  const { name, price } = JSON.parse(products.value);
+  const numericPrice = parseFloat(price.replace(/[₱,]/g, ''));
+  const qty = parseInt(quantity.value, 10);
+
+  cart.push({
+    name,
+    price: numericPrice,
+    quantity: qty
+  });
+  renderCart();
+});
+
 });

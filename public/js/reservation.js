@@ -41,11 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }),
       });
 
-      if (!response.headers.get("content-type")?.includes("application/json")) {
-        throw new Error("Invalid response format from server.");
-      }
+     const text = await response.text();
+      const data = JSON.parse(text);
 
-      const data = await response.json();
+      console.log(data);
+      
       if (!response.ok) {
         Swal.fire({
           icon: "error",
