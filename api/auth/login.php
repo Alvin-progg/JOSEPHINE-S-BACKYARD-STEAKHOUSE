@@ -35,7 +35,7 @@ if (!password_verify($password, $user['password'])) {
   echo json_encode(["message" => "Invalid credentials."]);
   exit();
 };
-$userId = $_SESSION['user']['id'];
+
 // Start session
 session_start();
 $_SESSION['user'] = [
@@ -43,6 +43,7 @@ $_SESSION['user'] = [
   "username" => $user['username'],
   "loggedin" => true
 ];
+$userId = $_SESSION['user']['id'];
 
 http_response_code(200);
 echo json_encode([
