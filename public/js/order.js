@@ -1,4 +1,3 @@
-    let cart = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
     const category = document.getElementById('category');
@@ -8,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const total = document.getElementById('total');
 
     // fetch the json file
-    const menu = await fetch('../json/menu.json');
+    const menu = await fetch('../../public/json/menu.json');
     const menuData = await menu.json();
 
     // populate category select
@@ -102,6 +101,7 @@ function updateTotal() {
         // await fetch('/api/order', { method:'POST', body: JSON.stringify({...}) })
     });
 
+    let cart = [];
 
 function renderCart() {
   const tbody = document.getElementById('order-items');
