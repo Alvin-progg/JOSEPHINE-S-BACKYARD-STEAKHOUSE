@@ -33,6 +33,7 @@ $stmt->execute();
 // get the result
 $result = $stmt->get_result();
 
+//Lego
 
 // validate the result 
 if ($result->num_rows > 0) {
@@ -46,7 +47,7 @@ if ($result->num_rows > 0) {
 
 // hash a password and create a new user
 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-$stmt = $connection->prepare("INSERT INTO Users (username, email, password) VALUES (?, ?, ?)");
+$stmt = $connection->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
 $stmt->bind_param("sss", $username, $email, $hashedPassword);
 
 
