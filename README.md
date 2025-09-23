@@ -54,3 +54,9 @@ controllers/ → Business logic (calls models)
     └─ UserController.php  
 
 docs/ → Thesis docs, diagrams, ERD  
+
+
+
+© 2025 All Rights Reserve , Made By Alvin Aloya and Francis Gil Abarintos 
+This project and its source code may not be copied, modified, or distributed
+without explicit permission.
