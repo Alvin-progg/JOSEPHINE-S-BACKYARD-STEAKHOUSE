@@ -197,8 +197,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       try {
         const response = await fetch("/api/orders/insertOrders.php", {
           method: "POST",
+          credentials: "include",
           headers: {
-            credentials: "include",
+            
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ cart }),
