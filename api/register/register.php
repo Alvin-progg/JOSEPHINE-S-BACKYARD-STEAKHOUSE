@@ -33,7 +33,7 @@ $stmt->execute();
 // get the result
 $result = $stmt->get_result();
 
-//Lego
+
 
 // validate the result 
 if ($result->num_rows > 0) {
@@ -47,7 +47,7 @@ if ($result->num_rows > 0) {
 
 // hash a password and create a new user
 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-$stmt = $connection->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+$stmt = $connection->prepare("INSERT INTO Users (username, email, password) VALUES (?, ?, ?)");
 $stmt->bind_param("sss", $username, $email, $hashedPassword);
 
 
@@ -81,5 +81,5 @@ echo json_encode([
   "message"  => "Login successful. Welcome back, " . $user['username'] . "!",
   "token"    => session_id(),
   "username" => $username,
-  "user_id"  => $user['user_id'] // ✅ return it too if needed
+  "user_id"  => $userId
 ]);
