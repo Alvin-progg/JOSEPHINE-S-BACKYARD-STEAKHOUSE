@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const selectedCategory = document.getElementById("selectedCategory");
   const quantity = document.getElementById("quantity");
   let customize = document.getElementById("customize").value.trim();
-  const total = document.getElementById("total").value.trim();
+  const total = document.getElementById("total");
   let cart = [];
 
   // fetch the json file
