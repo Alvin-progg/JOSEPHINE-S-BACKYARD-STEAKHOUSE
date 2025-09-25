@@ -1,35 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
-* { 
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-    color: #fffeee;
-  
+  font-family: "Poppins", sans-serif;
+  color: #fffeee;
 }
-body{
+body {
   background-color: #121212;
 }
 .fonto {
-  font-family: 'Lobster', serif;
+  font-family: "Lobster", serif;
 }
-
 
 :root {
-  --color-primary-50: #FEFBE8;
-  --color-primary-100: #FDF7C4;
-  --color-primary-200: #FDEC8B;
-  --color-primary-300: #FBDA49;
-  --color-primary-400: #F7C518;
-  --color-primary-500: #E7AD08;
-  --color-primary-600: #C88506;
-  --color-primary-700: #9F5F09;
-  --color-primary-800: #844A0F;
-  --color-primary-900: #703D13;
+  --color-primary-50: #fefbe8;
+  --color-primary-100: #fdf7c4;
+  --color-primary-200: #fdec8b;
+  --color-primary-300: #fbda49;
+  --color-primary-400: #f7c518;
+  --color-primary-500: #e7ad08;
+  --color-primary-600: #c88506;
+  --color-primary-700: #9f5f09;
+  --color-primary-800: #844a0f;
+  --color-primary-900: #703d13;
   --color-primary-950: #572909;
 }
-
-
-
-

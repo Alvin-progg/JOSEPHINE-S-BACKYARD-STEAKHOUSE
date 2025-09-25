@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -12,7 +12,9 @@
   <body class="bg-[#121212]">
     <header>
       <nav class="flex items-center justify-between px-4 py-5">
-        <div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div
+          class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
+        >
           <!-- Logo -->
           <a
             href="../../index.html"
@@ -23,17 +25,29 @@
         </div>
       </nav>
     </header>
-    <main class="flex justify-center items-center h-[90vh] px-4 sm:px-6 lg:px-8">
+    <main
+      class="flex justify-center items-center h-[90vh] px-4 sm:px-6 lg:px-8"
+    >
       <!-- Container -->
-      <div class="flex flex-col md:flex-row w-full max-w-4xl rounded-xl overflow-hidden shadow-lg border border-gray-600">
+      <div
+        class="flex flex-col md:flex-row w-full max-w-4xl rounded-xl overflow-hidden shadow-lg border border-gray-600"
+      >
         <!-- Image Section -->
         <div
           class="w-full md:w-1/2 h-48 sm:h-64 md:h-auto bg-cover bg-center bg-no-repeat"
-          style="background-image: url('../../public/images/auth.png')"
+          style="
+            background-image: url(&quot;../../public/images/auth.png&quot;);
+          "
         ></div>
         <!-- Form Section -->
-        <div class="w-full md:w-1/2 flex flex-col justify-center p-4 sm:p-6 md:p-10">
-          <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-center text-[var(--color-primary-50)]">REGISTER</h2>
+        <div
+          class="w-full md:w-1/2 flex flex-col justify-center p-4 sm:p-6 md:p-10"
+        >
+          <h2
+            class="text-2xl sm:text-3xl font-bold mb-6 text-center text-[var(--color-primary-50)]"
+          >
+            REGISTER
+          </h2>
           <form class="flex flex-col space-y-4 sm:space-y-5" id="registerForm">
             <!-- Username -->
             <div>
@@ -72,7 +86,11 @@
           </form>
           <p class="text-center mt-6 text-sm text-[var(--color-primary-50)]">
             Already have an Account?
-            <a href="./login.html" class="underline text-[var(--color-primary-300)]">Login Here</a>
+            <a
+              href="./login.html"
+              class="underline text-[var(--color-primary-300)]"
+              >Login Here</a
+            >
           </p>
         </div>
       </div>
@@ -88,3 +106,4 @@
     </script>
   </body>
 </html>
+

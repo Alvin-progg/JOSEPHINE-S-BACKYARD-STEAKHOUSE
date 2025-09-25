@@ -16,6 +16,10 @@ if (!isset($data['cart']) || empty($data['cart'])) {
 $cart = $data['cart'];
 $userId = $_SESSION['user_id'] ?? null;
 $customize = $data['customize'] ?? null;
+echo json_encode([
+  "message" => "adfasdf",
+  "user_id" => $userId
+]);
 
 // prepare statement
 $stmt = $connection->prepare("
