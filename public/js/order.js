@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const selectedCategory = document.getElementById("selectedCategory");
   const quantity = document.getElementById("quantity");
   let customize = document.getElementById("customize").value.trim();
-  const total = document.getElementById("total");
+  const total = document.getElementById("total").value.trim();
   let cart = [];
 
   // fetch the json file
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       // ✅ Check if item already exists in cart (match by name + customize)
       const existingItem = cart.find(
-        (item) => item.name === name && item.customize === customize,
+        (item) => item.name === name && item.customize === customize
       );
 
       if (existingItem) {
@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         alertMessage(
           "warning",
           "Invalid Cart",
-          "Please add some items to the cart",
+          "Please add some items to the cart"
         );
         return;
       }
@@ -199,7 +199,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           method: "POST",
           credentials: "include",
           headers: {
-            
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ cart }),

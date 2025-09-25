@@ -54,6 +54,8 @@ if (!$stmt->execute()) {
 }
 
 // start the session
+$_SESSION['user_id'] = $stmt->insert_id; 
+
 session_start();
 $_SESSION['user'] = [
   "id"       => $stmt->insert_id,

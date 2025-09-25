@@ -16,14 +16,10 @@ if (!isset($data['cart']) || empty($data['cart'])) {
 $cart = $data['cart'];
 $userId = $_SESSION['user_id'] ?? null;
 $customize = $data['customize'] ?? null;
-echo json_encode([
-  "message" => "adfasdf",
-  "user_id" => $userId
-]);
 
 // prepare statement
 $stmt = $connection->prepare("
-  INSERT INTO OrderDetails(user_id, product_name, quantity, price, customize) 
+  INSERT INTO orderDetails(user_id, product_name, quantity, price, customize) 
   VALUES (?, ?, ?, ?, ?)
 ");
 
@@ -31,11 +27,10 @@ foreach ($cart as $item) {
   $name     = $item['name'];
   $price    = (float)$item['price'];
   $quantity = (int)$item['quantity'];
-
   $stmt->bind_param("isids", $userId, $name, $quantity, $price, $customize);
   $stmt->execute();
-}
 
+}
 $stmt->close();
 
 echo json_encode([
