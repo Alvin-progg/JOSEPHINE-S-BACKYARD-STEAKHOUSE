@@ -41,7 +41,7 @@ if ($result->num_rows > 0) {
 
 // hash the password and create a new user
 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-$stmt = $connection->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+$stmt = $connection->prepare("INSERT INTO `users` (username, email, password) VALUES (?, ?, ?)");
 $stmt->bind_param("sss", $username, $email, $hashedPassword);
 
 // check if the user was created
