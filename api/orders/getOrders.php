@@ -37,41 +37,32 @@ try {
     // Fetch user reservations ordered by date and time
     $stmt = $connection->prepare("
         SELECT 
-            reservation_id,
-            reservation_date,
-            reservation_time,
-            number_of_people,
+            order_id,
+            product_name,
+            quantity,
             status,
-            created_at
-        FROM ReservationDetails 
+        FROM OrderDetails
         WHERE user_id = ? 
-        ORDER BY reservation_date DESC, reservation_time DESC
+        ORDER BY created_at DESC
     ");
     
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
-    
-    $reservations = [];
-    while ($row = $result->fetch_assoc()) {     
-        $formatted_date = date('F j, Y', strtotime($row['reservation_date']));
 
-        $formatted_time = date('g:i A', strtotime($row['reservation_time']));
-        
-        $reservations[] = [
-            'id' => $row['reservation_id'],
-            'date' => $row['reservation_date'], 
-            'formatted_date' => $formatted_date,
-            'time' => $row['reservation_time'],
-            'formatted_time' => $formatted_time,
-            'guests' => $row['number_of_people'],
+    $orders = [];
+    while ($row = $result->fetch_assoc()) {
+        $orders[] = [
+            'id' => $row['order_id'],
+            'product_name' => $row['product_name'],
+            'quantity' => $row['quantity'],
             'status' => $row['status'],
             'created_at' => $row['created_at']
         ];
     }
-    
-    sendResponse(true, "Reservations retrieved successfully", $reservations);
-    
+
+    sendResponse(true, "Orders retrieved successfully", $orders);
+
 } catch (Exception $e) {
     sendResponse(false, "Database error: " . $e->getMessage(), null, 500);
 } finally {
