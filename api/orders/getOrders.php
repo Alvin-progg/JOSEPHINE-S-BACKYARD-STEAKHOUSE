@@ -39,11 +39,11 @@ try {
         SELECT 
             order_id,
             product_name,
-            quantity,
-            status,
+            quantity
+
         FROM OrderDetails
         WHERE user_id = ? 
-        ORDER BY created_at DESC
+        ORDER BY order_date DESC
     ");
     
     $stmt->bind_param("i", $user_id);
@@ -55,9 +55,7 @@ try {
         $orders[] = [
             'id' => $row['order_id'],
             'product_name' => $row['product_name'],
-            'quantity' => $row['quantity'],
-            'status' => $row['status'],
-            'created_at' => $row['created_at']
+            'quantity' => $row['quantity']
         ];
     }
 
