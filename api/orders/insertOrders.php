@@ -14,7 +14,7 @@ if (!isset($data['cart']) || empty($data['cart'])) {
 }
 
 $cart = $data['cart'];
-$userId = $_SESSION['user_id'] ?? null;
+$userId = $_SESSION['user_id'] ;
 $customize = $data['customize'] ?? null;
 
 // prepare statement
