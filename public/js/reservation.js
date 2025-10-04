@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("reservation-form");
   const submitButton = form?.querySelector('button[type="submit"]');
-  window.loadingState = document.getElementById("loading-state"); // 
+  window.loadingState = document.getElementById("loading-state"); //
 
   // Load reservations when page loads
   loadReservations();
@@ -41,11 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }),
       });
 
-     const text = await response.text();
+      const text = await response.text();
       const data = JSON.parse(text);
 
       console.log(data);
-      
+
       if (!response.ok) {
         Swal.fire({
           icon: "error",
