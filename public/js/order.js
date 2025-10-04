@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           "Invalid Cart",
           "Please add some items to the cart"
         );
-        return;
+        return; 
       }
 
       try {
