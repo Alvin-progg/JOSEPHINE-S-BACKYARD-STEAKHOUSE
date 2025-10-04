@@ -16,18 +16,40 @@ if (!$username || !$password) {
   exit();
 }
 
+
+// check if the user is admin 
+if ($username === "admin" && $password === "admin123") {
+    session_start();
+    $_SESSION['user'] = [
+        "id"       => 0,
+        "username" => $username,
+        "loggedin" => true,
+        "isAdmin"  => true
+    ];
+    http_response_code(200);
+    echo json_encode([
+        "message"  => "Admin login successful",
+        "token"    => session_id(),
+        "username" => $username,
+        "isAdmin"  => true
+    ]);
+    exit();
+}
+
 // Find user
 $stmt = $connection->prepare("SELECT user_id, username, password FROM users WHERE username = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result();
 
+
+
+
 if ($result->num_rows === 0) {
   http_response_code(404);
   echo json_encode(["message" => "User not found."]);
   exit();
 }
-
 $user = $result->fetch_assoc();
 
 // Verify password using compare hash

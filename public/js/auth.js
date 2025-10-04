@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "error",
           "Validation Error",
           "Please fill in all required fields.",
-          1200,
+          1200
         );
         e.target.reset();
         return;
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "error",
             "Login Failed",
             data.message || "Something went wrong.",
-            2000,
+            2000
           );
           return;
         }
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
         successMessage(
           "Login Successful",
           data.message || "You have successfully logged in.",
-          2000,
+          2000
         );
         // get the token from the response and store it in local storage
         console.log(data.token);
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "error",
           "Validation Error",
           "Please fill in all required fields.",
-          1200,
+          1200
         );
         return;
       }
@@ -129,14 +129,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = JSON.parse(text);
 
         if (!response.ok) {
-          alertMessage("error", "Registration Failed", 2000);
+          alertMessage("error", "Registration Failed", data.message, 2000);
+          e.target.reset();
           return;
         }
         alertMessage(
           "success",
           "Registration Successful",
           data.message || "You have successfully registered.",
-          2000,
+          2000
         );
 
         console.log(data.username);
@@ -151,4 +152,3 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 });
-
