@@ -7,7 +7,6 @@ function sendResponse($success, $message, $httpCode = 200) {
     echo json_encode(['success' => $success, 'message' => $message]);
     exit;
 }
-
 // Start session
 session_start();
 
