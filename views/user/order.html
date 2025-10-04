@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -329,6 +329,263 @@
         </div>
       </section>
     </main>
+    <!-- Payment Modal -->
+    <div
+      id="payment-modal"
+      class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-[#1e1e1e] rounded-lg border border-gray-700 w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+      >
+        <!-- Modal Header -->
+        <div
+          class="bg-[var(--color-primary-600)] px-6 py-4 flex justify-between items-center sticky top-0 z-10"
+        >
+          <h2
+            class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center"
+          >
+            <i class="bi bi-credit-card mr-3"></i>Payment Information
+          </h2>
+          <button
+            id="close-payment-modal"
+            class="text-[#121212] hover:text-[#2a2a2a] text-2xl"
+          >
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="p-6">
+          <form id="payment-form" class="space-y-5">
+            <!-- Order Summary -->
+            <div class="bg-[#2a2a2a] rounded-lg p-4 border border-gray-600">
+              <h3
+                class="text-lg font-semibold text-[var(--color-primary-600)] mb-2"
+              >
+                Order Summary
+              </h3>
+              <div class="flex justify-between items-center">
+                <span class="text-[#fffeee]">Total Amount:</span>
+                <span
+                  id="modal-grand-total"
+                  class="text-2xl font-bold text-[var(--color-primary-600)]"
+                  >₱0.00</span
+                >
+              </div>
+            </div>
+
+            <!-- Pickup Notice -->
+            <div
+              class="bg-blue-900 bg-opacity-20 border border-blue-500 rounded-lg p-4 mb-4"
+            >
+              <div class="flex gap-3 items-center">
+                <i class="bi bi-shop text-blue-400 text-2xl"></i>
+                <div>
+                  <p class="text-sm text-blue-200 font-semibold">
+                    Pickup Order
+                  </p>
+                  <p class="text-xs text-blue-300">
+                    This order is for pickup only. Please pick up your order at
+                    our store location.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- GCash Payment Details -->
+            <div
+              class="bg-gradient-to-br from-[#2a2a2a] to-[#1e1e1e] rounded-lg p-5 border border-[var(--color-primary-600)]"
+            >
+              <div class="flex items-center gap-3 mb-4">
+                <div class="bg-[var(--color-primary-600)] p-2 rounded-lg">
+                  <i class="bi bi-wallet2 text-2xl text-[#121212]"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-[var(--color-primary-600)]">
+                    Send Payment via GCash
+                  </h3>
+                  <p class="text-xs text-gray-400 mt-1">
+                    Payment Method: GCash Only
+                  </p>
+                </div>
+              </div>
+
+              <div class="space-y-3">
+                <!-- GCash Number -->
+                <div
+                  class="flex items-center justify-between bg-[#121212] rounded-lg p-3 border border-gray-700"
+                >
+                  <div>
+                    <p class="text-xs text-gray-400 mb-1">GCash Number</p>
+                    <p class="text-lg font-bold text-[#fffeee] font-mono">
+                      0912 345 6789
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="copyToClipboard('0912 345 6789', 'GCash number')"
+                    class="bg-[var(--color-primary-600)] text-[#121212] px-3 py-2 rounded-md hover:bg-[var(--color-primary-700)] transition-colors text-sm font-semibold"
+                  >
+                    <i class="bi bi-clipboard mr-1"></i>Copy
+                  </button>
+                </div>
+
+                <!-- GCash Name -->
+                <div
+                  class="flex items-center justify-between bg-[#121212] rounded-lg p-3 border border-gray-700"
+                >
+                  <div>
+                    <p class="text-xs text-gray-400 mb-1">Account Name</p>
+                    <p class="text-lg font-bold text-[#fffeee]">
+                      Josephine's Restaurant
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="copyToClipboard('Josephine\'s Restaurant', 'Account name')"
+                    class="bg-[var(--color-primary-600)] text-[#121212] px-3 py-2 rounded-md hover:bg-[var(--color-primary-700)] transition-colors text-sm font-semibold"
+                  >
+                    <i class="bi bi-clipboard mr-1"></i>Copy
+                  </button>
+                </div>
+              </div>
+
+              <!-- Instructions -->
+              <div
+                class="mt-4 bg-[#121212] rounded-lg p-3 border border-gray-700"
+              >
+                <p class="text-xs text-gray-400 leading-relaxed">
+                  <i
+                    class="bi bi-info-circle text-[var(--color-primary-600)] mr-1"
+                  ></i>
+                  Send the exact amount to the GCash number above. After
+                  payment, enter the reference number and upload a screenshot
+                  below. Your order will be ready for pickup once payment is
+                  verified.
+                </p>
+              </div>
+            </div>
+
+            <!-- Payment Proof Section -->
+            <div class="space-y-4">
+              <h3
+                class="text-lg font-semibold text-[var(--color-primary-600)] border-b border-gray-600 pb-2"
+              >
+                Payment Proof
+              </h3>
+
+              <!-- Reference Number -->
+              <div>
+                <label
+                  for="payment-reference"
+                  class="block text-sm font-medium text-[#fffeee] mb-2"
+                >
+                  Reference Number <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="payment-reference"
+                  name="reference_number"
+                  placeholder="Enter GCash reference number"
+                  class="w-full p-3 rounded-md bg-[#2a2a2a] text-[#fffeee] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-600)] transition-all"
+                />
+                <p class="text-xs text-gray-400 mt-1">
+                  <i class="bi bi-lightbulb mr-1"></i>You can find this in your
+                  GCash transaction details
+                </p>
+              </div>
+
+              <!-- Screenshot Upload -->
+              <div>
+                <label
+                  for="payment-screenshot"
+                  class="block text-sm font-medium text-[#fffeee] mb-2"
+                >
+                  Payment Screenshot <span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                  <input
+                    type="file"
+                    id="payment-screenshot"
+                    name="screenshot"
+                    accept="image/*"
+                    class="hidden"
+                  />
+                  <label
+                    for="payment-screenshot"
+                    class="flex flex-col items-center justify-center w-full p-6 border-2 border-dashed border-gray-600 rounded-lg cursor-pointer bg-[#2a2a2a] hover:bg-[#333333] transition-colors"
+                  >
+                    <i
+                      class="bi bi-cloud-upload text-4xl text-[var(--color-primary-600)] mb-2"
+                    ></i>
+                    <p class="text-sm text-[#fffeee] font-medium">
+                      Click to upload screenshot
+                    </p>
+                    <p class="text-xs text-gray-400 mt-1">
+                      PNG, JPG, GIF up to 5MB
+                    </p>
+                  </label>
+                </div>
+
+                <!-- Image Preview -->
+                <div id="screenshot-preview-container" class="mt-3">
+                  <img
+                    id="screenshot-preview"
+                    class="hidden w-full max-h-64 object-contain rounded-lg border border-gray-600"
+                    alt="Payment screenshot preview"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Important Notice -->
+            <div
+              class="bg-yellow-900 bg-opacity-20 border border-yellow-600 rounded-lg p-4"
+            >
+              <div class="flex gap-3">
+                <i
+                  class="bi bi-exclamation-triangle text-yellow-500 text-xl flex-shrink-0"
+                ></i>
+                <div>
+                  <p class="text-sm text-yellow-200 font-semibold mb-1">
+                    Important Reminders
+                  </p>
+                  <ul class="text-xs text-yellow-300 leading-relaxed space-y-1">
+                    <li>• Payment method: <strong>GCash only</strong></li>
+                    <li>• Order type: <strong>Pickup only</strong></li>
+                    <li>• Send the exact amount shown above</li>
+                    <li>
+                      • Your order will be processed once payment is verified
+                    </li>
+                    <li>• Keep your reference number for order tracking</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Modal Footer -->
+        <div
+          class="bg-[#2a2a2a] px-6 py-4 flex gap-3 justify-end border-t border-gray-700 sticky bottom-0"
+        >
+          <button
+            type="button"
+            id="cancel-payment"
+            class="px-6 py-2 rounded-md bg-gray-600 text-[#fffeee] hover:bg-gray-700 transition-colors font-semibold"
+          >
+            <i class="bi bi-x-circle mr-2"></i>Cancel
+          </button>
+          <button
+            type="button"
+            id="confirm-payment"
+            class="px-6 py-2 rounded-md bg-[var(--color-primary-600)] text-[#121212] hover:bg-[var(--color-primary-700)] transition-colors font-semibold"
+          >
+            <i class="bi bi-check-circle mr-2"></i>Confirm Payment
+          </button>
+        </div>
+      </div>
+    </div>
     <script src="../../public/js/main.js"></script>
     <script src="../../public/js/authguard.js"></script>
     <script src="../../public/js/order.js"></script>
