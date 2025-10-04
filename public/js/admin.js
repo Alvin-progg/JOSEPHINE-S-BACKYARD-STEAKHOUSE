@@ -1,12 +1,10 @@
 async function renderTable(url, tbodyId, columns) {
   try {
-    // always include http:// (or https://)
     const response = await fetch(`http://localhost:8000/api/admin/${url}`, {
       method: "GET",
-      credentials: "include", // allows cookies/session to be sent
+      credentials: "include",
     });
 
-    // parse JSON directly
     const result = await response.json();
     if (result.status !== "success") {
       console.error(`Failed to load ${url}:`, result.message);
@@ -38,30 +36,7 @@ async function renderTable(url, tbodyId, columns) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderTable("get/allOrders.php", "orders-table-body", [
-    "order_id",
-    "user_id",
-    "product_name",
-    "quantity",
-    "price",
-    "customize",
-    "order_date",
-  ]);
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  // render the orders table
-  renderTable("get/allOrders.php ", "orders-table-body", [
-    "order_id",
-    "user_id",
-    "product_name",
-    "quantity",
-    "price",
-    "customize",
-    "order_date",
-  ]);
-
-  // render the users table
+  // Users
   renderTable("get/allUsers.php", "users-table-body", [
     "user_id",
     "username",
@@ -69,24 +44,36 @@ document.addEventListener("DOMContentLoaded", () => {
     "created_at",
   ]);
 
-  //   // render the reservations table
-  //   renderTable("/admin/reservations.php", "reservations-table-body", [
-  //     "reservation_id",
-  //     "user_id",
-  //     "reservation_date",
-  //     "reservation_time",
-  //     "number_of_people",
-  //     "status",
-  //     "created_at",
-  //   ]);
+  // Reservations
+  renderTable("get/allReservations.php", "reservations-table-body", [
+    "reservation_id",
+    "user_id",
+    "reservation_date",
+    "reservation_time",
+    "number_of_people",
+    "status",
+    "created_at",
+  ]);
 
-  //   // render the payments table
-  //   renderTable("/admin/payments.php", "payments-table-body", [
-  //     "payment_id",
-  //     "user_id",
-  //     "order_id",
-  //     "amount",
-  //     "status",
-  //     "payment_date",
-  //   ]);
+  // Orders
+  renderTable("get/allOrders.php", "orders-table-body", [
+    "order_id",
+    "user_id",
+    "product_name",
+    "quantity",
+    "price",
+    "customize",
+    "payment_id", // NEW
+    "order_date",
+  ]);
+
+  // Payments
+  renderTable("get/allPayments.php", "payments-table-body", [
+    "payment_id",
+    "user_id",
+    "order_id",
+    "total_amount",
+    "payment_status",
+    "payment_date",
+  ]);
 });

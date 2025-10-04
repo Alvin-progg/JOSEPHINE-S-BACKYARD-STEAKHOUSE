@@ -4,21 +4,22 @@ require_once("../../config/database.php");
 
 try {
     $stmt = $connection->prepare("
-        SELECT order_id, user_id, product_name, quantity, price, customize, payment_id, order_date
-        FROM orderDetails
-        ORDER BY order_date DESC
+        SELECT p.payment_id, p.user_id, o.order_id, p.total_amount, p.payment_status, p.payment_date
+        FROM payments p
+        LEFT JOIN orderDetails o ON p.payment_id = o.payment_id
+        ORDER BY p.payment_date DESC
     ");
     $stmt->execute();
     $result = $stmt->get_result();
 
-    $orders = [];
+    $payments = [];
     while ($row = $result->fetch_assoc()) {
-        $orders[] = $row;
+        $payments[] = $row;
     }
 
     echo json_encode([
         "status" => "success",
-        "data" => $orders
+        "data" => $payments
     ]);
 } catch (Exception $e) {
     echo json_encode([
