@@ -161,7 +161,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       const existingItem = cart.find(
         (item) => item.name === name && item.customize === customize
       );
-
       if (existingItem) {
         // merge quantities
         existingItem.quantity += qty;

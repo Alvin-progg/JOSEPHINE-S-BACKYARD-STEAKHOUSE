@@ -43,7 +43,7 @@ try {
             number_of_people,
             status,
             created_at
-        FROM ReservationDetails 
+        FROM reservationDetails 
         WHERE user_id = ? 
         ORDER BY reservation_date DESC, reservation_time DESC
     ");

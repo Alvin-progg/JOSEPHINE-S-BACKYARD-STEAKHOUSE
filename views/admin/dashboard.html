@@ -33,7 +33,11 @@
           >
             JOSEPHINE'S
           </a>
-
+          <div class="text-center">
+            <h1 class="text-4xl font-['Lobster_Two'] text-[#fffeee] mb-2">
+              Welcome back, <span id="user"></span>
+            </h1>
+          </div>
           <!-- Mobile Menu Button -->
           <button
             id="mobile-menu-btn"
@@ -43,32 +47,6 @@
           </button>
 
           <!-- Desktop Navigation -->
-          <ul id="desktop-nav" class="hidden lg:flex gap-6 text-2xl">
-            <li>
-              <a
-                href="./home.html"
-                class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full"
-              >
-                Home
-              </a>
-            </li>
-            <li>
-              <a
-                href="./order.html"
-                class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full"
-              >
-                Manage Orders
-              </a>
-            </li>
-            <li>
-              <a
-                href="./reservation.html"
-                class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full"
-              >
-                Manage Reservations
-              </a>
-            </li>
-          </ul>
 
           <!-- User Dropdown -->
           <div class="relative hidden lg:block">
@@ -137,23 +115,126 @@
       </nav>
     </header>
     <!-- Welcome Section -->
-    <main>
-      <section
-        class="bg-gradient-to-r from-[var(--color-primary-900)] to-[var(--color-primary-800)] py-8 mb-8"
+    <main class="p-6 space-y-10">
+      <!-- Users Table -->
+      <div
+        class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden"
       >
-        <div class="max-w-7xl mx-auto px-4">
-          <div class="text-center">
-            <h1 class="text-4xl font-['Lobster_Two'] text-[#fffeee] mb-2">
-              Welcome back,
-            </h1>
-            <p class="text-[var(--color-primary-200)] text-lg">
-              Here's your dashboard overview
-            </p>
-          </div>
+        <div class="bg-[var(--color-primary-600)] px-6 py-4">
+          <h2
+            class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center"
+          >
+            <i class="bi bi-people mr-3"></i>Users
+          </h2>
         </div>
-      </section>
+        <div class="p-6 overflow-x-auto">
+          <table class="min-w-full text-left">
+            <thead>
+              <tr class="border-b border-gray-600">
+                <th class="py-3 px-4">User ID</th>
+                <th class="py-3 px-4">Username</th>
+                <th class="py-3 px-4">Email</th>
+                <th class="py-3 px-4">Created At</th>
+                <th class="py-3 px-4">Action</th>
+              </tr>
+            </thead>
+            <tbody id="users-table-body" class="text-[#fffeee]"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Reservations Table -->
+      <div
+        class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden"
+      >
+        <div class="bg-[var(--color-primary-600)] px-6 py-4">
+          <h2
+            class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center"
+          >
+            <i class="bi bi-calendar-event mr-3"></i>Reservations
+          </h2>
+        </div>
+        <div class="p-6 overflow-x-auto">
+          <table class="min-w-full text-left">
+            <thead>
+              <tr class="border-b border-gray-600">
+                <th class="py-3 px-4">Reservation ID</th>
+                <th class="py-3 px-4">User ID</th>
+                <th class="py-3 px-4">Date</th>
+                <th class="py-3 px-4">Time</th>
+                <th class="py-3 px-4">People</th>
+                <th class="py-3 px-4">Status</th>
+                <th class="py-3 px-4">Created At</th>
+                <th class="py-3 px-4">Action</th>
+              </tr>
+            </thead>
+            <tbody id="reservations-table-body" class="text-[#fffeee]"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Orders Table -->
+      <div
+        class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden"
+      >
+        <div class="bg-[var(--color-primary-600)] px-6 py-4">
+          <h2
+            class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center"
+          >
+            <i class="bi bi-cart mr-3"></i>Orders
+          </h2>
+        </div>
+        <div class="p-6 overflow-x-auto">
+          <table class="min-w-full text-left">
+            <thead>
+              <tr class="border-b border-gray-600">
+                <th class="py-3 px-4">Order ID</th>
+                <th class="py-3 px-4">User ID</th>
+                <th class="py-3 px-4">Product</th>
+                <th class="py-3 px-4">Quantity</th>
+                <th class="py-3 px-4">Price</th>
+                <th class="py-3 px-4">Customize</th>
+                <th class="py-3 px-4">Order Date</th>
+                <th class="py-3 px-4">Action</th>
+              </tr>
+            </thead>
+            <tbody id="orders-table-body" class="text-[#fffeee]"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Payments Table -->
+      <div
+        class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden"
+      >
+        <div class="bg-[var(--color-primary-600)] px-6 py-4">
+          <h2
+            class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center"
+          >
+            <i class="bi bi-credit-card mr-3"></i>Payments
+          </h2>
+        </div>
+        <div class="p-6 overflow-x-auto">
+          <table class="min-w-full text-left">
+            <thead>
+              <tr class="border-b border-gray-600">
+                <th class="py-3 px-4">Payment ID</th>
+                <th class="py-3 px-4">User ID</th>
+                <th class="py-3 px-4">Order ID</th>
+                <th class="py-3 px-4">Amount</th>
+                <th class="py-3 px-4">Status</th>
+                <th class="py-3 px-4">Payment Date</th>
+                <th class="py-3 px-4">Action</th>
+              </tr>
+            </thead>
+            <tbody id="payments-table-body" class="text-[#fffeee]"></tbody>
+          </table>
+        </div>
+      </div>
     </main>
+
     <script src="../../public/js/main.js"></script>
+    <script src="../../public/js/admin.js"></script>
     <script src="../../public/js/authguard.js"></script>
   </body>
 </html>
