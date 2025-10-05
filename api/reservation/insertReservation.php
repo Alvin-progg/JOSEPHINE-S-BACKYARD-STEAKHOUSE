@@ -42,7 +42,7 @@ if (!isset($_SESSION['user'])) {
 $user_id = $_SESSION['user']['id']; // we stored this at login
 
 // Insert reservation into ReservationDetails
-$stmt = $connection->prepare("INSERT INTO ReservationDetails (reservation_date, reservation_time, number_of_people, user_id, status) VALUES (?, ?, ?, ?, 'Pending')");
+$stmt = $connection->prepare("INSERT INTO reservationDetails (reservation_date, reservation_time, number_of_people, user_id, status) VALUES (?, ?, ?, ?, 'Pending')");
 $stmt->bind_param("ssii", $date, $time, $guests, $user_id);
 
 if ($stmt->execute()) {

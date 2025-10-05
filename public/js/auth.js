@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "error",
           "Validation Error",
           "Please fill in all required fields.",
-          1200,
+          1200
         );
         e.target.reset();
         return;
@@ -63,26 +63,35 @@ document.addEventListener("DOMContentLoaded", () => {
             "error",
             "Login Failed",
             data.message || "Something went wrong.",
-            2000,
+            2000
           );
           return;
         }
+        console.log(data);
 
+        if (data.isAdmin) {
+          // Success
+          successMessage("Login Successful", data.message, 2000);
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("isAdmin", data.isAdmin);
+          localStorage.setItem("username", data.username);
+          setTimeout(() => {
+            window.location.href = "/views/admin/dashboard.html";
+          }, 2001);
+          return;
+        }
         // Success
         successMessage(
           "Login Successful",
           data.message || "You have successfully logged in.",
-          2000,
+          2000
         );
-        // get the token from the response and store it in local storage
-        console.log(data.token);
-        console.log(data.username);
-
         localStorage.setItem("token", data.token);
         localStorage.setItem("username", data.username);
+        localStorage.setItem("isAdmin", "false");
         // Redirect to dashboard after a short delay
         setTimeout(() => {
-          window.location.href = "http://localhost:8000/views/user/home.html";
+          window.location.href = "/views/user/home.html";
         }, 2001);
       } catch (error) {
         alertMessage("error", "Login Failed", error.message, 2000);
@@ -108,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "error",
           "Validation Error",
           "Please fill in all required fields.",
-          1200,
+          1200
         );
         return;
       }
@@ -129,14 +138,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = JSON.parse(text);
 
         if (!response.ok) {
-          alertMessage("error", "Registration Failed", 2000);
+          alertMessage("error", "Registration Failed", data.message, 2000);
+          e.target.reset();
           return;
         }
+
         alertMessage(
           "success",
           "Registration Successful",
           data.message || "You have successfully registered.",
-          2000,
+          2000
         );
 
         console.log(data.username);
@@ -151,4 +162,3 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 });
-

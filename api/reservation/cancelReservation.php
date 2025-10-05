@@ -51,7 +51,7 @@ $user_id = $_SESSION['user']['id'];
 try {
    
     $checkStmt = $connection->prepare("
-        SELECT status FROM ReservationDetails 
+        SELECT status FROM reservationDetails 
         WHERE reservation_id = ? AND user_id = ?
     ");
     $checkStmt->bind_param("ii", $reservation_id, $user_id);
@@ -73,7 +73,7 @@ try {
     }
     
     $updateStmt = $connection->prepare("
-        UPDATE ReservationDetails 
+        UPDATE reservationDetails 
         SET status = 'Cancelled' 
         WHERE reservation_id = ? AND user_id = ?
     ");
