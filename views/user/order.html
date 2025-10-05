@@ -240,9 +240,15 @@
 
                 <div>
                   <!-- customize  -->
+                  <label
+                    for="customize"
+                    class="block text-sm font-medium text-[#fffeee]"
+                    >Special Instructions / Customizations:
+                  </label>
                   <textarea
                     name="customize"
                     id="customize"
+                    placeholder="Add special instructions or customizations (optional)"
                     class="w-full p-2 rounded-md bg-[#2a2a2a] text-[#fffeee] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-600)] h-60 resize-none"
                   >
                   </textarea>
@@ -328,6 +334,7 @@
         </div>
       </section>
     </main>
+
     <!-- Payment Modal -->
     <div
       id="payment-modal"
@@ -373,22 +380,100 @@
               </div>
             </div>
 
-            <!-- Pickup Notice -->
+            <!-- Order Type Notice -->
             <div
-              class="bg-blue-900 bg-opacity-20 border border-blue-500 rounded-lg p-4 mb-4"
+              id="order-type-notice"
+              class="bg-blue-900 bg-opacity-20 border border-blue-500 rounded-lg p-4"
             >
               <div class="flex gap-3 items-center">
-                <i class="bi bi-shop text-blue-400 text-2xl"></i>
+                <i
+                  id="order-type-icon"
+                  class="bi bi-shop text-blue-400 text-2xl"
+                ></i>
                 <div>
-                  <p class="text-sm text-blue-200 font-semibold">
+                  <p
+                    id="order-type-title"
+                    class="text-sm text-blue-200 font-semibold"
+                  >
                     Pickup Order
                   </p>
-                  <p class="text-xs text-blue-300">
+                  <p id="order-type-desc" class="text-xs text-blue-300">
                     This order is for pickup only. Please pick up your order at
                     our store location.
                   </p>
                 </div>
               </div>
+            </div>
+
+            <!-- Delivery Type Selection -->
+            <div class="bg-[#2a2a2a] rounded-lg p-4 border border-gray-600">
+              <label class="block text-sm font-medium text-[#fffeee] mb-3">
+                Order Type <span class="text-red-500">*</span>
+              </label>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="relative cursor-pointer">
+                  <input
+                    type="radio"
+                    name="delivery_type"
+                    value="pickup"
+                    id="delivery-pickup"
+                    class="peer hidden"
+                    checked
+                  />
+                  <div
+                    class="border-2 border-gray-600 rounded-lg p-4 text-center transition-all peer-checked:border-[var(--color-primary-600)] peer-checked:bg-[var(--color-primary-600)] peer-checked:bg-opacity-10"
+                  >
+                    <i
+                      class="bi bi-shop text-3xl mb-2 block text-gray-400 peer-checked:text-[var(--color-primary-600)]"
+                    ></i>
+                    <p class="font-semibold text-[#fffeee]">Pickup</p>
+                    <p class="text-xs text-gray-400 mt-1">Pick up at store</p>
+                  </div>
+                </label>
+
+                <label class="relative cursor-pointer">
+                  <input
+                    type="radio"
+                    name="delivery_type"
+                    value="delivery"
+                    id="delivery-delivery"
+                    class="peer hidden"
+                  />
+                  <div
+                    class="border-2 border-gray-600 rounded-lg p-4 text-center transition-all peer-checked:border-[var(--color-primary-600)] peer-checked:bg-[var(--color-primary-600)] peer-checked:bg-opacity-10"
+                  >
+                    <i
+                      class="bi bi-truck text-3xl mb-2 block text-gray-400 peer-checked:text-[var(--color-primary-600)]"
+                    ></i>
+                    <p class="font-semibold text-[#fffeee]">Delivery</p>
+                    <p class="text-xs text-gray-400 mt-1">Deliver to address</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Delivery Address (Hidden by default) -->
+            <div
+              id="delivery-address-section"
+              class="hidden bg-[#2a2a2a] rounded-lg p-4 border border-gray-600"
+            >
+              <label
+                for="delivery-address"
+                class="block text-sm font-medium text-[#fffeee] mb-2"
+              >
+                Delivery Address <span class="text-red-500">*</span>
+              </label>
+              <textarea
+                id="delivery-address"
+                name="delivery_address"
+                rows="3"
+                placeholder="Enter complete delivery address (House No., Street, Barangay, City)"
+                class="w-full p-3 rounded-md bg-[#1e1e1e] text-[#fffeee] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-600)] transition-all resize-none"
+              ></textarea>
+              <p class="text-xs text-gray-400 mt-1">
+                <i class="bi bi-info-circle mr-1"></i>Please provide complete
+                address for accurate delivery
+              </p>
             </div>
 
             <!-- GCash Payment Details -->
@@ -551,7 +636,7 @@
                   </p>
                   <ul class="text-xs text-yellow-300 leading-relaxed space-y-1">
                     <li>• Payment method: <strong>GCash only</strong></li>
-                    <li>• Order type: <strong>Pickup only</strong></li>
+                    <li>• Order type: <strong>Pickup or Delivery</strong></li>
                     <li>• Send the exact amount shown above</li>
                     <li>
                       • Your order will be processed once payment is verified

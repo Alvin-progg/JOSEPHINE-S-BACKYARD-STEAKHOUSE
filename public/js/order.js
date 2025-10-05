@@ -2,26 +2,23 @@
 
 // Helper function to copy text to clipboard
 function copyToClipboard(text, label) {
-  navigator.clipboard
-    .writeText(text)
-    .then(() => {
-      Swal.fire({
-        icon: "success",
-        title: "Copied!",
-        text: `${label} copied to clipboard`,
-        timer: 1500,
-        showConfirmButton: false,
-      });
-    })
-    .catch(() => {
-      Swal.fire({
-        icon: "error",
-        title: "Failed to copy",
-        text: "Please copy manually",
-        timer: 1500,
-        showConfirmButton: false,
-      });
+  navigator.clipboard.writeText(text).then(() => {
+    Swal.fire({
+      icon: 'success',
+      title: 'Copied!',
+      text: `${label} copied to clipboard`,
+      timer: 1500,
+      showConfirmButton: false
     });
+  }).catch(() => {
+    Swal.fire({
+      icon: 'error',
+      title: 'Failed to copy',
+      text: 'Please copy manually',
+      timer: 1500,
+      showConfirmButton: false
+    });
+  });
 }
 
 const alertMessage = (type, title, text, timer = 1500) => {
@@ -48,48 +45,78 @@ const successMessage = async (title, text, timer = 1500) => {
   });
 };
 
+// Update order type notice
+function updateOrderTypeNotice(type) {
+  const notice = document.getElementById('order-type-notice');
+  const icon = document.getElementById('order-type-icon');
+  const title = document.getElementById('order-type-title');
+  const desc = document.getElementById('order-type-desc');
+  
+  if (type === 'delivery') {
+    notice.className = 'bg-green-900 bg-opacity-20 border border-green-500 rounded-lg p-4 mb-4';
+    icon.className = 'bi bi-truck text-green-400 text-2xl';
+    title.textContent = 'Delivery Order';
+    title.className = 'text-sm text-green-200 font-semibold';
+    desc.textContent = 'Your order will be delivered to your specified address.';
+    desc.className = 'text-xs text-green-300';
+  } else {
+    notice.className = 'bg-blue-900 bg-opacity-20 border border-blue-500 rounded-lg p-4 mb-4';
+    icon.className = 'bi bi-shop text-blue-400 text-2xl';
+    title.textContent = 'Pickup Order';
+    title.className = 'text-sm text-blue-200 font-semibold';
+    desc.textContent = 'This order is for pickup only. Please pick up your order at our store location.';
+    desc.className = 'text-xs text-blue-300';
+  }
+}
+
 // Payment Modal Functions
 function openPaymentModal() {
-  document.getElementById("payment-modal").classList.remove("hidden");
-  document.body.style.overflow = "hidden";
-
+  document.getElementById('payment-modal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  
   // Update modal total
   const grandTotal = calculateGrandTotal();
-  document.getElementById("modal-grand-total").textContent = `₱${grandTotal}`;
+  document.getElementById('modal-grand-total').textContent = `₱${grandTotal}`;
+  
+  // Reset to pickup by default
+  document.getElementById('delivery-pickup').checked = true;
+  document.getElementById('delivery-address-section').classList.add('hidden');
+  updateOrderTypeNotice('pickup');
 }
 
 function closePaymentModal() {
-  document.getElementById("payment-modal").classList.add("hidden");
-  document.body.style.overflow = "auto";
-
+  document.getElementById('payment-modal').classList.add('hidden');
+  document.body.style.overflow = 'auto';
+  
   // Reset form
-  document.getElementById("payment-form").reset();
-  document.getElementById("screenshot-preview").classList.add("hidden");
-  document.getElementById("screenshot-preview").src = "";
+  document.getElementById('payment-form').reset();
+  document.getElementById('screenshot-preview').classList.add('hidden');
+  document.getElementById('screenshot-preview').src = '';
+  document.getElementById('delivery-address-section').classList.add('hidden');
   clearPaymentErrors();
 }
 
 function clearPaymentErrors() {
-  const errorElements = document.querySelectorAll(".error-message");
-  errorElements.forEach((el) => el.remove());
-
-  const inputs = document.querySelectorAll("#payment-form input");
-  inputs.forEach((input) => {
-    input.classList.remove("border-red-500");
+  const errorElements = document.querySelectorAll('.error-message');
+  errorElements.forEach(el => el.remove());
+  
+  const inputs = document.querySelectorAll('#payment-form input');
+  inputs.forEach(input => {
+    input.classList.remove('border-red-500');
   });
 }
 
 function showFieldError(fieldId, message) {
   const field = document.getElementById(fieldId);
-  field.classList.add("border-red-500");
-
+  field.classList.add('border-red-500');
+  
   // Remove existing error if any
-  const existingError = field.parentElement.querySelector(".error-message");
+  const existingError = field.parentElement.querySelector('.error-message');
   if (existingError) existingError.remove();
-
+  
   // Add new error message
-  const errorDiv = document.createElement("div");
-  errorDiv.className = "error-message text-red-500 text-xs mt-1";
+  const errorDiv = document.createElement('div');
+  errorDiv.className = 'error-message text-red-500 text-xs mt-1';
   errorDiv.textContent = message;
   field.parentElement.appendChild(errorDiv);
 }
@@ -97,60 +124,67 @@ function showFieldError(fieldId, message) {
 function validatePaymentForm() {
   clearPaymentErrors();
   let isValid = true;
-
+  
   // Reference Number validation
-  const refNumber = document.getElementById("payment-reference").value.trim();
+  const refNumber = document.getElementById('payment-reference').value.trim();
   if (!refNumber) {
-    showFieldError("payment-reference", "Reference number is required");
+    showFieldError('payment-reference', 'Reference number is required');
     isValid = false;
   } else if (refNumber.length < 5) {
-    showFieldError(
-      "payment-reference",
-      "Please enter a valid reference number"
-    );
+    showFieldError('payment-reference', 'Please enter a valid reference number');
     isValid = false;
   }
-
+  
   // Screenshot validation
-  const screenshot = document.getElementById("payment-screenshot").files[0];
+  const screenshot = document.getElementById('payment-screenshot').files[0];
   if (!screenshot) {
-    showFieldError("payment-screenshot", "Payment screenshot is required");
+    showFieldError('payment-screenshot', 'Payment screenshot is required');
     isValid = false;
   } else {
     // Validate file type
-    const validTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
     if (!validTypes.includes(screenshot.type)) {
-      showFieldError(
-        "payment-screenshot",
-        "Please upload a valid image (JPG, PNG, GIF)"
-      );
+      showFieldError('payment-screenshot', 'Please upload a valid image (JPG, PNG, GIF)');
       isValid = false;
     }
     // Validate file size (max 5MB)
     else if (screenshot.size > 5 * 1024 * 1024) {
-      showFieldError("payment-screenshot", "File size must be less than 5MB");
+      showFieldError('payment-screenshot', 'File size must be less than 5MB');
       isValid = false;
     }
   }
-
+  
+  // Delivery address validation (only if delivery is selected)
+  const deliveryType = document.querySelector('input[name="delivery_type"]:checked').value;
+  if (deliveryType === 'delivery') {
+    const address = document.getElementById('delivery-address').value.trim();
+    if (!address) {
+      showFieldError('delivery-address', 'Delivery address is required');
+      isValid = false;
+    } else if (address.length < 15) {
+      showFieldError('delivery-address', 'Please provide complete delivery address');
+      isValid = false;
+    }
+  }
+  
   return isValid;
 }
 
 // Preview screenshot
 function previewScreenshot(input) {
-  const preview = document.getElementById("screenshot-preview");
+  const preview = document.getElementById('screenshot-preview');
   const file = input.files[0];
-
+  
   if (file) {
     const reader = new FileReader();
-    reader.onload = function (e) {
+    reader.onload = function(e) {
       preview.src = e.target.result;
-      preview.classList.remove("hidden");
-    };
+      preview.classList.remove('hidden');
+    }
     reader.readAsDataURL(file);
   } else {
-    preview.src = "";
-    preview.classList.add("hidden");
+    preview.src = '';
+    preview.classList.add('hidden');
   }
 }
 
@@ -160,9 +194,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const selectedCategory = document.getElementById("selectedCategory");
   const quantity = document.getElementById("quantity");
   const total = document.getElementById("total");
-
+  
   // Load cart from localStorage or initialize empty
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   // fetch the json file
   const menu = await fetch("../../public/json/menu.json");
@@ -231,15 +265,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Save cart to localStorage
   function saveCart() {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem('cart', JSON.stringify(cart));
   }
 
   // Calculate grand total
-  window.calculateGrandTotal = function () {
-    return cart
-      .reduce((sum, item) => sum + item.price * item.quantity, 0)
-      .toFixed(2);
-  };
+  window.calculateGrandTotal = function() {
+    return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+  }
 
   function renderCart() {
     const tbody = document.getElementById("order-items");
@@ -258,7 +290,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <td class="py-2 px-4 text-[#fffeee]">${item.quantity}</td>
         <td class="py-2 px-4 text-[#fffeee]">₱${item.price.toFixed(2)}</td>
         <td class="py-2 px-4 text-[#fffeee]">₱${(item.price * item.quantity).toFixed(2)}</td>
-        <td class="py-2 px-4 text-[#fffeee]">${item.customize || "No Customization"}</td>
+        <td class="py-2 px-4 text-[#fffeee]">${item.customize || 'No Customization'}</td>
         <td class="py-2 px-4 text-center">
           <button class="text-red-500 hover:text-red-400">
             <i class="bi bi-trash"></i>
@@ -281,128 +313,136 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // Add to cart button
-  document
-    .getElementById("add-to-order")
-    .addEventListener("click", async () => {
-      if (!products.value || !quantity.value) {
-        alertMessage("warning", "Input Warning", "Please input all fields");
-        return;
-      }
+  document.getElementById("add-to-order").addEventListener("click", async () => {
+    if (!products.value || !quantity.value) {
+      alertMessage("warning", "Input Warning", "Please input all fields");
+      return;
+    }
 
-      let customize = document.getElementById("customize").value.trim();
-      if (!customize) {
-        customize = "No Customization";
-      }
+    let customize = document.getElementById("customize").value.trim();
+    if (!customize) {
+      customize = "No Customization";
+    }
 
-      const { name, price } = JSON.parse(products.value);
-      const numericPrice = parseFloat(price.replace(/[₱,]/g, ""));
-      const qty = parseInt(quantity.value, 10);
+    const { name, price } = JSON.parse(products.value);
+    const numericPrice = parseFloat(price.replace(/[₱,]/g, ""));
+    const qty = parseInt(quantity.value, 10);
 
-      const existingItem = cart.find(
-        (item) => item.name === name && item.customize === customize
-      );
+    const existingItem = cart.find(
+      (item) => item.name === name && item.customize === customize
+    );
 
-      if (existingItem) {
-        existingItem.quantity += qty;
-      } else {
-        cart.push({
-          name,
-          price: numericPrice,
-          quantity: qty,
-          customize,
-        });
-      }
+    if (existingItem) {
+      existingItem.quantity += qty;
+    } else {
+      cart.push({
+        name,
+        price: numericPrice,
+        quantity: qty,
+        customize,
+      });
+    }
 
-      saveCart();
-      successMessage("Add to Cart Successfully", `${name} x${qty} added!`);
-      renderCart();
-      document.getElementById("order-form").reset();
-    });
+    saveCart();
+    successMessage("Add to Cart Successfully", `${name} x${qty} added!`);
+    renderCart();
+    document.getElementById("order-form").reset();
+  });
 
   // Submit Order - Opens Payment Modal
-  document
-    .getElementById("submit-order")
-    ?.addEventListener("click", async () => {
-      if (cart.length === 0) {
-        alertMessage(
-          "warning",
-          "Invalid Cart",
-          "Please add some items to the cart"
-        );
-        return;
-      }
-
-      // Open payment modal instead of directly submitting
-      openPaymentModal();
-    });
+  document.getElementById("submit-order")?.addEventListener("click", async () => {
+    if (cart.length === 0) {
+      alertMessage("warning", "Invalid Cart", "Please add some items to the cart");
+      return;
+    }
+    
+    // Open payment modal instead of directly submitting
+    openPaymentModal();
+  });
 
   // Payment Modal Close Buttons
-  document
-    .getElementById("close-payment-modal")
-    ?.addEventListener("click", closePaymentModal);
-  document
-    .getElementById("cancel-payment")
-    ?.addEventListener("click", closePaymentModal);
+  document.getElementById('close-payment-modal')?.addEventListener('click', closePaymentModal);
+  document.getElementById('cancel-payment')?.addEventListener('click', closePaymentModal);
 
   // Screenshot preview
-  document
-    .getElementById("payment-screenshot")
-    ?.addEventListener("change", function () {
-      previewScreenshot(this);
+  document.getElementById('payment-screenshot')?.addEventListener('change', function() {
+    previewScreenshot(this);
+  });
+
+  // Delivery type change handler
+  document.querySelectorAll('input[name="delivery_type"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+      const deliverySection = document.getElementById('delivery-address-section');
+      if (this.value === 'delivery') {
+        deliverySection.classList.remove('hidden');
+        updateOrderTypeNotice('delivery');
+      } else {
+        deliverySection.classList.add('hidden');
+        document.getElementById('delivery-address').value = '';
+        updateOrderTypeNotice('pickup');
+      }
     });
+  });
 
   // Payment Form Submit
-  document
-    .getElementById("confirm-payment")
-    ?.addEventListener("click", async () => {
-      if (!validatePaymentForm()) {
-        alertMessage(
-          "warning",
-          "Incomplete Payment Information",
-          "Please provide reference number and payment screenshot"
-        );
-        return;
+  document.getElementById('confirm-payment')?.addEventListener('click', async () => {
+    if (!validatePaymentForm()) {
+      alertMessage("warning", "Incomplete Payment Information", "Please fill all required fields");
+      return;
+    }
+
+    // Get delivery type
+    const deliveryType = document.querySelector('input[name="delivery_type"]:checked')?.value;
+    
+    if (!deliveryType) {
+      alertMessage("error", "Error", "Please select delivery type");
+      return;
+    }
+
+    // Prepare FormData to handle file upload
+    const formData = new FormData();
+    formData.append('reference_number', document.getElementById('payment-reference').value.trim());
+    formData.append('screenshot', document.getElementById('payment-screenshot').files[0]);
+    formData.append('cart', JSON.stringify(cart));
+    formData.append('total_amount', calculateGrandTotal());
+    formData.append('delivery_type', deliveryType);
+    
+    // Only add delivery address if delivery is selected
+    if (deliveryType === 'delivery') {
+      const deliveryAddress = document.getElementById('delivery-address').value.trim();
+      formData.append('delivery_address', deliveryAddress);
+    }
+
+    // Debug: Log what's being sent
+    console.log('Delivery Type:', deliveryType);
+    console.log('FormData delivery_type:', formData.get('delivery_type'));
+    try {
+      const response = await fetch("/api/orders/insertOrders.php", {
+        method: "POST",
+        credentials: "include",
+        body: formData, // Send as FormData for file upload
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message);
       }
 
-      // Prepare FormData to handle file upload
-      const formData = new FormData();
-      formData.append(
-        "reference_number",
-        document.getElementById("payment-reference").value.trim()
-      );
-      formData.append(
-        "screenshot",
-        document.getElementById("payment-screenshot").files[0]
-      );
-      formData.append("cart", JSON.stringify(cart));
-      formData.append("total_amount", calculateGrandTotal());
+      const text = await response.text();
+      const data = JSON.parse(text);
 
-      try {
-        const response = await fetch("/api/orders/insertOrders.php", {
-          method: "POST",
-          credentials: "include",
-          body: formData, // Send as FormData for file upload
-        });
-
-        if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.message);
-        }
-
-        const text = await response.text();
-        const data = JSON.parse(text);
-
-        closePaymentModal();
-        successMessage("Order Placed Successfully", data.message);
-
-        // Clear cart
-        cart = [];
-        localStorage.removeItem("cart");
-        renderCart();
-      } catch (error) {
-        alertMessage("error", "Submission Failed", error.message);
-      }
-    });
+      closePaymentModal();
+      successMessage("Order Placed Successfully", data.message);
+      
+      // Clear cart
+      cart = [];
+      localStorage.removeItem('cart');
+      renderCart();
+      
+    } catch (error) {
+      alertMessage("error", "Submission Failed", error.message);
+    }
+  });
 
   // Initial cart render
   renderCart();

@@ -37,6 +37,24 @@ try {
   // Get form data
   $reference_number = trim($_POST['reference_number']);
   $total_amount = floatval($_POST['total_amount']);
+  
+  // Debug: Log what's received
+  error_log("Received delivery_type: " . (isset($_POST['delivery_type']) ? $_POST['delivery_type'] : 'NOT SET'));
+  
+  $delivery_type = isset($_POST['delivery_type']) && !empty($_POST['delivery_type']) ? $_POST['delivery_type'] : 'pickup';
+  $delivery_address = null;
+  
+  // Validate and set delivery address only if delivery type is 'delivery'
+  if ($delivery_type === 'delivery') {
+    if (!isset($_POST['delivery_address']) || empty(trim($_POST['delivery_address']))) {
+      throw new Exception("Delivery address is required for delivery orders");
+    }
+    $delivery_address = trim($_POST['delivery_address']);
+  } else {
+    // For pickup orders, explicitly set to null or empty
+    $delivery_address = null;
+  }
+  
   $cart = json_decode($_POST['cart'], true);
 
   if (!$cart || !is_array($cart)) {
@@ -80,10 +98,10 @@ try {
 
   // Insert payment record
   $stmt_payment = $connection->prepare("
-    INSERT INTO payments (user_id, reference_number, screenshot_path, total_amount, payment_status) 
-    VALUES (?, ?, ?, ?, 'pending')
+    INSERT INTO payments (user_id, reference_number, screenshot_path, total_amount, delivery_type, delivery_address, payment_status) 
+    VALUES (?, ?, ?, ?, ?, ?, 'pending')
   ");
-  $stmt_payment->bind_param("issd", $userId, $reference_number, $screenshot_db_path, $total_amount);
+  $stmt_payment->bind_param("issdss", $userId, $reference_number, $screenshot_db_path, $total_amount, $delivery_type, $delivery_address);
   
   if (!$stmt_payment->execute()) {
     throw new Exception("Failed to insert payment record: " . $stmt_payment->error);
@@ -119,6 +137,7 @@ try {
     "success" => true,
     "message" => "Order successfully placed! Your payment is being verified.",
     "payment_id" => $payment_id,
+    "delivery_type" => $delivery_type,
     "items_count" => count($cart)
   ]);
 
