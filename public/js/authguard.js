@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // If this is the admin guard, check admin rights
   if (window.location.pathname.includes("/admin/")) {
-    if (isAdmin !== "true") {
+    if (isAdmin !== "true" || isAdmin === null) {
       // Not an admin, boot to user home
       window.location.href = "/views/user/home.html";
     }

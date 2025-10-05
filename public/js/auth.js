@@ -69,15 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         console.log(data);
 
-        if (data?.isAdmin === true) {
+        if (data.isAdmin) {
           // Success
           successMessage("Login Successful", data.message, 2000);
           localStorage.setItem("token", data.token);
           localStorage.setItem("isAdmin", data.isAdmin);
           localStorage.setItem("username", data.username);
           setTimeout(() => {
-            window.location.href =
-              "http://localhost:8000/views/admin/dashboard.html";
+            window.location.href = "/views/admin/dashboard.html";
           }, 2001);
           return;
         }
@@ -89,9 +88,10 @@ document.addEventListener("DOMContentLoaded", () => {
         );
         localStorage.setItem("token", data.token);
         localStorage.setItem("username", data.username);
+        localStorage.setItem("isAdmin", "false");
         // Redirect to dashboard after a short delay
         setTimeout(() => {
-          window.location.href = "http://localhost:8000/views/user/home.html";
+          window.location.href = "/views/user/home.html";
         }, 2001);
       } catch (error) {
         alertMessage("error", "Login Failed", error.message, 2000);
