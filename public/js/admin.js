@@ -6,6 +6,9 @@ async function renderTable(url, tbodyId, columns) {
     });
 
     const result = await response.json();
+
+    // log the result
+    console.log(result);
     if (result.status !== "success") {
       console.error(`Failed to load ${url}:`, result.message);
       return;
@@ -55,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "created_at",
   ]);
 
-  // Orders
   renderTable("get/allOrders.php", "orders-table-body", [
     "order_id",
     "user_id",
@@ -63,15 +65,15 @@ document.addEventListener("DOMContentLoaded", () => {
     "quantity",
     "price",
     "customize",
-    "payment_id", // NEW
+    "payment_id",
     "order_date",
   ]);
 
-  // Payments
+  // Payments (no order_id, use reference_number instead)
   renderTable("get/allPayments.php", "payments-table-body", [
     "payment_id",
     "user_id",
-    "order_id",
+    "reference_number",
     "total_amount",
     "payment_status",
     "payment_date",

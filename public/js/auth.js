@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
           // Success
           successMessage("Login Successful", data.message, 2000);
           localStorage.setItem("token", data.token);
+          localStorage.setItem("isAdmin", data.isAdmin);
           localStorage.setItem("username", data.username);
           setTimeout(() => {
             window.location.href =
