@@ -13,7 +13,22 @@ try {
         exit;
     }
 
-    $stmt = $connection->prepare("SELECT * FROM payments");
+    // JOIN payments with users
+    $sql = "
+        SELECT 
+            p.payment_id,
+            u.username AS user_name,
+            u.email AS user_email,
+            p.reference_number,
+            p.total_amount,
+            p.payment_status,
+            p.payment_date
+        FROM payments p
+        JOIN users u ON p.user_id = u.user_id
+        ORDER BY p.payment_date DESC
+    ";
+
+    $stmt = $connection->prepare($sql);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -25,7 +40,8 @@ try {
     echo json_encode([
         "status" => "success",
         "data" => $payments
-    ]);
+    ], JSON_PRETTY_PRINT);
+
 } catch (Throwable $e) {
     http_response_code(500);
     echo json_encode(["status" => "error", "message" => $e->getMessage()]);

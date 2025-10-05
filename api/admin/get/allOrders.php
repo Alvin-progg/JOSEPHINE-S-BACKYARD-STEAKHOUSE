@@ -13,11 +13,26 @@ try {
         exit;
     }
 
-    $stmt = $connection->prepare("SELECT * FROM orderDetails");
-    if (!$stmt) {
-        throw new Exception("DB prepare failed: " . $connection->error);
-    }
+    // JOIN orders with users and payments
+    $sql = "
+        SELECT 
+            o.order_id,
+            u.username AS user_name,
+            u.email AS user_email,
+            o.product_name,
+            o.quantity,
+            o.price,
+            o.customize,
+            p.payment_id,
+            p.payment_status,
+            o.order_date
+        FROM orderDetails o
+        JOIN users u ON o.user_id = u.user_id
+        LEFT JOIN payments p ON o.payment_id = p.payment_id
+        ORDER BY o.order_date DESC
+    ";
 
+    $stmt = $connection->prepare($sql);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -33,8 +48,5 @@ try {
 
 } catch (Throwable $e) {
     http_response_code(500);
-    echo json_encode([
-        "status" => "error",
-        "message" => $e->getMessage()
-    ]);
+    echo json_encode(["status" => "error", "message" => $e->getMessage()]);
 }

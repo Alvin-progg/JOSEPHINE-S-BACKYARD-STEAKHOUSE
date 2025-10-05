@@ -143,94 +143,85 @@
         </div>
       </div>
 
-      <!-- Reservations Table -->
-      <div
-        class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden"
-      >
-        <div class="bg-[var(--color-primary-600)] px-6 py-4">
-          <h2
-            class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center"
-          >
-            <i class="bi bi-calendar-event mr-3"></i>Reservations
-          </h2>
-        </div>
-        <div class="p-6 overflow-x-auto">
-          <table class="min-w-full text-left">
-            <thead>
-              <tr class="border-b border-gray-600">
-                <th class="py-3 px-4">Reservation ID</th>
-                <th class="py-3 px-4">User ID</th>
-                <th class="py-3 px-4">Date</th>
-                <th class="py-3 px-4">Time</th>
-                <th class="py-3 px-4">People</th>
-                <th class="py-3 px-4">Status</th>
-                <th class="py-3 px-4">Created At</th>
-                <th class="py-3 px-4">Action</th>
-              </tr>
-            </thead>
-            <tbody id="reservations-table-body" class="text-[#fffeee]"></tbody>
-          </table>
-        </div>
-      </div>
+     <!-- Reservations Table -->
+<div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden">
+  <div class="bg-[var(--color-primary-600)] px-6 py-4">
+    <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
+      <i class="bi bi-calendar-event mr-3"></i>Reservations
+    </h2>
+  </div>
+  <div class="p-6 overflow-x-auto">
+    <table class="min-w-full text-left">
+      <thead>
+        <tr class="border-b border-gray-600">
+          <th class="py-3 px-4">Reservation ID</th>
+          <th class="py-3 px-4">Username</th>
+          <th class="py-3 px-4">Date</th>
+          <th class="py-3 px-4">Time</th>
+          <th class="py-3 px-4">People</th>
+          <th class="py-3 px-4">Status</th>
+          <th class="py-3 px-4">Created At</th>
+          <th class="py-3 px-4">Action</th>
+        </tr>
+      </thead>
+      <tbody id="reservations-table-body" class="text-[#fffeee]"></tbody>
+    </table>
+  </div>
+</div>
 
-      <!-- Orders Table -->
-      <div
-        class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden"
-      >
-        <div class="bg-[var(--color-primary-600)] px-6 py-4">
-          <h2
-            class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center"
-          >
-            <i class="bi bi-cart mr-3"></i>Orders
-          </h2>
-        </div>
-        <div class="p-6 overflow-x-auto">
-          <table class="min-w-full text-left">
-            <thead>
-              <tr class="border-b border-gray-600">
-                <th class="py-3 px-4">Order ID</th>
-                <th class="py-3 px-4">User ID</th>
-                <th class="py-3 px-4">Product</th>
-                <th class="py-3 px-4">Quantity</th>
-                <th class="py-3 px-4">Price</th>
-                <th class="py-3 px-4">Customize</th>
-                <th class="py-3 px-4">Payment ID</th>
-                <th class="py-3 px-4">Order Date</th>
-                <th class="py-3 px-4">Action</th>
-              </tr>
-            </thead>
-            <tbody id="orders-table-body" class="text-[#fffeee]"></tbody>
-          </table>
-        </div>
-      </div>
+<!-- Orders Table -->
+<div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden">
+  <div class="bg-[var(--color-primary-600)] px-6 py-4">
+    <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
+      <i class="bi bi-cart mr-3"></i>Orders
+    </h2>
+  </div>
+  <div class="p-6 overflow-x-auto">
+    <table class="min-w-full text-left">
+      <thead>
+        <tr class="border-b border-gray-600">
+          <th class="py-3 px-4">Order ID</th>
+          <th class="py-3 px-4">Username</th>
+          <th class="py-3 px-4">Product</th>
+          <th class="py-3 px-4">Quantity</th>
+          <th class="py-3 px-4">Price</th>
+          <th class="py-3 px-4">Customize</th>
+          <th class="py-3 px-4">Payment ID</th>
+          <th class="py-3 px-4">Payment Status</th>
+          <th class="py-3 px-4">Order Date</th>
+          <th class="py-3 px-4">Action</th>
+        </tr>
+      </thead>
+      <tbody id="orders-table-body" class="text-[#fffeee]"></tbody>
+    </table>
+  </div>
+</div>
 
-      <!-- Payments Table -->
-      <div
-        class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden"
-      >
-        <div class="bg-[var(--color-primary-600)] px-6 py-4">
-          <h2
-            class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center"
-          >
-            <i class="bi bi-credit-card mr-3"></i>Payments
-          </h2>
-        </div>
-        <div class="p-6 overflow-x-auto">
-          <table class="min-w-full text-left">
-            <thead>
-              <tr class="border-b border-gray-600">
-                <th class="py-3 px-4">Payment ID</th>
-                <th class="py-3 px-4">User ID</th>
-                <th class="py-3 px-4">Order ID</th>
-                <th class="py-3 px-4">Amount</th>
-                <th class="py-3 px-4">Status</th>
-                <th class="py-3 px-4">Payment Date</th>
-                <th class="py-3 px-4">Action</th>
-              </tr>
-            </thead>
-            <tbody id="payments-table-body" class="text-[#fffeee]"></tbody>
-          </table>
-        </div>
+<!-- Payments Table -->
+<div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden">
+  <div class="bg-[var(--color-primary-600)] px-6 py-4">
+    <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
+      <i class="bi bi-credit-card mr-3"></i>Payments
+    </h2>
+  </div>
+  <div class="p-6 overflow-x-auto">
+    <table class="min-w-full text-left">
+      <thead>
+        <tr class="border-b border-gray-600">
+          <th class="py-3 px-4">Payment ID</th>
+          <th class="py-3 px-4">Username</th>
+          <th class="py-3 px-4">Email</th>
+          <th class="py-3 px-4">Reference No.</th>
+          <th class="py-3 px-4">Amount</th>
+          <th class="py-3 px-4">Status</th>
+          <th class="py-3 px-4">Payment Date</th>
+          <th class="py-3 px-4">Action</th>
+        </tr>
+      </thead>
+      <tbody id="payments-table-body" class="text-[#fffeee]"></tbody>
+    </table>
+  </div>
+</div>
       </div>
     </main>
 

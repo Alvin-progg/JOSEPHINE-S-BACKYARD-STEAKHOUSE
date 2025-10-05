@@ -3,8 +3,6 @@ session_start();
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: http://localhost:8000");
 header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Methods: GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 require_once("../../../db/config.php");
 
@@ -15,7 +13,23 @@ try {
         exit;
     }
 
-    $stmt = $connection->prepare("SELECT * FROM reservationDetails");
+    // JOIN reservations with users
+    $sql = "
+        SELECT 
+            r.reservation_id,
+            u.username AS user_name,
+            u.email AS user_email,
+            r.reservation_date,
+            r.reservation_time,
+            r.number_of_people,
+            r.status,
+            r.created_at
+        FROM reservationDetails r
+        JOIN users u ON r.user_id = u.user_id
+        ORDER BY r.created_at DESC
+    ";
+
+    $stmt = $connection->prepare($sql);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -27,7 +41,8 @@ try {
     echo json_encode([
         "status" => "success",
         "data" => $reservations
-    ]);
+    ], JSON_PRETTY_PRINT);
+
 } catch (Throwable $e) {
     http_response_code(500);
     echo json_encode(["status" => "error", "message" => $e->getMessage()]);

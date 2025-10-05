@@ -46,11 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "email",
     "created_at",
   ]);
-
-  // Reservations
   renderTable("get/allReservations.php", "reservations-table-body", [
     "reservation_id",
-    "user_id",
+    "user_name", // instead of user_id
     "reservation_date",
     "reservation_time",
     "number_of_people",
@@ -58,21 +56,23 @@ document.addEventListener("DOMContentLoaded", () => {
     "created_at",
   ]);
 
+  // Orders
   renderTable("get/allOrders.php", "orders-table-body", [
     "order_id",
-    "user_id",
+    "user_name", // instead of user_id
     "product_name",
     "quantity",
     "price",
     "customize",
     "payment_id",
+    "payment_status", // NEW
     "order_date",
   ]);
 
-  // Payments (no order_id, use reference_number instead)
+  // Payments
   renderTable("get/allPayments.php", "payments-table-body", [
     "payment_id",
-    "user_id",
+    "user_name", // instead of user_id
     "reference_number",
     "total_amount",
     "payment_status",
