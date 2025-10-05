@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         console.log(data);
 
-        if (data.isAdmin) {
+        if (data?.isAdmin === true) {
           // Success
           successMessage("Login Successful", data.message, 2000);
           localStorage.setItem("token", data.token);
@@ -87,11 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
           data.message || "You have successfully logged in.",
           2000
         );
-
-        // get the token from the response and store it in local storage
-        console.log(data.token);
-        console.log(data.username);
-
         localStorage.setItem("token", data.token);
         localStorage.setItem("username", data.username);
         // Redirect to dashboard after a short delay
