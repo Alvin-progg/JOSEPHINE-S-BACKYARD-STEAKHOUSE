@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -154,17 +154,29 @@
           Reserve a Table
         </h1>
         <!-- New Reservation Form -->
-        <div class="xl:w-1/2 w-full flex justify-center items-center mx-auto mb-10 px-4">
-          <div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden w-full max-w-4xl">
-            <div class="bg-[var(--color-primary-600)] px-6 py-4 flex justify-center items-start">
-              <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
+        <div
+          class="xl:w-1/2 w-full flex justify-center items-center mx-auto mb-10 px-4"
+        >
+          <div
+            class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden w-full max-w-4xl"
+          >
+            <div
+              class="bg-[var(--color-primary-600)] px-6 py-4 flex justify-center items-start"
+            >
+              <h2
+                class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center"
+              >
                 <i class="bi bi-calendar-plus mr-3"></i>Make a New Reservation
               </h2>
             </div>
             <div class="p-6">
               <form id="reservation-form" class="space-y-4">
                 <div>
-                  <label for="date" class="block text-sm font-medium text-[#fffeee]">Date</label>
+                  <label
+                    for="date"
+                    class="block text-sm font-medium text-[#fffeee]"
+                    >Date</label
+                  >
                   <input
                     type="date"
                     id="date"
@@ -175,7 +187,11 @@
                   />
                 </div>
                 <div>
-                  <label for="time" class="block text-sm font-medium text-[#fffeee]">Time</label>
+                  <label
+                    for="time"
+                    class="block text-sm font-medium text-[#fffeee]"
+                    >Time</label
+                  >
                   <select
                     id="time"
                     name="time"
@@ -205,14 +221,20 @@
                   </select>
                 </div>
                 <div>
-                  <label for="guests" class="block text-sm font-medium text-[#fffeee]">Number of Guests</label>
+                  <label
+                    for="guests"
+                    class="block text-sm font-medium text-[#fffeee]"
+                    >Number of Guests</label
+                  >
                   <select
                     id="guests"
                     name="guests"
                     required
                     class="w-full p-2 rounded-md bg-[#2a2a2a] text-[#fffeee] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-600)]"
                   >
-                    <option value="" disabled selected>Select number of guests</option>
+                    <option value="" disabled selected>
+                      Select number of guests
+                    </option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -235,12 +257,21 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Existing Reservation Table -->
-        <div id="reserve_table" class="xl:w-1/2 w-full flex justify-center items-center mx-auto mb-10 px-4">
-          <div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden w-full max-w-4xl">
-            <div class="bg-[var(--color-primary-600)] px-6 py-4 flex justify-center items-start">
-              <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
+        <div
+          id="reserve_table"
+          class="xl:w-1/2 w-full flex justify-center items-center mx-auto mb-10 px-4"
+        >
+          <div
+            class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden w-full max-w-4xl"
+          >
+            <div
+              class="bg-[var(--color-primary-600)] px-6 py-4 flex justify-center items-start"
+            >
+              <h2
+                class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center"
+              >
                 <i class="bi bi-calendar-event mr-3"></i>Your Reservations
               </h2>
             </div>
@@ -262,22 +293,34 @@
                 <table class="min-w-full max-w-full">
                   <thead>
                     <tr class="border-b border-gray-600">
-                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">
+                      <th
+                        class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
+                      >
                         Reservation ID
                       </th>
-                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">
+                      <th
+                        class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
+                      >
                         Date
                       </th>
-                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">
+                      <th
+                        class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
+                      >
                         Time
                       </th>
-                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">
+                      <th
+                        class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
+                      >
                         Guests
                       </th>
-                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">
+                      <th
+                        class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
+                      >
                         Status
                       </th>
-                      <th class="py-3 px-4 text-center text-sm font-bold text-[#fffeee]">
+                      <th
+                        class="py-3 px-4 text-center text-sm font-bold text-[#fffeee]"
+                      >
                         Action
                       </th>
                     </tr>
@@ -292,7 +335,7 @@
         </div>
       </section>
     </main>
-    
+
     <script src="../../public/js/main.js"></script>
     <script src="../../public/js/reservation.js"></script>
     <script src="../../public/js/authguard.js"></script>

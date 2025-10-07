@@ -20,6 +20,7 @@ try {
             u.username AS user_name,
             u.email AS user_email,
             p.reference_number,
+            p.screenshot_path,
             p.total_amount,
             p.payment_status,
             p.payment_date
