@@ -67,7 +67,8 @@ $_SESSION['user_id'] = $stmt->insert_id;
 $_SESSION['user'] = [
   "id"       => $user['user_id'],
   "username" => $user['username'],
-  "loggedin" => true
+  "loggedin" => true,
+  "isAdmin"  => false,
 ];
 
 // Also store user_id directly for easy access later

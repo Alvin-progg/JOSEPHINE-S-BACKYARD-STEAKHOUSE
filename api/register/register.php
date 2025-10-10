@@ -44,7 +44,7 @@ if (!$stmt->execute()) {
 
 $user_id = $connection->insert_id;
 
-// store session
+// Store session
 $_SESSION['user'] = [
     "id"       => $user_id,
     "username" => $username,
@@ -52,8 +52,9 @@ $_SESSION['user'] = [
     "loggedin" => true,
     "isAdmin"  => false,
 ];
+$_SESSION['user_id'] = $user_id;
 
-// success response
+// Success response
 http_response_code(201);
 echo json_encode([
     "message"  => "Registration successful. Welcome, " . $username . "!",
