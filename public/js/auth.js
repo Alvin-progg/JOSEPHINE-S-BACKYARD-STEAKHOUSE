@@ -154,6 +154,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         localStorage.setItem("token", data.token);
         localStorage.setItem("username", data.username);
+        localStorage.setItem("isAdmin", "false");
+        // Redirect to dashboard after a short delay
         setTimeout(() => {
           window.location.href = "/views/user/home.html";
         }, 2001);

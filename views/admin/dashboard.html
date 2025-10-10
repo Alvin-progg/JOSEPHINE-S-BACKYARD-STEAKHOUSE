@@ -46,7 +46,6 @@
             <i class="bi bi-list"></i>
           </button>
 
-          <!-- Desktop Navigation -->
 
           <!-- User Dropdown -->
           <div class="relative hidden lg:block">
@@ -80,32 +79,14 @@
           class="hidden lg:hidden absolute top-full left-0 w-full bg-[#1e1e1e] border-b border-gray-700 z-40"
         >
           <div class="px-4 py-4 space-y-3">
-            <a
-              href="./home.html"
-              class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2"
-            >
-              <i class="bi bi-house mr-2"></i>Home
-            </a>
-            <a
-              href="./order.html"
-              class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2"
-            >
-              <i class="bi bi-cart mr-2"></i>Order
-            </a>
-            <a
-              href="./reservation.html"
-              class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2"
-            >
-              <i class="bi bi-calendar-event mr-2"></i>Reserve Table
-            </a>
-            <hr class="border-gray-600 my-3" />
+           
             <div class="flex items-center gap-2 text-[#fffeee] py-2">
               <i class="bi bi-person-circle"></i>
               <span id="user"></span>
             </div>
             <button
               id="logout"
-              class="block text-red-400 hover:text-red-300 transition-colors duration-300 py-2 pl-4"
+              class=" text-red-400 hover:text-red-300 transition-colors duration-300 py-2 pl-4 flex items-start justify-start"
               href="/views/auth/login.html"
             >
               <i class="bi bi-box-arrow-right mr-2"></i>Logout
