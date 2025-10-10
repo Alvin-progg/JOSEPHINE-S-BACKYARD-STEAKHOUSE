@@ -26,7 +26,6 @@
         <div
           class="mx-auto flex w-full max-w-7xl items-center justify-between max-lg:px-4 max-md:px-0"
         >
-          <!-- Logo -->
           <a
             href="/index.html"
             class="text-3xl font-bold text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 max-sm:text-xl font-['Lobster_Two']"
@@ -34,7 +33,6 @@
             JOSEPHINE'S
           </a>
 
-          <!-- Mobile Menu Button -->
           <button
             id="mobile-menu-btn"
             class="lg:hidden text-[#fffeee] text-2xl"
@@ -42,7 +40,6 @@
             <i class="bi bi-list"></i>
           </button>
 
-          <!-- Desktop Navigation -->
           <ul id="desktop-nav" class="hidden lg:flex gap-6 text-2xl">
             <li>
               <a
@@ -78,7 +75,6 @@
             </li>
           </ul>
 
-          <!-- User Dropdown -->
           <div class="relative hidden lg:block">
             <button
               onclick="toggleDropdown()"
@@ -103,7 +99,6 @@
           </div>
         </div>
 
-        <!-- Mobile Navigation Menu -->
         <div
           id="mobile-nav"
           class="hidden lg:hidden absolute top-full left-0 w-full bg-[#1e1e1e] border-b border-gray-700 z-40"
@@ -154,7 +149,6 @@
         <h1 class="text-4xl text-center text-white font-bold my-10">
           Order Food
         </h1>
-        <!-- New Reservation Form -->
         <div
           class="xl:w-1/2 w-full flex justify-center items-center mx-auto mb-10 px-4"
         >
@@ -172,7 +166,6 @@
             </div>
             <div class="p-6">
               <form id="order-form" class="space-y-4">
-                <!-- categories -->
                 <div>
                   <label
                     for="category"
@@ -205,7 +198,6 @@
                 </div>
 
                 <div>
-                  <!-- quantity -->
                   <label
                     for="quantity"
                     class="block text-sm font-medium text-[#fffeee]"
@@ -222,7 +214,6 @@
                   />
                 </div>
                 <div>
-                  <!-- total -->
                   <label
                     for="total"
                     class="block text-sm font-medium text-[#fffeee]"
@@ -239,7 +230,6 @@
                 </div>
 
                 <div>
-                  <!-- customize  -->
                   <label
                     for="customize"
                     class="block text-sm font-medium text-[#fffeee]"
@@ -476,8 +466,56 @@
               </p>
             </div>
 
+            <!-- Payment Method Selection -->
+            <div class="bg-[#2a2a2a] rounded-lg p-4 border border-gray-600">
+              <label class="block text-sm font-medium text-[#fffeee] mb-3">
+                Payment Method <span class="text-red-500">*</span>
+              </label>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="relative cursor-pointer">
+                  <input
+                    type="radio"
+                    name="payment_method"
+                    value="Payonline"
+                    id="payment-gcash"
+                    class="peer hidden"
+                    checked
+                  />
+                  <div
+                    class="border-2 border-gray-600 rounded-lg p-4 text-center transition-all peer-checked:border-[var(--color-primary-600)] peer-checked:bg-[var(--color-primary-600)] peer-checked:bg-opacity-10"
+                  >
+                    <i
+                      class="bi bi-wallet2 text-3xl mb-2 block text-gray-400 peer-checked:text-[var(--color-primary-600)]"
+                    ></i>
+                    <p class="font-semibold text-[#fffeee]">GCash</p>
+                    <p class="text-xs text-gray-400 mt-1">Pay online now</p>
+                  </div>
+                </label>
+
+                <label class="relative cursor-pointer">
+                  <input
+                    type="radio"
+                    name="payment_method"
+                    value="COD"
+                    id="payment-cod"
+                    class="peer hidden"
+                  />
+                  <div
+                    class="border-2 border-gray-600 rounded-lg p-4 text-center transition-all peer-checked:border-[var(--color-primary-600)] peer-checked:bg-[var(--color-primary-600)] peer-checked:bg-opacity-10"
+                  >
+                    <i
+                      class="bi bi-cash-coin text-3xl mb-2 block text-gray-400 peer-checked:text-[var(--color-primary-600)]"
+                    ></i>
+                    <p class="font-semibold text-[#fffeee]">Cash on Delivery</p>
+                    <p class="text-xs text-gray-400 mt-1">Pay when you receive</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
             <!-- GCash Payment Details -->
             <div
+              id="gcash-section"
               class="bg-gradient-to-br from-[#2a2a2a] to-[#1e1e1e] rounded-lg p-5 border border-[var(--color-primary-600)]"
             >
               <div class="flex items-center gap-3 mb-4">
@@ -550,8 +588,49 @@
               </div>
             </div>
 
-            <!-- Payment Proof Section -->
-            <div class="space-y-4">
+            <!-- COD Information -->
+            <div
+              id="cod-section"
+              class="hidden bg-gradient-to-br from-[#2a2a2a] to-[#1e1e1e] rounded-lg p-5 border border-[var(--color-primary-600)]"
+            >
+              <div class="flex items-center gap-3 mb-4">
+                <div class="bg-[var(--color-primary-600)] p-2 rounded-lg">
+                  <i class="bi bi-cash-coin text-2xl text-[#121212]"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-[var(--color-primary-600)]">
+                    Cash on Delivery
+                  </h3>
+                  <p class="text-xs text-gray-400 mt-1">
+                    Pay when you receive your order
+                  </p>
+                </div>
+              </div>
+
+              <div class="bg-[#121212] rounded-lg p-4 border border-gray-700">
+                <div class="space-y-3">
+                  <div class="flex items-start gap-2">
+                    <i class="bi bi-check-circle text-[var(--color-primary-600)] mt-1"></i>
+                    <p class="text-sm text-[#fffeee]">Prepare exact amount: <span class="font-bold text-[var(--color-primary-600)]" id="cod-amount">₱0.00</span></p>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <i class="bi bi-check-circle text-[var(--color-primary-600)] mt-1"></i>
+                    <p class="text-sm text-[#fffeee]">Payment will be collected upon delivery or pickup</p>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <i class="bi bi-check-circle text-[var(--color-primary-600)] mt-1"></i>
+                    <p class="text-sm text-[#fffeee]">Please have exact change ready</p>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <i class="bi bi-check-circle text-[var(--color-primary-600)] mt-1"></i>
+                    <p class="text-sm text-[#fffeee]">You will receive an order confirmation shortly</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Proof Section (Only for GCash) -->
+            <div id="payment-proof-section" class="space-y-4">
               <h3
                 class="text-lg font-semibold text-[var(--color-primary-600)] border-b border-gray-600 pb-2"
               >
@@ -562,7 +641,7 @@
               <div>
                 <label
                   for="payment-reference"
-                  class="block text-sm font-medium text-[#fffeee] mb-2"
+                  class="block text-sm font-medium text-[#fffeee]"
                 >
                   Reference Number <span class="text-red-500">*</span>
                 </label>
@@ -635,10 +714,10 @@
                     Important Reminders
                   </p>
                   <ul class="text-xs text-yellow-300 leading-relaxed space-y-1">
-                    <li>• Payment method: <strong>GCash only</strong></li>
+                    <li id="reminder-payment">• Payment method: <strong>GCash only</strong></li>
                     <li>• Order type: <strong>Pickup or Delivery</strong></li>
-                    <li>• Send the exact amount shown above</li>
-                    <li>
+                    <li id="reminder-amount">• Send the exact amount shown above</li>
+                    <li id="reminder-processing">
                       • Your order will be processed once payment is verified
                     </li>
                     <li>• Keep your reference number for order tracking</li>

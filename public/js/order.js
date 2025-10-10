@@ -1,4 +1,4 @@
-// order.js - Enhanced with Payment Modal
+
 
 // Helper function to copy text to clipboard
 function copyToClipboard(text, label) {
@@ -53,14 +53,14 @@ function updateOrderTypeNotice(type) {
   const desc = document.getElementById('order-type-desc');
   
   if (type === 'delivery') {
-    notice.className = 'bg-green-900 bg-opacity-20 border border-green-500 rounded-lg p-4 mb-4';
+    notice.className = 'bg-green-900 bg-opacity-20 border border-green-500 rounded-lg p-4';
     icon.className = 'bi bi-truck text-green-400 text-2xl';
     title.textContent = 'Delivery Order';
     title.className = 'text-sm text-green-200 font-semibold';
     desc.textContent = 'Your order will be delivered to your specified address.';
     desc.className = 'text-xs text-green-300';
   } else {
-    notice.className = 'bg-blue-900 bg-opacity-20 border border-blue-500 rounded-lg p-4 mb-4';
+    notice.className = 'bg-blue-900 bg-opacity-20 border border-blue-500 rounded-lg p-4';
     icon.className = 'bi bi-shop text-blue-400 text-2xl';
     title.textContent = 'Pickup Order';
     title.className = 'text-sm text-blue-200 font-semibold';
@@ -77,11 +77,17 @@ function openPaymentModal() {
   // Update modal total
   const grandTotal = calculateGrandTotal();
   document.getElementById('modal-grand-total').textContent = `₱${grandTotal}`;
+  document.getElementById('cod-amount').textContent = `₱${grandTotal}`;
   
-  // Reset to pickup by default
+  // Reset to pickup and GCash by default
   document.getElementById('delivery-pickup').checked = true;
+  document.getElementById('payment-gcash').checked = true;
   document.getElementById('delivery-address-section').classList.add('hidden');
+  document.getElementById('gcash-section').classList.remove('hidden');
+  document.getElementById('cod-section').classList.add('hidden');
+  document.getElementById('payment-proof-section').classList.remove('hidden');
   updateOrderTypeNotice('pickup');
+  updatePaymentReminders('Payonline');
 }
 
 function closePaymentModal() {
@@ -100,7 +106,7 @@ function clearPaymentErrors() {
   const errorElements = document.querySelectorAll('.error-message');
   errorElements.forEach(el => el.remove());
   
-  const inputs = document.querySelectorAll('#payment-form input');
+  const inputs = document.querySelectorAll('#payment-form input, #payment-form textarea');
   inputs.forEach(input => {
     input.classList.remove('border-red-500');
   });
@@ -121,36 +127,57 @@ function showFieldError(fieldId, message) {
   field.parentElement.appendChild(errorDiv);
 }
 
+function updatePaymentReminders(paymentMethod) {
+  const reminderPayment = document.getElementById('reminder-payment');
+  const reminderAmount = document.getElementById('reminder-amount');
+  const reminderProcessing = document.getElementById('reminder-processing');
+  
+  if (paymentMethod === 'COD') {
+    reminderPayment.innerHTML = '• Payment method: <strong>Cash on Delivery</strong>';
+    reminderAmount.textContent = '• Prepare exact cash amount';
+    reminderProcessing.textContent = '• Payment will be collected upon delivery/pickup';
+  } else {
+    reminderPayment.innerHTML = '• Payment method: <strong>GCash only</strong>';
+    reminderAmount.textContent = '• Send the exact amount shown above';
+    reminderProcessing.textContent = '• Your order will be processed once payment is verified';
+  }
+}
+
 function validatePaymentForm() {
   clearPaymentErrors();
   let isValid = true;
   
-  // Reference Number validation
-  const refNumber = document.getElementById('payment-reference').value.trim();
-  if (!refNumber) {
-    showFieldError('payment-reference', 'Reference number is required');
-    isValid = false;
-  } else if (refNumber.length < 5) {
-    showFieldError('payment-reference', 'Please enter a valid reference number');
-    isValid = false;
-  }
+  const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
   
-  // Screenshot validation
-  const screenshot = document.getElementById('payment-screenshot').files[0];
-  if (!screenshot) {
-    showFieldError('payment-screenshot', 'Payment screenshot is required');
-    isValid = false;
-  } else {
-    // Validate file type
-    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
-    if (!validTypes.includes(screenshot.type)) {
-      showFieldError('payment-screenshot', 'Please upload a valid image (JPG, PNG, GIF)');
+  // Only validate GCash fields if GCash is selected
+  if (paymentMethod === 'Payonline') {
+    // Reference Number validation
+    const refNumber = document.getElementById('payment-reference').value.trim();
+    if (!refNumber) {
+      showFieldError('payment-reference', 'Reference number is required');
+      isValid = false;
+    } else if (refNumber.length < 5) {
+      showFieldError('payment-reference', 'Please enter a valid reference number');
       isValid = false;
     }
-    // Validate file size (max 5MB)
-    else if (screenshot.size > 5 * 1024 * 1024) {
-      showFieldError('payment-screenshot', 'File size must be less than 5MB');
+    
+    // Screenshot validation
+    const screenshot = document.getElementById('payment-screenshot').files[0];
+    if (!screenshot) {
+      showFieldError('payment-screenshot', 'Payment screenshot is required');
       isValid = false;
+    } else {
+      // Validate file type
+      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+      if (!validTypes.includes(screenshot.type)) {
+        showFieldError('payment-screenshot', 'Please upload a valid image (JPG, PNG, GIF)');
+        isValid = false;
+      }
+      // Validate file size (max 5MB)
+      else if (screenshot.size > 5 * 1024 * 1024) {
+        showFieldError('payment-screenshot', 'File size must be less than 5MB');
+        isValid = false;
+      }
     }
   }
   
@@ -384,6 +411,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 
+  // Payment method change handler
+  document.querySelectorAll('input[name="payment_method"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+      const gcashSection = document.getElementById('gcash-section');
+      const codSection = document.getElementById('cod-section');
+      const paymentProofSection = document.getElementById('payment-proof-section');
+      
+      if (this.value === 'COD') {
+        gcashSection.classList.add('hidden');
+        codSection.classList.remove('hidden');
+        paymentProofSection.classList.add('hidden');
+        updatePaymentReminders('COD');
+      } else {
+        gcashSection.classList.remove('hidden');
+        codSection.classList.add('hidden');
+        paymentProofSection.classList.remove('hidden');
+        updatePaymentReminders('Payonline');
+      }
+    });
+  });
+
   // Payment Form Submit
   document.getElementById('confirm-payment')?.addEventListener('click', async () => {
     if (!validatePaymentForm()) {
@@ -391,18 +439,36 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    // Get delivery type
+    // Get delivery type and payment method
     const deliveryType = document.querySelector('input[name="delivery_type"]:checked')?.value;
+    const paymentMethod = document.querySelector('input[name="payment_method"]:checked')?.value;
     
     if (!deliveryType) {
       alertMessage("error", "Error", "Please select delivery type");
       return;
     }
 
+    if (!paymentMethod) {
+      alertMessage("error", "Error", "Please select payment method");
+      return;
+    }
+
     // Prepare FormData to handle file upload
     const formData = new FormData();
-    formData.append('reference_number', document.getElementById('payment-reference').value.trim());
-    formData.append('screenshot', document.getElementById('payment-screenshot').files[0]);
+    
+    // Add payment method
+    formData.append('mop', paymentMethod);
+    
+    // For GCash, add reference and screenshot
+    if (paymentMethod === 'Payonline') {
+      formData.append('reference_number', document.getElementById('payment-reference').value.trim());
+      formData.append('screenshot', document.getElementById('payment-screenshot').files[0]);
+    } else {
+      // For COD, use dummy values
+      formData.append('reference_number', 'COD-' + Date.now());
+      formData.append('screenshot', new Blob([''], { type: 'text/plain' }), 'cod.txt');
+    }
+    
     formData.append('cart', JSON.stringify(cart));
     formData.append('total_amount', calculateGrandTotal());
     formData.append('delivery_type', deliveryType);
@@ -413,14 +479,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       formData.append('delivery_address', deliveryAddress);
     }
 
-    // Debug: Log what's being sent
-    console.log('Delivery Type:', deliveryType);
-    console.log('FormData delivery_type:', formData.get('delivery_type'));
     try {
       const response = await fetch("/api/orders/insertOrders.php", {
         method: "POST",
         credentials: "include",
-        body: formData, // Send as FormData for file upload
+        body: formData,
       });
 
       if (!response.ok) {
@@ -432,7 +495,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       const data = JSON.parse(text);
 
       closePaymentModal();
-      successMessage("Order Placed Successfully", data.message);
+      
+      if (paymentMethod === 'COD') {
+        successMessage("Order Placed Successfully", "Your COD order has been confirmed! We'll contact you shortly.");
+      } else {
+        successMessage("Order Placed Successfully", data.message);
+      }
       
       // Clear cart
       cart = [];
