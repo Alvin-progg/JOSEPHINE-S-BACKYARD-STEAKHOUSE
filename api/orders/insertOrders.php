@@ -17,13 +17,19 @@ try {
   // Start transaction
   $connection->begin_transaction();
 
-  // Validate required fields
-  if (!isset($_POST['reference_number']) || empty(trim($_POST['reference_number']))) {
-    throw new Exception("Reference number is required");
-  }
+  // Get payment method
+  $mop = isset($_POST['mop']) ? $_POST['mop'] : 'Payonline';
+  
+  // Validate based on payment method
+  if ($mop === 'Payonline') {
+    // GCash validation
+    if (!isset($_POST['reference_number']) || empty(trim($_POST['reference_number']))) {
+      throw new Exception("Reference number is required");
+    }
 
-  if (!isset($_FILES['screenshot']) || $_FILES['screenshot']['error'] !== UPLOAD_ERR_OK) {
-    throw new Exception("Payment screenshot is required");
+    if (!isset($_FILES['screenshot']) || $_FILES['screenshot']['error'] !== UPLOAD_ERR_OK) {
+      throw new Exception("Payment screenshot is required");
+    }
   }
 
   if (!isset($_POST['cart']) || empty($_POST['cart'])) {
@@ -35,11 +41,8 @@ try {
   }
 
   // Get form data
-  $reference_number = trim($_POST['reference_number']);
+  $reference_number = isset($_POST['reference_number']) ? trim($_POST['reference_number']) : '';
   $total_amount = floatval($_POST['total_amount']);
-  
-  // Debug: Log what's received
-  error_log("Received delivery_type: " . (isset($_POST['delivery_type']) ? $_POST['delivery_type'] : 'NOT SET'));
   
   $delivery_type = isset($_POST['delivery_type']) && !empty($_POST['delivery_type']) ? $_POST['delivery_type'] : 'pickup';
   $delivery_address = null;
@@ -50,9 +53,6 @@ try {
       throw new Exception("Delivery address is required for delivery orders");
     }
     $delivery_address = trim($_POST['delivery_address']);
-  } else {
-    // For pickup orders, explicitly set to null or empty
-    $delivery_address = null;
   }
   
   $cart = json_decode($_POST['cart'], true);
@@ -61,47 +61,53 @@ try {
     throw new Exception("Invalid cart data");
   }
 
-  // Handle file upload
-  $screenshot = $_FILES['screenshot'];
-  $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif'];
-  $max_size = 5 * 1024 * 1024; // 5MB
+  // Handle file upload (only for GCash)
+  $screenshot_db_path = null;
+  
+  if ($mop === 'Payonline') {
+    $screenshot = $_FILES['screenshot'];
+    $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif'];
+    $max_size = 5 * 1024 * 1024; // 5MB
 
-  // Validate file type by extension
-  $file_extension = strtolower(pathinfo($screenshot['name'], PATHINFO_EXTENSION));
-  if (!in_array($file_extension, $allowed_extensions)) {
-    throw new Exception("Invalid file type. Only JPG, PNG, and GIF are allowed.");
+    // Validate file type by extension
+    $file_extension = strtolower(pathinfo($screenshot['name'], PATHINFO_EXTENSION));
+    if (!in_array($file_extension, $allowed_extensions)) {
+      throw new Exception("Invalid file type. Only JPG, PNG, and GIF are allowed.");
+    }
+
+    // Validate file size
+    if ($screenshot['size'] > $max_size) {
+      throw new Exception("File size too large. Maximum 5MB allowed.");
+    }
+
+    // Create uploads directory if it doesn't exist
+    $upload_dir = "../../uploads/payments/";
+    if (!file_exists($upload_dir)) {
+      mkdir($upload_dir, 0777, true);
+    }
+
+    // Generate unique filename
+    $filename = 'payment_' . $userId . '_' . time() . '_' . uniqid() . '.' . $file_extension;
+    $screenshot_path = $upload_dir . $filename;
+
+    // Move uploaded file
+    if (!move_uploaded_file($screenshot['tmp_name'], $screenshot_path)) {
+      throw new Exception("Failed to upload screenshot");
+    }
+
+    // Store relative path in database
+    $screenshot_db_path = "uploads/payments/" . $filename;
+  } else {
+    // For COD, use a placeholder or empty string
+    $screenshot_db_path = "COD";
   }
-
-  // Validate file size
-  if ($screenshot['size'] > $max_size) {
-    throw new Exception("File size too large. Maximum 5MB allowed.");
-  }
-
-  // Create uploads directory if it doesn't exist
-  $upload_dir = "../../uploads/payments/";
-  if (!file_exists($upload_dir)) {
-    mkdir($upload_dir, 0777, true);
-  }
-
-  // Generate unique filename
-  $file_extension = pathinfo($screenshot['name'], PATHINFO_EXTENSION);
-  $filename = 'payment_' . $userId . '_' . time() . '_' . uniqid() . '.' . $file_extension;
-  $screenshot_path = $upload_dir . $filename;
-
-  // Move uploaded file
-  if (!move_uploaded_file($screenshot['tmp_name'], $screenshot_path)) {
-    throw new Exception("Failed to upload screenshot");
-  }
-
-  // Store relative path in database
-  $screenshot_db_path = "uploads/payments/" . $filename;
 
   // Insert payment record
   $stmt_payment = $connection->prepare("
-    INSERT INTO payments (user_id, reference_number, screenshot_path, total_amount, delivery_type, delivery_address, payment_status) 
-    VALUES (?, ?, ?, ?, ?, ?, 'pending')
+    INSERT INTO payments (user_id, reference_number, screenshot_path, total_amount, delivery_type, delivery_address, payment_status, mop) 
+    VALUES (?, ?, ?, ?, ?, ?, 'pending', ?)
   ");
-  $stmt_payment->bind_param("issdss", $userId, $reference_number, $screenshot_db_path, $total_amount, $delivery_type, $delivery_address);
+  $stmt_payment->bind_param("issdsss", $userId, $reference_number, $screenshot_db_path, $total_amount, $delivery_type, $delivery_address, $mop);
   
   if (!$stmt_payment->execute()) {
     throw new Exception("Failed to insert payment record: " . $stmt_payment->error);
@@ -110,7 +116,7 @@ try {
   $payment_id = $connection->insert_id;
   $stmt_payment->close();
 
-  // Insert order details using your existing table structure
+  // Insert order details
   $stmt_order = $connection->prepare("
     INSERT INTO orderDetails (payment_id, user_id, product_name, quantity, price, customize) 
     VALUES (?, ?, ?, ?, ?, ?)
@@ -133,11 +139,16 @@ try {
   // Commit transaction
   $connection->commit();
 
+  $message = $mop === 'COD' 
+    ? "Your COD order has been placed successfully! We will contact you shortly to confirm your order."
+    : "Order successfully placed! Your payment is being verified.";
+
   echo json_encode([
     "success" => true,
-    "message" => "Order successfully placed! Your payment is being verified.",
+    "message" => $message,
     "payment_id" => $payment_id,
     "delivery_type" => $delivery_type,
+    "payment_method" => $mop,
     "items_count" => count($cart)
   ]);
 
@@ -145,7 +156,7 @@ try {
   // Rollback transaction on error
   $connection->rollback();
 
-  // Delete uploaded file if exists
+  // Delete uploaded file if exists (only for GCash)
   if (isset($screenshot_path) && file_exists($screenshot_path)) {
     unlink($screenshot_path);
   }

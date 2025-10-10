@@ -39,8 +39,8 @@ try {
         SELECT 
             order_id,
             product_name,
-            quantity
-
+            quantity,
+            
         FROM OrderDetails
         WHERE user_id = ? 
         ORDER BY order_date DESC
