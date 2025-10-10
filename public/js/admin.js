@@ -107,6 +107,7 @@ const renderPaymentsTable = async () => {
             <i class="bi bi-check2-circle text-xl"></i>
           </button>
         </td>
+         <td class="py-2 px-4">${row.mop ?? ""}</td>  
         <td class="py-2 px-4">${row.payment_date ?? ""}</td>
         <td class="py-2 px-4 flex gap-2">
           <button class="delete-payment text-red-400 hover:text-red-600" data-id="${row.payment_id}">

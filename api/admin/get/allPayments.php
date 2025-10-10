@@ -23,6 +23,7 @@ try {
             p.screenshot_path,
             p.total_amount,
             p.payment_status,
+            p.mop,
             p.payment_date
         FROM payments p
         JOIN users u ON p.user_id = u.user_id
