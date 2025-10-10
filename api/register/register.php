@@ -50,6 +50,7 @@ $_SESSION['user'] = [
     "username" => $username,
     "email"    => $email,
     "loggedin" => true,
+    "isAdmin"  => false,
 ];
 
 // success response
@@ -58,5 +59,6 @@ echo json_encode([
     "message"  => "Registration successful. Welcome, " . $username . "!",
     "token"    => session_id(),
     "username" => $username,
-    "user_id"  => $user_id
+    "user_id"  => $user_id,
+    "isAdmin"  => false
 ]);
