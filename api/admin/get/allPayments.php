@@ -14,21 +14,24 @@ try {
     }
 
     // JOIN payments with users
-    $sql = "
-        SELECT 
-            p.payment_id,
-            u.username AS user_name,
-            u.email AS user_email,
-            p.reference_number,
-            p.screenshot_path,
-            p.total_amount,
-            p.payment_status,
-            p.mop,
-            p.payment_date
-        FROM payments p
-        JOIN users u ON p.user_id = u.user_id
-        ORDER BY p.payment_date DESC
-    ";
+$sql = "
+    SELECT 
+        p.payment_id,
+        u.username AS user_name,
+        u.email AS user_email,
+        p.reference_number,
+        p.screenshot_path,
+        p.total_amount,
+        p.payment_status,
+        p.mop,
+        p.delivery_type,
+        p.delivery_address,
+        p.payment_date
+    FROM payments p
+    JOIN users u ON p.user_id = u.user_id
+    ORDER BY p.payment_date DESC
+";
+
 
     $stmt = $connection->prepare($sql);
     $stmt->execute();

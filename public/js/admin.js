@@ -69,6 +69,8 @@ const renderPaymentsTable = async () => {
     );
 
     const result = await response.json();
+    console.log(result);
+
     if (result.status !== "success") {
       console.error("Failed to load payments:", result.message);
       return;
@@ -82,39 +84,41 @@ const renderPaymentsTable = async () => {
       tr.classList.add("border-b", "border-gray-700");
 
       tr.innerHTML = `
-        <td class="py-2 px-4">${row.payment_id ?? ""}</td>
-        <td class="py-2 px-4">${row.user_name ?? ""}</td>
-        <td class="py-2 px-4">${row.reference_number ?? ""}</td>
-        <td class="py-2 px-4">
-          ${
-            row.screenshot_path
-              ? `<button class="show-screenshot text-green-500 hover:text-green-700" data-src="${row.screenshot_path}">View</button>`
-              : "N/A"
-          }
-        </td>
-        <td class="py-2 px-4">${row.total_amount ?? ""}</td>
-        <td class="py-2 px-4 flex items-center gap-2">
-          <select 
-            class="payment-status bg-[#1e1e1e] border border-gray-600 rounded px-2 py-1" 
-            data-id="${row.payment_id}">
-            <option value="pending" ${row.payment_status === "pending" ? "Selected" : ""}>Pending</option>
-            <option value="verified" ${row.payment_status === "verified" ? "Selected" : ""}>Verified</option>
-            <option value="rejected" ${row.payment_status === "rejected" ? "Selected" : ""}>Rejected</option>
-          </select>
-          <button 
-            class="save-status hidden text-green-400 hover:text-green-600" 
-            data-id="${row.payment_id}">
-            <i class="bi bi-check2-circle text-xl"></i>
-          </button>
-        </td>
-         <td class="py-2 px-4">${row.mop ?? ""}</td>  
-        <td class="py-2 px-4">${row.payment_date ?? ""}</td>
-        <td class="py-2 px-4 flex gap-2">
-          <button class="delete-payment text-red-400 hover:text-red-600" data-id="${row.payment_id}">
-            <i class="bi bi-trash"></i>
-          </button>
-        </td>
-      `;
+  <td class="py-2 px-4">${row.payment_id ?? ""}</td>
+  <td class="py-2 px-4">${row.user_name ?? ""}</td>
+  <td class="py-2 px-4">${row.reference_number ?? ""}</td>
+  <td class="py-2 px-4">
+    ${
+      row.screenshot_path
+        ? `<button class="show-screenshot text-green-500 hover:text-green-700" data-src="${row.screenshot_path}">View</button>`
+        : "N/A"
+    }
+  </td>
+  <td class="py-2 px-4">${row.total_amount ?? ""}</td>
+  <td class="py-2 px-4">${row.delivery_type ?? ""}</td>
+  <td class="py-2 px-4">${row.delivery_address ?? "N/A"}</td>
+  <td class="py-2 px-4 flex items-center gap-2">
+    <select 
+      class="payment-status bg-[#1e1e1e] border border-gray-600 rounded px-2 py-1" 
+      data-id="${row.payment_id}">
+      <option value="pending" ${row.payment_status === "pending" ? "Selected" : ""}>Pending</option>
+      <option value="verified" ${row.payment_status === "verified" ? "Selected" : ""}>Verified</option>
+      <option value="rejected" ${row.payment_status === "rejected" ? "Selected" : ""}>Rejected</option>
+    </select>
+    <button 
+      class="save-status hidden text-green-400 hover:text-green-600" 
+      data-id="${row.payment_id}">
+      <i class="bi bi-check2-circle text-xl"></i>
+    </button>
+  </td>
+  <td class="py-2 px-4">${row.mop ?? ""}</td>  
+  <td class="py-2 px-4">${row.payment_date ?? ""}</td>
+  <td class="py-2 px-4 flex gap-2">
+    <button class="delete-payment text-red-400 hover:text-red-600" data-id="${row.payment_id}">
+      <i class="bi bi-trash"></i>
+    </button>
+  </td>
+`;
 
       tbody.appendChild(tr);
     });
