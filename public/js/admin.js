@@ -95,8 +95,7 @@ const renderPaymentsTable = async () => {
     }
   </td>
   <td class="py-2 px-4">${row.total_amount ?? ""}</td>
-  <td class="py-2 px-4">${row.delivery_type ?? ""}</td>
-  <td class="py-2 px-4">${row.delivery_address ?? "N/A"}</td>
+  
   <td class="py-2 px-4 flex items-center gap-2">
     <select 
       class="payment-status bg-[#1e1e1e] border border-gray-600 rounded px-2 py-1" 
@@ -124,6 +123,61 @@ const renderPaymentsTable = async () => {
     });
   } catch (err) {
     console.error("Error loading payments:", err);
+  }
+};
+
+// ========== RENDER DELIVERIES TABLE WITH DROPDOWN AND SAVE button ==========
+const renderDeliveriesTable = async () => {
+  try {
+    const response = await fetch(
+      "http://localhost:8000/api/admin/get/allPayments.php",
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+    if (result.status !== "success") return;
+
+    const tbody = document.getElementById("delivery-table-body");
+    tbody.innerHTML = "";
+
+    // Filter for deliveries only
+    result.data
+      .filter((row) => row.delivery_type === "delivery")
+      .forEach((row) => {
+        const tr = document.createElement("tr");
+        tr.classList.add("border-b", "border-gray-700");
+
+        tr.innerHTML = `
+          <td class="py-2 px-4">${row.user_name ?? ""}</td>
+          <td class="py-2 px-4">${row.delivery_type ?? ""}</td>
+          <td class="py-2 px-4">${row.delivery_address || "No address provided"}</td>
+          <td class="py-2 px-4 flex items-center gap-2">
+  <select 
+    class="delivery-status bg-[#1e1e1e] border border-gray-600 rounded px-2 py-1" 
+    data-id="${row.payment_id}">
+    <option value="pending" ${row.delivery_status === "pending" ? "selected" : ""}>Pending</option>
+    <option value="preparing" ${row.delivery_status === "preparing" ? "selected" : ""}>Preparing</option>
+    <option value="out_for_delivery" ${row.delivery_status === "out_for_delivery" ? "selected" : ""}>Out for Delivery</option>
+    <option value="delivered" ${row.delivery_status === "delivered" ? "selected" : ""}>Delivered</option>
+    <option value="cancelled" ${row.delivery_status === "cancelled" ? "selected" : ""}>Cancelled</option>
+  </select>
+  <button 
+    class="save-delivery hidden text-green-400 hover:text-green-600" 
+    data-id="${row.payment_id}">
+    <i class="bi bi-check2-circle text-xl"></i>
+  </button>
+</td>
+          <td class="py-2 px-4">${row.mop ?? ""}</td>
+          <td class="py-2 px-4">${row.payment_date ?? ""}</td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+  } catch (err) {
+    console.error("Error loading deliveries:", err);
   }
 };
 
@@ -163,6 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Payments
   renderPaymentsTable();
+  renderDeliveriesTable();
 });
 
 // ========== SHOW PAYMENT SCREENSHOT ==========
@@ -191,7 +246,7 @@ document.addEventListener("change", (e) => {
     saveBtn.classList.remove("hidden");
   }
 });
-
+// SAVE button click
 document.addEventListener("click", async (e) => {
   if (e.target.closest(".save-status")) {
     const btn = e.target.closest(".save-status");
@@ -220,6 +275,60 @@ document.addEventListener("click", async (e) => {
         Swal.fire({
           title: "Success",
           text: "Payment status updated.",
+          icon: "success",
+          timer: 1200,
+          showConfirmButton: false,
+        });
+
+        btn.classList.add("hidden");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1201);
+      } else {
+        Swal.fire("Error", result.message || "Failed to update.", "error");
+      }
+    } catch (err) {
+      console.error("Error:", err);
+      Swal.fire("Error", "Something went wrong with the server.", "error");
+    }
+  }
+});
+// ========== SAVE DELIVERY STATUS ==========
+document.addEventListener("change", (e) => {
+  if (e.target.classList.contains("delivery-status")) {
+    const saveBtn = e.target.parentElement.querySelector(".save-delivery");
+    saveBtn.classList.remove("hidden");
+  }
+});
+
+document.addEventListener("click", async (e) => {
+  if (e.target.closest(".save-delivery")) {
+    const btn = e.target.closest(".save-delivery");
+    const paymentId = btn.getAttribute("data-id");
+    const select = btn.parentElement.querySelector(".delivery-status");
+    const newStatus = select.value;
+
+    try {
+      const res = await fetch(
+        "http://localhost:8000/api/admin/update/updateDeliveryStatus.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({
+            payment_id: paymentId,
+            delivery_status: newStatus,
+          }),
+        }
+      );
+
+      const text = await res.text();
+      const result = JSON.parse(text);
+
+      if (result.status === "success") {
+        Swal.fire({
+          title: "Success",
+          text: "Delivery status updated.",
           icon: "success",
           timer: 1200,
           showConfirmButton: false,

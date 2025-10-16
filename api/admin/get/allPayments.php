@@ -26,6 +26,7 @@ $sql = "
         p.mop,
         p.delivery_type,
         p.delivery_address,
+        p.delivery_status,
         p.payment_date
     FROM payments p
     JOIN users u ON p.user_id = u.user_id

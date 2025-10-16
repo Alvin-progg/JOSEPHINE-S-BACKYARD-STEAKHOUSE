@@ -193,10 +193,7 @@
           <th class="py-3 px-4">Username</th>
           <th class="py-3 px-4">Reference No.</th>
           <th class="py-3 px-4">Screenshot</th>
-          <th class="py-3 px-4">Amount</th>
-          <th class="py-3 px-4">Delivery Type</th>
-<th class="py-3 px-4">Delivery Address</th>
-
+          <th class="py-3 px-4">Amount</th>          
           <th class="py-3 px-4">Status</th>
           <th class="py-3 px-4">MOP</th>
           <th class="py-3 px-4">Payment Date</th>
@@ -207,6 +204,30 @@
     </table>
   </div>
 </div>
+<!-- delivery table -->
+ <div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden mt-8">
+  <div class="bg-[var(--color-primary-600)] px-6 py-4">
+    <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
+      <i class="bi bi-truck mr-3"></i>Deliveries
+    </h2>
+  </div>
+  <div class="p-6 overflow-x-auto">
+    <table class="min-w-full text-left">
+      <thead>
+        <tr class="border-b border-gray-600">
+          <th class="py-3 px-4">Customer</th>
+          <th class="py-3 px-4">Delivery Type</th>
+          <th class="py-3 px-4">Delivery Address</th>
+          <th class="py-3 px-4">Delivery  Status</th>
+          <th class="py-3 px-4">MOP</th>
+          <th class="py-3 px-4">Payment Date</th>
+        </tr>
+      </thead>
+      <tbody id="delivery-table-body" class="text-[#fffeee]"></tbody>
+    </table>
+  </div>
+</div>
+
       </div>
     </main>
 <!-- Screenshot Modal --> 
