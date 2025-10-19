@@ -1,3 +1,21 @@
+// open websocket server for notifications
+// ================== admin.js ==================
+const token = localStorage.getItem("token"); // token from login
+const socket = new WebSocket(`ws://localhost:8080/notify?token=${token}`);
+
+socket.onopen = () => {
+  console.log("Connected to WebSocket notification server (admin)");
+};
+
+socket.onerror = (err) => {
+  console.error("WebSocket error:", err);
+};
+
+socket.onmessage = (event) => {
+  const msg = JSON.parse(event.data);
+  console.log("Received message:", msg);
+};
+
 // ========== RENDER GENERIC TABLES ==========
 async function renderTable(url, tbodyId, columns) {
   try {
@@ -39,16 +57,16 @@ async function renderTable(url, tbodyId, columns) {
           .map((col) => `<td class="py-2 px-4">${row[col] ?? ""}</td>`)
           .join("") +
         `
-        <td class="py-2 px-4 flex gap-2">
-          ${
-            deleteClass
-              ? `<button class="${deleteClass}" data-id="${deleteId}">
-                  <i class="bi bi-trash"></i>
-                 </button>`
-              : ""
-          }
-        </td>
-      `;
+          <td class="py-2 px-4 flex gap-2">
+            ${
+              deleteClass
+                ? `<button class="${deleteClass}" data-id="${deleteId}">
+                    <i class="bi bi-trash"></i>
+                  </button>`
+                : ""
+            }
+          </td>
+        `;
 
       tbody.appendChild(tr);
     });
@@ -81,35 +99,35 @@ const renderReservationsTable = async () => {
       tr.classList.add("border-b", "border-gray-700");
 
       tr.innerHTML = `
-        <td class="py-2 px-4">${row.reservation_id ?? ""}</td>
-        <td class="py-2 px-4">${row.user_name ?? ""}</td>
-        <td class="py-2 px-4">${row.reservation_date ?? ""}</td>
-        <td class="py-2 px-4">${row.reservation_time ?? ""}</td>
-        <td class="py-2 px-4">${row.number_of_people ?? ""}</td>
-        
-        <td class="py-2 px-4 flex items-center gap-2">
-          <select 
-            class="reservation-status bg-[#1e1e1e] border border-gray-600 rounded px-2 py-1"
-            data-id="${row.reservation_id}">
-            <option value="Pending" ${row.status === "Pending" ? "selected" : ""}>Pending</option>
-            <option value="Approved" ${row.status === "Approved" ? "selected" : ""}>Approved</option>
-            <option value="Cancelled" ${row.status === "Cancelled" ? "selected" : ""}>Cancelled</option>
-            <option value="Completed" ${row.status === "Completed" ? "selected" : ""}>Completed</option>
-          </select>
-          <button 
-            class="save-reservation hidden text-green-400 hover:text-green-600 transition-all duration-200" 
-            data-id="${row.reservation_id}">
-            <i class="bi bi-check2-circle text-xl"></i>
-          </button>
-        </td>
+          <td class="py-2 px-4">${row.reservation_id ?? ""}</td>
+          <td class="py-2 px-4">${row.user_name ?? ""}</td>
+          <td class="py-2 px-4">${row.reservation_date ?? ""}</td>
+          <td class="py-2 px-4">${row.reservation_time ?? ""}</td>
+          <td class="py-2 px-4">${row.number_of_people ?? ""}</td>
+          
+          <td class="py-2 px-4 flex items-center gap-2">
+            <select 
+              class="reservation-status bg-[#1e1e1e] border border-gray-600 rounded px-2 py-1"
+              data-id="${row.reservation_id}">
+              <option value="Pending" ${row.status === "Pending" ? "selected" : ""}>Pending</option>
+              <option value="Approved" ${row.status === "Approved" ? "selected" : ""}>Approved</option>
+              <option value="Cancelled" ${row.status === "Cancelled" ? "selected" : ""}>Cancelled</option>
+              <option value="Completed" ${row.status === "Completed" ? "selected" : ""}>Completed</option>
+            </select>
+            <button 
+              class="save-reservation hidden text-green-400 hover:text-green-600 transition-all duration-200" 
+              data-id="${row.reservation_id}">
+              <i class="bi bi-check2-circle text-xl"></i>
+            </button>
+          </td>
 
-        <td class="py-2 px-4">${row.created_at ?? ""}</td>
-        <td class="py-2 px-4 flex gap-2">
-          <button class="delete-reservation text-red-400 hover:text-red-600" data-id="${row.reservation_id}">
-            <i class="bi bi-trash"></i>
-          </button>
-        </td>
-      `;
+          <td class="py-2 px-4">${row.created_at ?? ""}</td>
+          <td class="py-2 px-4 flex gap-2">
+            <button class="delete-reservation text-red-400 hover:text-red-600" data-id="${row.reservation_id}">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        `;
 
       tbody.appendChild(tr);
     });
@@ -157,40 +175,40 @@ const renderPaymentsTable = async () => {
       tr.classList.add("border-b", "border-gray-700");
 
       tr.innerHTML = `
-  <td class="py-2 px-4">${row.payment_id ?? ""}</td>
-  <td class="py-2 px-4">${row.user_name ?? ""}</td>
-  <td class="py-2 px-4">${row.reference_number ?? ""}</td>
-  <td class="py-2 px-4">
-    ${
-      row.screenshot_path
-        ? `<button class="show-screenshot text-green-500 hover:text-green-700" data-src="${row.screenshot_path}">View</button>`
-        : "N/A"
-    }
-  </td>
-  <td class="py-2 px-4">${row.total_amount ?? ""}</td>
-  
-  <td class="py-2 px-4 flex items-center gap-2">
-    <select 
-      class="payment-status bg-[#1e1e1e] border border-gray-600 rounded px-2 py-1" 
-      data-id="${row.payment_id}">
-      <option value="pending" ${row.payment_status === "pending" ? "Selected" : ""}>Pending</option>
-      <option value="verified" ${row.payment_status === "verified" ? "Selected" : ""}>Verified</option>
-      <option value="rejected" ${row.payment_status === "rejected" ? "Selected" : ""}>Rejected</option>
-    </select>
-    <button 
-      class="save-status hidden text-green-400 hover:text-green-600" 
-      data-id="${row.payment_id}">
-      <i class="bi bi-check2-circle text-xl"></i>
-    </button>
-  </td>
-  <td class="py-2 px-4">${row.mop ?? ""}</td>  
-  <td class="py-2 px-4">${row.payment_date ?? ""}</td>
-  <td class="py-2 px-4 flex gap-2">
-    <button class="delete-payment text-red-400 hover:text-red-600" data-id="${row.payment_id}">
-      <i class="bi bi-trash"></i>
-    </button>
-  </td>
-`;
+    <td class="py-2 px-4">${row.payment_id ?? ""}</td>
+    <td class="py-2 px-4">${row.user_name ?? ""}</td>
+    <td class="py-2 px-4">${row.reference_number ?? ""}</td>
+    <td class="py-2 px-4">
+      ${
+        row.screenshot_path
+          ? `<button class="show-screenshot text-green-500 hover:text-green-700" data-src="${row.screenshot_path}">View</button>`
+          : "N/A"
+      }
+    </td>
+    <td class="py-2 px-4">${row.total_amount ?? ""}</td>
+    
+    <td class="py-2 px-4 flex items-center gap-2">
+      <select 
+        class="payment-status bg-[#1e1e1e] border border-gray-600 rounded px-2 py-1" 
+        data-id="${row.payment_id}">
+        <option value="pending" ${row.payment_status === "pending" ? "Selected" : ""}>Pending</option>
+        <option value="verified" ${row.payment_status === "verified" ? "Selected" : ""}>Verified</option>
+        <option value="rejected" ${row.payment_status === "rejected" ? "Selected" : ""}>Rejected</option>
+      </select>
+      <button 
+        class="save-status hidden text-green-400 hover:text-green-600" 
+        data-id="${row.payment_id}">
+        <i class="bi bi-check2-circle text-xl"></i>
+      </button>
+    </td>
+    <td class="py-2 px-4">${row.mop ?? ""}</td>  
+    <td class="py-2 px-4">${row.payment_date ?? ""}</td>
+    <td class="py-2 px-4 flex gap-2">
+      <button class="delete-payment text-red-400 hover:text-red-600" data-id="${row.payment_id}">
+        <i class="bi bi-trash"></i>
+      </button>
+    </td>
+  `;
 
       tbody.appendChild(tr);
     });
@@ -199,52 +217,61 @@ const renderPaymentsTable = async () => {
   }
 };
 // Handle click on save-reservation button
+// ================== Reservation Update Logic ==================
 document.addEventListener("click", async (e) => {
-  if (e.target.closest(".save-reservation")) {
-    const btn = e.target.closest(".save-reservation");
-    const tr = btn.closest("tr");
-    const select = tr.querySelector(".reservation-status");
-    const reservationId = btn.getAttribute("data-id");
-    const newStatus = select.value;
+  const btn = e.target.closest(".save-reservation");
+  if (!btn) return;
 
-    try {
-      const res = await fetch(
-        "http://localhost:8000/api/admin/update/updateReservationStatus.php",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({
-            reservation_id: reservationId,
-            status: newStatus,
-          }),
-        }
-      );
+  const tr = btn.closest("tr");
+  const select = tr.querySelector(".reservation-status");
+  const reservationId = btn.getAttribute("data-id");
+  const newStatus = select.value;
 
-      const result = await res.json();
-
-      if (result.status === "success") {
-        Swal.fire({
-          title: "Updated!",
-          text: "Reservation status saved successfully.",
-          icon: "success",
-          timer: 1200,
-          showConfirmButton: false,
-        });
-        btn.classList.add("hidden");
-        tr.querySelector(".reservation-status").classList.remove(
-          "animate-pulse"
-        );
-      } else {
-        Swal.fire("Error", result.message || "Failed to update.", "error");
+  try {
+    const res = await fetch(
+      "http://localhost:8000/api/admin/update/updateReservationStatus.php",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          reservation_id: reservationId,
+          status: newStatus,
+        }),
       }
-    } catch (err) {
-      console.error("Error updating reservation status:", err);
-      Swal.fire("Error", "A network or server error occurred.", "error");
+    );
+
+    const result = await res.json();
+
+    if (result.status === "success") {
+      Swal.fire({
+        title: "Updated!",
+        text: "Reservation status saved successfully.",
+        icon: "success",
+        timer: 1200,
+        showConfirmButton: false,
+      });
+
+      btn.classList.add("hidden");
+      select.classList.remove("animate-pulse");
+
+      // ✅ Notify user via WebSocket
+      const notification = {
+        type: "notify_user",
+        data: {
+          reservation_id: reservationId,
+          message: `Your reservation status has been updated to "${newStatus}".`,
+        },
+      };
+      socket.send(JSON.stringify(notification));
+    } else {
+      Swal.fire("Error", result.message || "Failed to update.", "error");
     }
+  } catch (err) {
+    console.error("Error updating reservation status:", err);
+    Swal.fire("Error", "A network or server error occurred.", "error");
   }
 });
-
 // ========== RENDER DELIVERIES TABLE WITH DROPDOWN AND SAVE button ==========
 const renderDeliveriesTable = async () => {
   try {
@@ -270,28 +297,28 @@ const renderDeliveriesTable = async () => {
         tr.classList.add("border-b", "border-gray-700");
 
         tr.innerHTML = `
-          <td class="py-2 px-4">${row.user_name ?? ""}</td>
-          <td class="py-2 px-4">${row.delivery_type ?? ""}</td>
-          <td class="py-2 px-4">${row.delivery_address || "No address provided"}</td>
-          <td class="py-2 px-4 flex items-center gap-2">
-  <select 
-    class="delivery-status bg-[#1e1e1e] border border-gray-600 rounded px-2 py-1" 
-    data-id="${row.payment_id}">
-    <option value="pending" ${row.delivery_status === "pending" ? "selected" : ""}>Pending</option>
-    <option value="preparing" ${row.delivery_status === "preparing" ? "selected" : ""}>Preparing</option>
-    <option value="out_for_delivery" ${row.delivery_status === "out_for_delivery" ? "selected" : ""}>Out for Delivery</option>
-    <option value="delivered" ${row.delivery_status === "delivered" ? "selected" : ""}>Delivered</option>
-    <option value="cancelled" ${row.delivery_status === "cancelled" ? "selected" : ""}>Cancelled</option>
-  </select>
-  <button 
-    class="save-delivery hidden text-green-400 hover:text-green-600" 
-    data-id="${row.payment_id}">
-    <i class="bi bi-check2-circle text-xl"></i>
-  </button>
-</td>
-          <td class="py-2 px-4">${row.mop ?? ""}</td>
-          <td class="py-2 px-4">${row.payment_date ?? ""}</td>
-        `;
+            <td class="py-2 px-4">${row.user_name ?? ""}</td>
+            <td class="py-2 px-4">${row.delivery_type ?? ""}</td>
+            <td class="py-2 px-4">${row.delivery_address || "No address provided"}</td>
+            <td class="py-2 px-4 flex items-center gap-2">
+    <select 
+      class="delivery-status bg-[#1e1e1e] border border-gray-600 rounded px-2 py-1" 
+      data-id="${row.payment_id}">
+      <option value="pending" ${row.delivery_status === "pending" ? "selected" : ""}>Pending</option>
+      <option value="preparing" ${row.delivery_status === "preparing" ? "selected" : ""}>Preparing</option>
+      <option value="out_for_delivery" ${row.delivery_status === "out_for_delivery" ? "selected" : ""}>Out for Delivery</option>
+      <option value="delivered" ${row.delivery_status === "delivered" ? "selected" : ""}>Delivered</option>
+      <option value="cancelled" ${row.delivery_status === "cancelled" ? "selected" : ""}>Cancelled</option>
+    </select>
+    <button 
+      class="save-delivery hidden text-green-400 hover:text-green-600" 
+      data-id="${row.payment_id}">
+      <i class="bi bi-check2-circle text-xl"></i>
+    </button>
+  </td>
+            <td class="py-2 px-4">${row.mop ?? ""}</td>
+            <td class="py-2 px-4">${row.payment_date ?? ""}</td>
+          `;
 
         tbody.appendChild(tr);
       });

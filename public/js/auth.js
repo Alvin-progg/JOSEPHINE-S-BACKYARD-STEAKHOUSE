@@ -150,8 +150,6 @@ document.addEventListener("DOMContentLoaded", () => {
           2000
         );
 
-        console.log(data.username);
-
         localStorage.setItem("token", data.token);
         localStorage.setItem("username", data.username);
         localStorage.setItem("isAdmin", "false");
