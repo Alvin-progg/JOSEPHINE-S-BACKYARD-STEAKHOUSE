@@ -56,6 +56,79 @@ async function renderTable(url, tbodyId, columns) {
     console.error(`Error loading ${url}:`, err);
   }
 }
+// ========== RENDER RESERVATIONS TABLE WITH STATUS DROPDOWN ==========
+const renderReservationsTable = async () => {
+  try {
+    const response = await fetch(
+      "http://localhost:8000/api/admin/get/allReservations.php",
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+    if (result.status !== "success") {
+      console.error("Failed to load reservations:", result.message);
+      return;
+    }
+
+    const tbody = document.getElementById("reservations-table-body");
+    tbody.innerHTML = "";
+
+    result.data.forEach((row) => {
+      const tr = document.createElement("tr");
+      tr.classList.add("border-b", "border-gray-700");
+
+      tr.innerHTML = `
+        <td class="py-2 px-4">${row.reservation_id ?? ""}</td>
+        <td class="py-2 px-4">${row.user_name ?? ""}</td>
+        <td class="py-2 px-4">${row.reservation_date ?? ""}</td>
+        <td class="py-2 px-4">${row.reservation_time ?? ""}</td>
+        <td class="py-2 px-4">${row.number_of_people ?? ""}</td>
+        
+        <td class="py-2 px-4 flex items-center gap-2">
+          <select 
+            class="reservation-status bg-[#1e1e1e] border border-gray-600 rounded px-2 py-1"
+            data-id="${row.reservation_id}">
+            <option value="Pending" ${row.status === "Pending" ? "selected" : ""}>Pending</option>
+            <option value="Approved" ${row.status === "Approved" ? "selected" : ""}>Approved</option>
+            <option value="Cancelled" ${row.status === "Cancelled" ? "selected" : ""}>Cancelled</option>
+            <option value="Completed" ${row.status === "Completed" ? "selected" : ""}>Completed</option>
+          </select>
+          <button 
+            class="save-reservation hidden text-green-400 hover:text-green-600 transition-all duration-200" 
+            data-id="${row.reservation_id}">
+            <i class="bi bi-check2-circle text-xl"></i>
+          </button>
+        </td>
+
+        <td class="py-2 px-4">${row.created_at ?? ""}</td>
+        <td class="py-2 px-4 flex gap-2">
+          <button class="delete-reservation text-red-400 hover:text-red-600" data-id="${row.reservation_id}">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      `;
+
+      tbody.appendChild(tr);
+    });
+
+    // --- Attach the status change listener (inside the render for safety) ---
+    tbody.querySelectorAll(".reservation-status").forEach((select) => {
+      select.addEventListener("change", (e) => {
+        const tr = e.target.closest("tr");
+        const saveBtn = tr.querySelector(".save-reservation");
+        if (saveBtn) {
+          saveBtn.classList.remove("hidden");
+          saveBtn.classList.add("animate-pulse");
+        }
+      });
+    });
+  } catch (err) {
+    console.error("Error loading reservations:", err);
+  }
+};
 
 // ========== RENDER PAYMENTS TABLE WITH DROPDOWN + SAVE BUTTON ==========
 const renderPaymentsTable = async () => {
@@ -125,6 +198,52 @@ const renderPaymentsTable = async () => {
     console.error("Error loading payments:", err);
   }
 };
+// Handle click on save-reservation button
+document.addEventListener("click", async (e) => {
+  if (e.target.closest(".save-reservation")) {
+    const btn = e.target.closest(".save-reservation");
+    const tr = btn.closest("tr");
+    const select = tr.querySelector(".reservation-status");
+    const reservationId = btn.getAttribute("data-id");
+    const newStatus = select.value;
+
+    try {
+      const res = await fetch(
+        "http://localhost:8000/api/admin/update/updateReservationStatus.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({
+            reservation_id: reservationId,
+            status: newStatus,
+          }),
+        }
+      );
+
+      const result = await res.json();
+
+      if (result.status === "success") {
+        Swal.fire({
+          title: "Updated!",
+          text: "Reservation status saved successfully.",
+          icon: "success",
+          timer: 1200,
+          showConfirmButton: false,
+        });
+        btn.classList.add("hidden");
+        tr.querySelector(".reservation-status").classList.remove(
+          "animate-pulse"
+        );
+      } else {
+        Swal.fire("Error", result.message || "Failed to update.", "error");
+      }
+    } catch (err) {
+      console.error("Error updating reservation status:", err);
+      Swal.fire("Error", "A network or server error occurred.", "error");
+    }
+  }
+});
 
 // ========== RENDER DELIVERIES TABLE WITH DROPDOWN AND SAVE button ==========
 const renderDeliveriesTable = async () => {
@@ -190,18 +309,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "email",
     "created_at",
   ]);
-
-  // Reservations
-  renderTable("get/allReservations.php", "reservations-table-body", [
-    "reservation_id",
-    "user_name",
-    "reservation_date",
-    "reservation_time",
-    "number_of_people",
-    "status",
-    "created_at",
-  ]);
-
+  // reservations
+  renderReservationsTable();
   // Orders
   renderTable("get/allOrders.php", "orders-table-body", [
     "order_id",
