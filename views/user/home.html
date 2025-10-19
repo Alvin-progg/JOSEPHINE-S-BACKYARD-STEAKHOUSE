@@ -114,39 +114,6 @@
         </div>
       </section>
 
-      <!-- Dashboard Stats Cards -->
-      <section class="max-w-7xl mx-auto px-4 mb-8 justify-center">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div class="bg-[#1e1e1e] p-6 rounded-lg border border-gray-700 hover:border-[var(--color-primary-600)] transition-all duration-300">
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-gray-400 text-sm">Active Reservations</p>
-                <p class="text-2xl font-bold text-[#fffeee]">2</p>
-              </div>
-              <i class="bi bi-calendar-event text-3xl text-[var(--color-primary-600)]"></i>
-            </div>
-          </div>
-          <div class="bg-[#1e1e1e] p-6 rounded-lg border border-gray-700 hover:border-[var(--color-primary-600)] transition-all duration-300">
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-gray-400 text-sm">Pending Orders</p>
-                <p class="text-2xl font-bold text-[#fffeee]">4</p>
-              </div>
-              <i class="bi bi-cart text-3xl text-[var(--color-primary-600)]"></i>
-            </div>
-          </div>
-          <div class="bg-[#1e1e1e] p-6 rounded-lg border border-gray-700 hover:border-[var(--color-primary-600)] transition-all duration-300">
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-gray-400 text-sm">Total Spent</p>
-                <p class="text-2xl font-bold text-[#fffeee]">₱1,845</p>
-              </div>
-              <i class="bi bi-currency-dollar text-3xl text-[var(--color-primary-600)]"></i>
-            </div>
-          </div>
-          
-        </div>
-      </section>
 
       <!-- Main Content -->
       <section class="w-full overflow-hidden">
@@ -155,8 +122,8 @@
             
             <!-- Reservations Section -->
             <div id="reserve_table" class="xl:w-1/2 w-full">
-              <div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden w-full max-w-4xl">
-            <div class="bg-[var(--color-primary-600)] px-6 py-4 flex justify-center items-start">
+              <div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden w-full">
+            <div class="bg-[var(--color-primary-600)] px-6 py-4 flex justify-center items-center">
               <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
                 <i class="bi bi-calendar-event mr-3"></i>Your Reservations
               </h2>
@@ -175,8 +142,8 @@
               </div>
 
               <!-- Desktop Table View -->
-              <div class="hidden md:block overflow-x-auto flex justify-center">
-                <table class="min-w-full max-w-full">
+              <div class="hidden md:block overflow-x-auto">
+                <table class="w-full">
                   <thead>
                     <tr class="border-b border-gray-600">
                       <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">
@@ -220,73 +187,7 @@
                 <div class="p-6">
                   <!-- Mobile Cards View -->
                   <div class="block lg:hidden space-y-4">
-                    <div class="bg-[#2a2a2a] p-4 rounded-lg border border-gray-600">
-                      <div class="flex justify-between items-start mb-3">
-                        <div>
-                          <p class="text-[var(--color-primary-400)] font-semibold">ORD123</p>
-                          <p class="text-[#fffeee] text-sm font-medium">₱598</p>
-                        </div>
-                        <span class="bg-yellow-600 text-white px-2 py-1 rounded text-xs">Preparing</span>
-                      </div>
-                      <div class="mb-3">
-                        <p class="text-gray-400 text-sm">Items</p>
-                        <p class="text-[#fffeee] text-sm">Margherita Pizza, Soda</p>
-                      </div>
-                      <button onclick="cancelOrder('ORD123')" class="w-full bg-red-600 text-[#fffeee] py-2 rounded-md hover:bg-red-700 transition-colors duration-300">
-                        <i class="bi bi-x-circle mr-2"></i>Cancel Order
-                      </button>
-                    </div>
-
-                    <div class="bg-[#2a2a2a] p-4 rounded-lg border border-gray-600">
-                      <div class="flex justify-between items-start mb-3">
-                        <div>
-                          <p class="text-[var(--color-primary-400)] font-semibold">ORD124</p>
-                          <p class="text-[#fffeee] text-sm font-medium">₱698</p>
-                        </div>
-                        <span class="bg-blue-600 text-white px-2 py-1 rounded text-xs">Pending</span>
-                      </div>
-                      <div class="mb-3">
-                        <p class="text-gray-400 text-sm">Items</p>
-                        <p class="text-[#fffeee] text-sm">Pasta Alfredo, Salad</p>
-                      </div>
-                      <button onclick="cancelOrder('ORD124')" class="w-full bg-red-600 text-[#fffeee] py-2 rounded-md hover:bg-red-700 transition-colors duration-300">
-                        <i class="bi bi-x-circle mr-2"></i>Cancel Order
-                      </button>
-                    </div>
-
-                    <div class="bg-[#2a2a2a] p-4 rounded-lg border border-gray-600">
-                      <div class="flex justify-between items-start mb-3">
-                        <div>
-                          <p class="text-[var(--color-primary-400)] font-semibold">ORD125</p>
-                          <p class="text-[#fffeee] text-sm font-medium">₱948</p>
-                        </div>
-                        <span class="bg-blue-600 text-white px-2 py-1 rounded text-xs">Pending</span>
-                      </div>
-                      <div class="mb-3">
-                        <p class="text-gray-400 text-sm">Items</p>
-                        <p class="text-[#fffeee] text-sm">Grilled Salmon, Wine</p>
-                      </div>
-                      <button onclick="cancelOrder('ORD125')" class="w-full bg-red-600 text-[#fffeee] py-2 rounded-md hover:bg-red-700 transition-colors duration-300">
-                        <i class="bi bi-x-circle mr-2"></i>Cancel Order
-                      </button>
-                    </div>
-
-                    <div class="bg-[#2a2a2a] p-4 rounded-lg border border-gray-600">
-                      <div class="flex justify-between items-start mb-3">
-                        <div>
-                          <p class="text-[var(--color-primary-400)] font-semibold">ORD126</p>
-                          <p class="text-[#fffeee] text-sm font-medium">₱488</p>
-                        </div>
-                        <span class="bg-blue-600 text-white px-2 py-1 rounded text-xs">Pending</span>
-                      </div>
-                      <div class="mb-3">
-                        <p class="text-gray-400 text-sm">Items</p>
-                        <p class="text-[#fffeee] text-sm">Burger, Fries, Milkshake</p>
-                      </div>
-                      <button onclick="cancelOrder('ORD126')" class="w-full bg-red-600 text-[#fffeee] py-2 rounded-md hover:bg-red-700 transition-colors duration-300">
-                        <i class="bi bi-x-circle mr-2"></i>Cancel Order
-                      </button>
-                    </div>
+                    <!-- Dynamic content will be inserted here by JavaScript -->
                   </div>
                   
                   <!-- Desktop Table View -->
@@ -295,65 +196,16 @@
                       <thead>
                         <tr class="border-b border-gray-600">
                           <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Order ID</th>
-                          <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Items</th>
+                          <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Product</th>
+                          <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Qty</th>
                           <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Total</th>
-                          <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Status</th>
+                          <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Payment</th>
+                          <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Delivery</th>
                           <th class="py-3 px-4 text-center text-sm font-bold text-[#fffeee]">Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr class="hover:bg-[#2a2a2a] transition-colors duration-200 border-b border-gray-700">
-                          <td class="py-4 px-4 text-sm text-[var(--color-primary-400)] font-semibold">ORD123</td>
-                          <td class="py-4 px-4 text-sm text-[#fffeee]">Margherita Pizza, Soda</td>
-                          <td class="py-4 px-4 text-sm text-[#fffeee] font-medium">₱598</td>
-                          <td class="py-4 px-4 text-sm">
-                            <span class="bg-yellow-600 text-white px-2 py-1 rounded text-xs">Preparing</span>
-                          </td>
-                          <td class="py-4 px-4 text-center">
-                            <button onclick="cancelOrder('ORD123')" class="bg-red-600 text-[#fffeee] px-3 py-1 rounded-md hover:bg-red-700 transition-colors duration-300 text-sm">
-                              <i class="bi bi-x-circle mr-1"></i>Cancel
-                            </button>
-                          </td>
-                        </tr>
-                        <tr class="hover:bg-[#2a2a2a] transition-colors duration-200 border-b border-gray-700">
-                          <td class="py-4 px-4 text-sm text-[var(--color-primary-400)] font-semibold">ORD124</td>
-                          <td class="py-4 px-4 text-sm text-[#fffeee]">Pasta Alfredo, Salad</td>
-                          <td class="py-4 px-4 text-sm text-[#fffeee] font-medium">₱698</td>
-                          <td class="py-4 px-4 text-sm">
-                            <span class="bg-blue-600 text-white px-2 py-1 rounded text-xs">Pending</span>
-                          </td>
-                          <td class="py-4 px-4 text-center">
-                            <button onclick="cancelOrder('ORD124')" class="bg-red-600 text-[#fffeee] px-3 py-1 rounded-md hover:bg-red-700 transition-colors duration-300 text-sm">
-                              <i class="bi bi-x-circle mr-1"></i>Cancel
-                            </button>
-                          </td>
-                        </tr>
-                        <tr class="hover:bg-[#2a2a2a] transition-colors duration-200 border-b border-gray-700">
-                          <td class="py-4 px-4 text-sm text-[var(--color-primary-400)] font-semibold">ORD125</td>
-                          <td class="py-4 px-4 text-sm text-[#fffeee]">Grilled Salmon, Wine</td>
-                          <td class="py-4 px-4 text-sm text-[#fffeee] font-medium">₱948</td>
-                          <td class="py-4 px-4 text-sm">
-                            <span class="bg-blue-600 text-white px-2 py-1 rounded text-xs">Pending</span>
-                          </td>
-                          <td class="py-4 px-4 text-center">
-                            <button onclick="cancelOrder('ORD125')" class="bg-red-600 text-[#fffeee] px-3 py-1 rounded-md hover:bg-red-700 transition-colors duration-300 text-sm">
-                              <i class="bi bi-x-circle mr-1"></i>Cancel
-                            </button>
-                          </td>
-                        </tr>
-                        <tr class="hover:bg-[#2a2a2a] transition-colors duration-200">
-                          <td class="py-4 px-4 text-sm text-[var(--color-primary-400)] font-semibold">ORD126</td>
-                          <td class="py-4 px-4 text-sm text-[#fffeee]">Burger, Fries, Milkshake</td>
-                          <td class="py-4 px-4 text-sm text-[#fffeee] font-medium">₱488</td>
-                          <td class="py-4 px-4 text-sm">
-                            <span class="bg-blue-600 text-white px-2 py-1 rounded text-xs">Pending</span>
-                          </td>
-                          <td class="py-4 px-4 text-center">
-                            <button onclick="cancelOrder('ORD126')" class="bg-red-600 text-[#fffeee] px-3 py-1 rounded-md hover:bg-red-700 transition-colors duration-300 text-sm">
-                              <i class="bi bi-x-circle mr-1"></i>Cancel
-                            </button>
-                          </td>
-                        </tr>
+                        <!-- Dynamic content will be inserted here by JavaScript -->
                       </tbody>
                     </table>
                   </div>
@@ -367,6 +219,8 @@
     <script src="../../public/js/main.js"></script>
     <script src="../../public/js/authguard.js"></script>
     <script src="../../public/js/reservation.js"></script>
+    <script src="../../public/js/order.js"></script>
+    <script src="../../public/js/orders.js"></script>
 
   </body>
 </html>
