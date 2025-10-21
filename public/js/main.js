@@ -34,7 +34,7 @@ function showCategory(category) {
 
   // Set active button
   const activeButton = document.querySelector(
-    `.mini-nav-btn[onclick="showCategory('${category}')"]`
+    `.mini-nav-btn[onclick="showCategory('${category}')"]`,
   );
   if (activeButton) {
     activeButton.classList.add("text-yellow-500", "after:w-full");
@@ -121,7 +121,6 @@ document.querySelectorAll('button[onclick*="cancel"]').forEach((button) => {
 
 // localstorage user display
 const username = localStorage.getItem("username");
-console.log(username);
 
 // domcontentLoaded for displaying username
 document.addEventListener("DOMContentLoaded", () => {
@@ -152,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "error",
           "Logout Failed",
           data.message || "Something went wrong.",
-          2000
+          2000,
         );
         return;
       }

@@ -1,20 +1,5 @@
 // open websocket server for notifications
 // ================== admin.js ==================
-const token = localStorage.getItem("token"); // token from login
-const socket = new WebSocket(`ws://localhost:8080/notify?token=${token}`);
-
-socket.onopen = () => {
-  console.log("Connected to WebSocket notification server (admin)");
-};
-
-socket.onerror = (err) => {
-  console.error("WebSocket error:", err);
-};
-
-socket.onmessage = (event) => {
-  const msg = JSON.parse(event.data);
-  console.log("Received message:", msg);
-};
 
 // ========== RENDER GENERIC TABLES ==========
 async function renderTable(url, tbodyId, columns) {
@@ -82,7 +67,7 @@ const renderReservationsTable = async () => {
       {
         method: "GET",
         credentials: "include",
-      }
+      },
     );
 
     const result = await response.json();
@@ -156,7 +141,7 @@ const renderPaymentsTable = async () => {
       {
         method: "GET",
         credentials: "include",
-      }
+      },
     );
 
     const result = await response.json();
@@ -238,7 +223,7 @@ document.addEventListener("click", async (e) => {
           reservation_id: reservationId,
           status: newStatus,
         }),
-      }
+      },
     );
 
     const result = await res.json();
@@ -254,16 +239,6 @@ document.addEventListener("click", async (e) => {
 
       btn.classList.add("hidden");
       select.classList.remove("animate-pulse");
-
-      // ✅ Notify user via WebSocket
-      const notification = {
-        type: "notify_user",
-        data: {
-          reservation_id: reservationId,
-          message: `Your reservation status has been updated to "${newStatus}".`,
-        },
-      };
-      socket.send(JSON.stringify(notification));
     } else {
       Swal.fire("Error", result.message || "Failed to update.", "error");
     }
@@ -280,7 +255,7 @@ const renderDeliveriesTable = async () => {
       {
         method: "GET",
         credentials: "include",
-      }
+      },
     );
 
     const result = await response.json();
@@ -401,7 +376,7 @@ document.addEventListener("click", async (e) => {
             payment_id: paymentId,
             payment_status: newStatus,
           }),
-        }
+        },
       );
 
       const text = await res.text();
@@ -455,7 +430,7 @@ document.addEventListener("click", async (e) => {
             payment_id: paymentId,
             delivery_status: newStatus,
           }),
-        }
+        },
       );
 
       const text = await res.text();
@@ -512,7 +487,7 @@ document.addEventListener("click", async (e) => {
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({ user_id: id }),
-      }
+      },
     );
     const result = await res.json();
 
@@ -559,7 +534,7 @@ document.addEventListener("click", async (e) => {
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({ reservation_id: id }),
-      }
+      },
     );
     const result = await res.json();
 
@@ -609,7 +584,7 @@ document.addEventListener("click", async (e) => {
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({ order_id: id }),
-      }
+      },
     );
     const result = await res.json();
 
@@ -661,7 +636,7 @@ document.addEventListener("click", async (e) => {
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({ payment_id: id }),
-      }
+      },
     );
     const result = await res.json();
 
