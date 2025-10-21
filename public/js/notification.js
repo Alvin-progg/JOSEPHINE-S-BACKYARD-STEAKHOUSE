@@ -13,8 +13,7 @@ async function checkStatus(type, endpoint) {
       body: JSON.stringify({ username }),
     });
 
-    const text = await res.text();
-    const data = JSON.parse(text);
+    const data = await res.json();
     const newStatus = data.status;
 
     // Initialize baseline for this status type
@@ -52,7 +51,7 @@ function startStatusPolling() {
   // Run immediately on page load
   checks.forEach((c) => checkStatus(c.type, c.endpoint));
 
-  // Re-run every 2 minutes
+  // Re-run every 10 seconds
   setInterval(() => {
     checks.forEach((c) => checkStatus(c.type, c.endpoint));
   }, 10000);
