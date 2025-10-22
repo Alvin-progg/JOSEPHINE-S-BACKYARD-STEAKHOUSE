@@ -56,7 +56,18 @@ try {
     while ($row = $result->fetch_assoc()) {     
         $formatted_date = date('F j, Y', strtotime($row['reservation_date']));
 
-        $formatted_time = date('g:i A', strtotime($row['reservation_time']));
+        // If stored time is a range/slot (contains a dash) show it as-is,
+        // otherwise try to format a single time value.
+        if (strpos($row['reservation_time'], '-') !== false) {
+            $formatted_time = $row['reservation_time'];
+        } else {
+            $ts = strtotime($row['reservation_time']);
+            if ($ts === false) {
+                $formatted_time = $row['reservation_time'];
+            } else {
+                $formatted_time = date('g:i A', $ts);
+            }
+        }
         
         $reservations[] = [
             'id' => $row['reservation_id'],

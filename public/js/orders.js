@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Function to load orders from the API
 async function loadOrders() {
+  const loadingState = document.getElementById("orders-loading-state");
+  
   try {
     const response = await fetch("/api/orders/getOrders.php", {
       method: "GET",
@@ -27,16 +29,22 @@ async function loadOrders() {
   } catch (error) {
     console.error("Error loading orders:", error);
     showEmptyOrdersState();
+  } finally {
+    if (loadingState) {
+      loadingState.style.display = "none";
+    }
   }
 }
 
 // Function to render orders in both mobile and desktop views
 function renderOrders(orders) {
-  const mobileContainer = document.querySelector("#order_table .block.lg\\:hidden");
+  const mobileContainer = document.querySelector("#order_table .block.md\\:hidden");
   const desktopTableBody = document.querySelector("#order_table tbody");
+  const loadingState = document.getElementById("orders-loading-state");
 
   if (!orders || orders.length === 0) {
     showEmptyOrdersState();
+    if (loadingState) loadingState.style.display = "none";
     return;
   }
 
@@ -60,6 +68,8 @@ function renderOrders(orders) {
       desktopTableBody.appendChild(tableRow);
     }
   });
+
+  if (loadingState) loadingState.style.display = "none";
 }
 
 // Function to create mobile order card
@@ -229,8 +239,9 @@ function getPaymentStatusStyle(status) {
 
 // Function to show empty state
 function showEmptyOrdersState() {
-  const mobileContainer = document.querySelector("#order_table .block.lg\\:hidden");
+  const mobileContainer = document.querySelector("#order_table .block.md\\:hidden");
   const desktopTableBody = document.querySelector("#order_table tbody");
+  const loadingState = document.getElementById("orders-loading-state");
 
   const emptyMessage = `
     <div class="text-center py-8 text-gray-400">
@@ -257,6 +268,8 @@ function showEmptyOrdersState() {
       </tr>
     `;
   }
+
+  if (loadingState) loadingState.style.display = "none";
 }
 
 // Function to cancel an order

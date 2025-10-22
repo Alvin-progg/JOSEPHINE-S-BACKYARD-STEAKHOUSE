@@ -23,12 +23,35 @@ if (!isset($data['date']) ||  !isset($data['time']) || !isset($data['guests'])) 
     sendResponse(false, "Missing required fields: date, time, or guests", 400);
 }
 
-$date   = $data['date'];
-$time   = $data['time'];
+$date   = trim($data['date']);
+$time   = trim($data['time']);
 $guests = $data['guests'];
 
-if (empty($date) || empty($time) || empty($guests)) {
+if ($date === '' || $time === '' || $guests === '' || $guests === null) {
     sendResponse(false, "All fields must be non-empty", 400);
+}
+
+// Validate allowed time slots (keep in sync with client)
+$allowedTimeSlots = [
+    '8:00-10:00 AM',
+    '10:30-12:30 PM',
+    '1:00-3:00 PM',
+    '3:30-5:30 PM',
+    '6:30-8:30 PM',
+];
+
+if (!in_array($time, $allowedTimeSlots, true)) {
+    sendResponse(false, "Invalid time slot selected", 400);
+}
+
+// Validate guests: integer between 1 and 150
+if (!is_numeric($guests)) {
+    sendResponse(false, "Guests must be a number", 400);
+}
+
+$guests = (int) $guests;
+if ($guests < 1 || $guests > 150) {
+    sendResponse(false, "Guests must be between 1 and 150", 400);
 }
 
 // Connect to the database

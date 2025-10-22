@@ -11,14 +11,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const reservationDate = document.getElementById("date").value.trim();
     const reservationTime = document.getElementById("time").value.trim();
-    const reservationGuests = document.getElementById("guests").value.trim();
+    const reservationGuestsRaw = document.getElementById("guests").value.trim();
+    const reservationGuests = Number(reservationGuestsRaw);
 
-    if (!reservationDate || !reservationTime || !reservationGuests) {
+    // Allowed time slots (keep in sync with server expectations)
+    const allowedTimeSlots = [
+      "8:00-10:00 AM",
+      "10:30-12:30 PM",
+      "1:00-3:00 PM",
+      "3:30-5:30 PM",
+      "6:30-8:30 PM",
+    ];
+
+    if (!reservationDate || !reservationTime || !reservationGuestsRaw) {
       Swal.fire({
         icon: "error",
         title: "Validation Error",
         text: "Please fill in all required fields.",
         timer: 1200,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+      return;
+    }
+
+    // Validate time slot
+    if (!allowedTimeSlots.includes(reservationTime)) {
+      Swal.fire({
+        icon: "error",
+        title: "Validation Error",
+        text: "Please select a valid time slot.",
+        timer: 1400,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+      return;
+    }
+
+    // Validate guests number
+    if (!Number.isInteger(reservationGuests) || reservationGuests < 1 || reservationGuests > 150) {
+      Swal.fire({
+        icon: "error",
+        title: "Validation Error",
+        text: "Number of guests must be a whole number between 1 and 150.",
+        timer: 1600,
         timerProgressBar: true,
         showConfirmButton: false,
       });
