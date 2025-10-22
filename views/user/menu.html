@@ -82,23 +82,29 @@
           <div class="relative hidden lg:block">
             <button
               onclick="toggleDropdown()"
-              class="flex items-center gap-2 text-xl text-[#fffeee] px-4 py-2 rounded-md hover:bg-[#2a2a2a] transition-colors duration-300"
+              class="flex items-center gap-2 text-xl text-[#fffeee] px-4 py-2 rounded-md hover:bg-[#2a2a2a] transition-all duration-300 border border-transparent hover:border-gray-700"
             >
-              <i class="bi bi-person-circle mr-1"></i>
-              <span id="user"></span>
-              <i class="bi bi-chevron-down"></i>
+              <i class="bi bi-person-circle text-2xl"></i>
+              <span id="user" class="font-medium"></span>
+              <i class="bi bi-chevron-down text-sm transition-transform duration-300" id="dropdown-icon"></i>
             </button>
             <div
               id="dropdown-menu"
-              class="absolute right-0 mt-2 w-48 bg-[#1e1e1e] rounded-md shadow-lg hidden z-10 border border-gray-700"
+              class="absolute right-0 mt-2 w-56 bg-[#1e1e1e] rounded-lg shadow-2xl hidden z-50 border border-gray-700 overflow-hidden transition-all duration-300 opacity-0"
             >
-              <hr class="border-gray-600" />
-              <button
-                id="logout"
-                class="w-full px-4 py-2 text-sm text-[#fffeee] hover:bg-red-600 hover:text-white transition-colors duration-300 rounded-b-md"
-              >
-                <i class="bi bi-box-arrow-right mr-2"></i>Logout
-              </button>
+              <div class="py-2">
+                <div class="px-4 py-3 border-b border-gray-700">
+                  <p class="text-xs text-gray-400 uppercase tracking-wide">Account</p>
+                  <p class="text-sm text-[#fffeee] font-medium mt-1" id="dropdown-user"></p>
+                </div>
+                <button
+                  id="logout"
+                  class="w-full px-4 py-3 text-sm text-left text-[#fffeee] hover:bg-red-600 hover:text-white transition-all duration-300 flex items-center gap-3"
+                >
+                  <i class="bi bi-box-arrow-right text-lg"></i>
+                  <span class="font-medium">Logout</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -134,14 +140,15 @@
               <i class="bi bi-calendar-event mr-2"></i>Reserve Table
             </a>
             <hr class="border-gray-600 my-3" />
-            <div class="flex items-center gap-2 text-[#fffeee] py-2">
-              <i class="bi bi-person-circle"></i>
-              <span id="user"></span>
+            <div class="flex items-center gap-2 text-[#fffeee] py-2 px-2 bg-[#2a2a2a] rounded-md">
+              <i class="bi bi-person-circle text-xl"></i>
+              <span id="user" class="font-medium"></span>
             </div>
             <button
-              class="block text-red-400 hover:text-red-300 transition-colors duration-300 py-2 pl-4"
+              class="w-full text-left flex items-center gap-3 text-red-400 hover:text-white hover:bg-red-600 transition-all duration-300 py-3 px-4 rounded-md mt-2"
             >
-              <i class="bi bi-box-arrow-right mr-2"></i>Logout
+              <i class="bi bi-box-arrow-right text-lg"></i>
+              <span class="font-medium">Logout</span>
             </button>
           </div>
         </div>
@@ -162,16 +169,15 @@
         >
           <button
             class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1"
-            onclick="showCategory('mains')"
+            onclick="showCategory('appetizers')"
           >
-            Mains
+            Appetizers
           </button>
           <button
             class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1"
-            onclick="showCategory('breads')"
+            onclick="showCategory('mains')"
           >
-            <span class="hidden sm:inline">Breads & Pizza</span>
-            <span class="sm:hidden">Pizza</span>
+            Mains
           </button>
           <button
             class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1"
@@ -181,109 +187,137 @@
           </button>
           <button
             class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1"
-            onclick="showCategory('coffee')"
-          >
-            Coffee
-          </button>
-          <button
-            class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1"
             onclick="showCategory('drinks')"
           >
-            <span class="hidden sm:inline">Thirst Quencher</span>
-            <span class="sm:hidden">Drinks</span>
+            Drinks
           </button>
           <button
             class="mini-nav-btn relative text-[#fffeee] text-xl lg:text-2xl hover:text-yellow-500 transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full px-2 py-1"
-            onclick="showCategory('signature')"
+            onclick="showCategory('desserts')"
           >
-            <span class="hidden lg:inline">Josephine's Signature</span>
-            <span class="lg:hidden">Signature</span>
+            Desserts
           </button>
         </div>
 
-        <!-- Mains Section -->
-        <div id="mains" class="menu-category">
+        <!-- Appetizers Section -->
+        <div id="appetizers" class="menu-category">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300 group"
             >
-              <h2 class="text-xl font-medium text-center">Ribeye Steak</h2>
+              <div class="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                <img
+                  src="../../public/images/menu/Caesar.jpg"
+                  alt="Classic Caesar Salad"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <h2 class="text-xl font-medium text-center text-[#fffeee]">Classic Caesar Salad</h2>
+              <p class="text-center text-yellow-200 mt-2">₱298</p>
+            </div>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300 group"
+            >
+              <div class="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                <img
+                  src="../../public/images/menu/Greek.jpg"
+                  alt="Greek Salad"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <h2 class="text-xl font-medium text-center text-[#fffeee]">Greek Salad</h2>
+              <p class="text-center text-yellow-200 mt-2">₱280</p>
+            </div>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300 group"
+            >
+              <div class="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                <img
+                  src="../../public/images/menu/Tomato.jpg"
+                  alt="Tomato Soup with Grilled Cheese Sandwich"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <h2 class="text-xl font-medium text-center text-[#fffeee]">
+                Tomato Soup with Grilled Cheese Sandwich
+              </h2>
+              <p class="text-center text-yellow-200 mt-2">₱288</p>
+            </div>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300 group"
+            >
+              <div class="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                <img
+                  src="../../public/images/menu/Caviar.jpg"
+                  alt="Smoked Salmon In Caviar"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <h2 class="text-xl font-medium text-center text-[#fffeee]">
+                Smoked Salmon In Caviar
+              </h2>
+              <p class="text-center text-yellow-200 mt-2">₱408</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mains Section -->
+        <div id="mains" class="menu-category hidden">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300 group"
+            >
+              <div class="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                <img
+                  src="../../public/images/menu/ribeye.jpg"
+                  alt="Ribeye Steak"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <h2 class="text-xl font-medium text-center text-[#fffeee]">Ribeye Steak</h2>
               <p class="text-center text-yellow-200 mt-2">
                 Includes creamy mashed potato, buttered veggies, and hearty
                 mushroom soup. ₱698
               </p>
             </div>
             <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300 group"
             >
-              <h2 class="text-xl font-medium text-center">Tomahawk Steak</h2>
-              <p class="text-center text-yellow-200 mt-2">
-                For sharing. Includes Scarlet's Shrimp Scampi, Aglio Olio,
-                Josephine's Signature Salad, Mashed Potato, Buttered Veggies,
-                and Mushroom Soup. ₱7999
-              </p>
+              <div class="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                <img
+                  src="../../public/images/menu/angus.jpg"
+                  alt="Antonio's Angus Burger"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <h2 class="text-xl font-medium text-center text-[#fffeee]">Antonio's Angus Burger</h2>
+              <p class="text-center text-yellow-200 mt-2">₱488</p>
             </div>
             <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300 group"
             >
-              <h2 class="text-xl font-medium text-center">Pom's Baked Ribs</h2>
+              <div class="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                <img
+                  src="../../public/images/menu/chicken.jpg"
+                  alt="Classic Fried Chicken and 2pc BBQ"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <h2 class="text-xl font-medium text-center text-[#fffeee]">Classic Fried Chicken and 2pc BBQ</h2>
+              <p class="text-center text-yellow-200 mt-2">₱450</p>
+            </div>
+            <div
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300 group"
+            >
+              <div class="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                <img
+                  src="../../public/images/menu/Ribs.jpg"
+                  alt="Pom's Baked Ribs"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <h2 class="text-xl font-medium text-center text-[#fffeee]">Pom's Baked Ribs</h2>
               <p class="text-center text-yellow-200 mt-2">₱598</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">
-                Salmon in Lemon Garlic Sauce
-              </h2>
-              <p class="text-center text-yellow-200 mt-2">
-                Includes buttered veggies and white rice. ₱548
-              </p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">Fish and Chips</h2>
-              <p class="text-center text-yellow-200 mt-2">
-                Deep-fried fish served with fries and tartar sauce. ₱488
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Breads & Pizza Section -->
-        <div id="breads" class="menu-category hidden">
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">
-                Pomphens' Pizza Marinara
-              </h2>
-              <p class="text-center text-yellow-200 mt-2">₱498</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">
-                Pom's Chorizo De' Bilbao Pizza
-              </h2>
-              <p class="text-center text-yellow-200 mt-2">₱598</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">
-                Shrimp Ala Mode' Pizza
-              </h2>
-              <p class="text-center text-yellow-200 mt-2">₱698</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">
-                Smoked Salmon in Herb Cheese
-              </h2>
-              <p class="text-center text-yellow-200 mt-2">₱688</p>
             </div>
           </div>
         </div>
@@ -292,45 +326,29 @@
         <div id="pasta" class="menu-category hidden">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300 group"
             >
-              <h2 class="text-xl font-medium text-center">Aglio Olio</h2>
-              <p class="text-center text-yellow-200 mt-2">
-                Olive oil, garlic, red pepper flakes, and parmesan cheese. ₱208
-              </p>
+              <div class="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                <img
+                  src="../../public/images/menu/Andrea.jpg"
+                  alt="Andrea Pasta"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <h2 class="text-xl font-medium text-center text-[#fffeee]">Andrea Pasta</h2>
+              <p class="text-center text-yellow-200 mt-2">₱298</p>
             </div>
             <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300 group"
             >
-              <h2 class="text-xl font-medium text-center">Salmon Spinach</h2>
-              <p class="text-center text-yellow-200 mt-2">
-                Tossed in light creamy sauce, flavor-packed salmon, along with
-                the bite of tangerine from lemon. ₱298
-              </p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">Creamy Carbonara</h2>
-              <p class="text-center text-yellow-200 mt-2">
-                Creamy sauce, bacon, mushrooms, and parmesan cheese. ₱248
-              </p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">
-                Meaty Cheesy Lasagna
-              </h2>
-              <p class="text-center text-yellow-200 mt-2">
-                100% pure beef, layered with refreshingly fresh onions & garlic,
-                layered in a succulent sauce, topped with quality cheese. ₱268
-              </p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">
+              <div class="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                <img
+                  src="../../public/images/menu/Shrimp.jpg"
+                  alt="Scarlet's Shrimp Scampi"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <h2 class="text-xl font-medium text-center text-[#fffeee]">
                 Scarlet's Shrimp Scampi
               </h2>
               <p class="text-center text-yellow-200 mt-2">
@@ -338,378 +356,56 @@
                 ₱258
               </p>
             </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">Saucy Spaghetti</h2>
-              <p class="text-center text-yellow-200 mt-2">
-                Pure beef in signature red sauce and mushrooms topped with
-                parmesan cheese. ₱228
-              </p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">Tuna Pesto</h2>
-              <p class="text-center text-yellow-200 mt-2">
-                Made with homemade pesto sauce. ₱248
-              </p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">
-                Andrea's Shrimp Marinara
-              </h2>
-              <p class="text-center text-yellow-200 mt-2">₱298</p>
-            </div>
           </div>
         </div>
 
-        <!-- Coffee Section - Grid Layout -->
-        <div id="coffee" class="menu-category hidden">
-          <!-- Hot Coffee -->
-          <div class="mb-8">
-            <h3 class="text-2xl font-medium text-yellow-500 text-center mb-6">
-              ☕ HOT COFFEE
-            </h3>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Espresso</h4>
-                <p class="text-yellow-200 mt-1">₱95</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Americano</h4>
-                <p class="text-yellow-200 mt-1">₱95</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Cappuccino</h4>
-                <p class="text-yellow-200 mt-1">₱105</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Mocha</h4>
-                <p class="text-yellow-200 mt-1">₱128</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Hazelnut</h4>
-                <p class="text-yellow-200 mt-1">₱138</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Caramel</h4>
-                <p class="text-yellow-200 mt-1">₱138</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Macchiato</h4>
-                <p class="text-yellow-200 mt-1">₱140</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Matcha</h4>
-                <p class="text-yellow-200 mt-1">₱148</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Vanilla</h4>
-                <p class="text-yellow-200 mt-1">₱130</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">White Chocolate</h4>
-                <p class="text-yellow-200 mt-1">₱138</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Cold Coffee -->
-          <div class="mb-8">
-            <h3 class="text-2xl font-medium text-yellow-500 text-center mb-6">
-              ❄️ COLD COFFEE
-            </h3>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Americano</h4>
-                <p class="text-yellow-200 mt-1">₱120</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Salted Caramel</h4>
-                <p class="text-yellow-200 mt-1">₱180</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Mocha</h4>
-                <p class="text-yellow-200 mt-1">₱178</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Hazelnut</h4>
-                <p class="text-yellow-200 mt-1">₱165</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Vanilla</h4>
-                <p class="text-yellow-200 mt-1">₱158</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Matcha</h4>
-                <p class="text-yellow-200 mt-1">₱180</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">
-                  Caramel Macchiato
-                </h4>
-                <p class="text-yellow-200 mt-1">₱180</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Spanish Latte</h4>
-                <p class="text-yellow-200 mt-1">₱178</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">White Chocolate</h4>
-                <p class="text-yellow-200 mt-1">₱150</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">
-                  Maple Frost Latte
-                </h4>
-                <p class="text-yellow-200 mt-1">₱178</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Caramel Calm</h4>
-                <p class="text-yellow-200 mt-1">₱168</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">
-                  Pumpkin Spice Latte
-                </h4>
-                <p class="text-yellow-200 mt-1">₱178</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Frappe -->
-          <div class="mb-8">
-            <h3 class="text-2xl font-medium text-yellow-500 text-center mb-6">
-              🥤 FRAPPE
-            </h3>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Oreo Delight</h4>
-                <p class="text-yellow-200 mt-1">₱195</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">
-                  Strawberry Dream
-                </h4>
-                <p class="text-yellow-200 mt-1">₱210</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">
-                  Strawberry Oreo Madness
-                </h4>
-                <p class="text-yellow-200 mt-1">₱230</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Java Chip</h4>
-                <p class="text-yellow-200 mt-1">₱220</p>
-                <p class="text-xs text-gray-400">(espresso based)</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Add-ons -->
-          <div>
-            <h3 class="text-2xl font-medium text-yellow-500 text-center mb-6">
-              ADD ONS
-            </h3>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Double Shot</h4>
-                <p class="text-yellow-200 mt-1">₱60</p>
-              </div>
-              <div
-                class="flex flex-col items-center p-4 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-              >
-                <h4 class="text-lg font-medium text-center">Non Fat Milk</h4>
-                <p class="text-yellow-200 mt-1">₱50</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Thirst Quencher Section - Better organized -->
+        <!-- Drinks Section -->
         <div id="drinks" class="menu-category hidden">
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300 group"
             >
-              <h2 class="text-xl font-medium text-center">
-                Coke Float / Rootbeer
-              </h2>
-              <p class="text-center text-yellow-200 mt-2">₱328</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">
-                Josephine's Hot Chocolate
-              </h2>
-              <p class="text-center text-yellow-200 mt-2">₱170</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">
-                Soda (Coke, Royal, Sprite)
-              </h2>
-              <p class="text-center text-yellow-200 mt-2">₱88</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">Orange Juice</h2>
-              <p class="text-center text-yellow-200 mt-2">₱90</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">Lime Juice</h2>
-              <p class="text-center text-yellow-200 mt-2">₱90</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">Passion Fruit</h2>
-              <p class="text-center text-yellow-200 mt-2">₱130</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">Grape Juice</h2>
-              <p class="text-center text-yellow-200 mt-2">₱130</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">
-                Mixed Berries Juice
-              </h2>
-              <p class="text-center text-yellow-200 mt-2">₱130</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">Bay Berry Juice</h2>
-              <p class="text-center text-yellow-200 mt-2">₱130</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">Perrier Water</h2>
+              <div class="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                <img
+                  src="../../public/images/menu/Mango.jpg"
+                  alt="Mango Shake"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <h2 class="text-xl font-medium text-center text-[#fffeee]">Mango Shake</h2>
               <p class="text-center text-yellow-200 mt-2">₱150</p>
             </div>
             <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300 group"
             >
-              <h2 class="text-xl font-medium text-center">Mineral Water</h2>
-              <p class="text-center text-yellow-200 mt-2">₱40</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">Sola Drink in Can</h2>
-              <p class="text-center text-yellow-200 mt-2">₱88</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">Sola Drink Bottle</h2>
-              <p class="text-center text-yellow-200 mt-2">₱128</p>
+              <div class="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                <img
+                  src="../../public/images/menu/watermelon.jpg"
+                  alt="Watermelon Shake"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <h2 class="text-xl font-medium text-center text-[#fffeee]">Watermelon Shake</h2>
+              <p class="text-center text-yellow-200 mt-2">₱150</p>
             </div>
           </div>
         </div>
 
-        <!-- Josephine's Signature Section -->
-        <div id="signature" class="menu-category hidden">
+        <!-- Desserts Section -->
+        <div id="desserts" class="menu-category hidden">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
+              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300 group"
             >
-              <h2 class="text-xl font-medium text-center">
-                Josephine's Signature Salad
-              </h2>
-              <p class="text-center text-yellow-200 mt-2">₱298</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">
-                Tomato Soup and Grilled Cheese Sandwich
-              </h2>
-              <p class="text-center text-yellow-200 mt-2">₱288</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">
-                Grilled Cheese Sandwich
-              </h2>
+              <div class="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                <img
+                  src="../../public/images/menu/Affogato.jpg"
+                  alt="Mad Doc's Affogato"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <h2 class="text-xl font-medium text-center text-[#fffeee]">Mad Doc's Affogato</h2>
               <p class="text-center text-yellow-200 mt-2">₱180</p>
-            </div>
-            <div
-              class="flex flex-col items-center p-6 bg-gray-800 bg-opacity-30 rounded-lg border border-gray-700 hover:border-yellow-500 transition-all duration-300"
-            >
-              <h2 class="text-xl font-medium text-center">
-                Smoked Salmon Caviar Crostini
-              </h2>
-              <p class="text-center text-yellow-200 mt-2">₱408</p>
             </div>
           </div>
         </div>

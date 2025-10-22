@@ -243,28 +243,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     products.innerHTML =
       '<option value="" disabled selected>Select a product</option>';
 
-    if (cat === "coffee") {
-      Object.entries(menuData.coffee).forEach(([type, items]) => {
-        const optgroup = document.createElement("optgroup");
-        optgroup.label = type.charAt(0).toUpperCase() + type.slice(1);
-
-        items.forEach((item) => {
-          const option = document.createElement("option");
-          option.value = JSON.stringify({ name: item.name, price: item.price });
-          option.textContent = `${item.name} - ${item.price}`;
-          optgroup.appendChild(option);
-        });
-
-        products.appendChild(optgroup);
-      });
-    } else {
-      menuData[cat].forEach((item) => {
-        const option = document.createElement("option");
-        option.value = JSON.stringify({ name: item.name, price: item.price });
-        option.textContent = `${item.name} - ${item.price}`;
-        products.appendChild(option);
-      });
-    }
+    menuData[cat].forEach((item) => {
+      const option = document.createElement("option");
+      option.value = JSON.stringify({ name: item.name, price: item.price });
+      option.textContent = `${item.name} - ${item.price}`;
+      products.appendChild(option);
+    });
   }
 
   // update total price

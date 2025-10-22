@@ -1,20 +1,49 @@
-// Toggle dropdown menu
+// Toggle dropdown menu with smooth animation
 function toggleDropdown() {
   const dropdown = document.getElementById("dropdown-menu");
+  const icon = document.getElementById("dropdown-icon");
+  
   if (dropdown) {
-    dropdown.classList.toggle("hidden");
+    const isHidden = dropdown.classList.contains("hidden");
+    
+    if (isHidden) {
+      // Show dropdown
+      dropdown.classList.remove("hidden");
+      dropdown.classList.remove("opacity-0");
+      dropdown.classList.add("opacity-100");
+      if (icon) {
+        icon.style.transform = "rotate(180deg)";
+      }
+      
+      // Update dropdown user info
+      const user = sessionStorage.getItem("user");
+      const dropdownUser = document.getElementById("dropdown-user");
+      if (dropdownUser && user) {
+        const userData = JSON.parse(user);
+        dropdownUser.textContent = userData.username || "User";
+      }
+    } else {
+      // Hide dropdown
+      dropdown.classList.remove("opacity-100");
+      dropdown.classList.add("opacity-0");
+      if (icon) {
+        icon.style.transform = "rotate(0deg)";
+      }
+      setTimeout(() => {
+        dropdown.classList.add("hidden");
+      }, 300);
+    }
   }
 }
 
 // Show only the active category
 function showCategory(category) {
   const categories = [
+    "appetizers",
     "mains",
-    "breads",
     "pasta",
-    "coffee",
     "drinks",
-    "signature",
+    "desserts",
   ];
 
   // Hide all categories
@@ -41,18 +70,28 @@ function showCategory(category) {
   }
 }
 
-// Show Mains by default
+// Show Appetizers by default
 document.addEventListener("DOMContentLoaded", () => {
-  showCategory("mains");
+  showCategory("appetizers");
 });
 
 // Close dropdown when clicking outside
 document.addEventListener("click", function (event) {
   const dropdown = document.getElementById("dropdown-menu");
   const button = event.target.closest('button[onclick="toggleDropdown()"]');
+  const icon = document.getElementById("dropdown-icon");
 
   if (!button && dropdown && !dropdown.contains(event.target)) {
-    dropdown.classList.add("hidden");
+    if (!dropdown.classList.contains("hidden")) {
+      dropdown.classList.remove("opacity-100");
+      dropdown.classList.add("opacity-0");
+      if (icon) {
+        icon.style.transform = "rotate(0deg)";
+      }
+      setTimeout(() => {
+        dropdown.classList.add("hidden");
+      }, 300);
+    }
   }
 });
 // Mobile menu toggle
