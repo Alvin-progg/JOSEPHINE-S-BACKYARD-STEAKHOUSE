@@ -78,23 +78,29 @@
           <div class="relative hidden lg:block">
             <button
               onclick="toggleDropdown()"
-              class="flex items-center gap-2 text-xl text-[#fffeee] px-4 py-2 rounded-md hover:bg-[#2a2a2a] transition-colors duration-300"
+              class="flex items-center gap-2 text-xl text-[#fffeee] px-4 py-2 rounded-md hover:bg-[#2a2a2a] transition-all duration-300 border border-transparent hover:border-gray-700"
             >
-              <i class="bi bi-person-circle mr-1"></i>
-              <span id="user"></span>
-              <i class="bi bi-chevron-down"></i>
+              <i class="bi bi-person-circle text-2xl"></i>
+              <span id="user" class="font-medium"></span>
+              <i class="bi bi-chevron-down text-sm transition-transform duration-300" id="dropdown-icon"></i>
             </button>
             <div
               id="dropdown-menu"
-              class="absolute right-0 mt-2 w-48 bg-[#1e1e1e] rounded-md shadow-lg hidden z-10 border border-gray-700"
+              class="absolute right-0 mt-2 w-56 bg-[#1e1e1e] rounded-lg shadow-2xl hidden z-50 border border-gray-700 overflow-hidden transition-all duration-300 opacity-0"
             >
-              <hr class="border-gray-600" />
-              <button
-                id="logout"
-                class="w-full px-4 py-2 text-sm text-[#fffeee] hover:bg-red-600 hover:text-white transition-colors duration-300 rounded-b-md"
-              >
-                <i class="bi bi-box-arrow-right mr-2"></i>Logout
-              </button>
+              <div class="py-2">
+                <div class="px-4 py-3 border-b border-gray-700">
+                  <p class="text-xs text-gray-400 uppercase tracking-wide">Account</p>
+                  <p class="text-sm text-[#fffeee] font-medium mt-1" id="dropdown-user"></p>
+                </div>
+                <button
+                  id="logout"
+                  class="w-full px-4 py-3 text-sm text-left text-[#fffeee] hover:bg-red-600 hover:text-white transition-all duration-300 flex items-center gap-3"
+                >
+                  <i class="bi bi-box-arrow-right text-lg"></i>
+                  <span class="font-medium">Logout</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -129,16 +135,17 @@
               <i class="bi bi-calendar-event mr-2"></i>Reserve Table
             </a>
             <hr class="border-gray-600 my-3" />
-            <div class="flex items-center gap-2 text-[#fffeee] py-2">
-              <i class="bi bi-person-circle"></i>
-              <span id="user"></span>
+            <div class="flex items-center gap-2 text-[#fffeee] py-2 px-2 bg-[#2a2a2a] rounded-md">
+              <i class="bi bi-person-circle text-xl"></i>
+              <span id="user" class="font-medium"></span>
             </div>
             <button
               id="logout"
-              class="block text-red-400 hover:text-red-300 transition-colors duration-300 py-2 pl-4"
+              class="w-full text-left flex items-center gap-3 text-red-400 hover:text-white hover:bg-red-600 transition-all duration-300 py-3 px-4 rounded-md mt-2"
               href="/views/auth/login.html"
             >
-              <i class="bi bi-box-arrow-right mr-2"></i>Logout
+              <i class="bi bi-box-arrow-right text-lg"></i>
+              <span class="font-medium">Logout</span>
             </button>
           </div>
         </div>
