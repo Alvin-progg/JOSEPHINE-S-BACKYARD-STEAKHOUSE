@@ -32,6 +32,22 @@ async function checkStatus(type, endpoint) {
         title: `${type.charAt(0).toUpperCase() + type.slice(1)} Status Changed`,
         text: `Your ${type} status is now "${newStatus}".`,
       });
+      // Send email notification
+      try {
+        const emailRes = await fetch("/api/email/sendEmail.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username, // fetched from localStorage above
+            type,
+            status: newStatus,
+          }),
+        });
+        const response = await emailRes.json();
+        console.log("Email Notification Response:", response);
+      } catch (emailError) {
+        console.error("Error sending email notification:", emailError);
+      }
 
       prevStatuses[type] = newStatus; // Update baseline
     }
