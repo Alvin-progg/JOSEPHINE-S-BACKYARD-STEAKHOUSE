@@ -136,55 +136,113 @@ async function loadReservations() {
     }
 
     const result = await response.json();
+    console.log("Reservations API Response:", result);
 
     if (result.success) {
-      renderReservations(result.data);
+      renderReservations(result.data); // Changed from result.reservations to result.data
+      updateDashboardStats(result.data); // Changed from result.reservations to result.data
     } else {
       console.error("Failed to load reservations:", result.message);
       showEmptyState();
+      updateDashboardStats([]); // Update with empty array
       loadingState.style.display = "none";
     }
   } catch (error) {
     console.error("Error loading reservations:", error);
     showEmptyState();
+    updateDashboardStats([]); // Update with empty array
     loadingState.style.display = "none";
   }
 }
 
 // Function to render reservations
 function renderReservations(reservations) {
-  const mobileContainer = document.querySelector(".block.md\\:hidden"); // ✅ fixed
-  const desktopTableBody = document.querySelector("tbody");
+  // Select container within the reserve_table section
+  const reserveSection = document.getElementById("reserve_table");
+  const container = reserveSection?.querySelector("#reservations-container");
+
+  console.log("Rendering reservations:", {
+    reservationsCount: reservations?.length,
+    reserveSection: reserveSection,
+    container: container
+  });
 
   if (!reservations || reservations.length === 0) {
     showEmptyState();
-    loadingState.style.display = "none"; // ✅ hide spinner if empty
+    loadingState.style.display = "none";
     return;
   }
 
-  if (mobileContainer) mobileContainer.innerHTML = "";
-  if (desktopTableBody) desktopTableBody.innerHTML = "";
+  if (container) container.innerHTML = "";
 
   reservations.forEach((reservation) => {
     const statusStyle = getStatusStyle(reservation.status);
     const buttonStyle = getButtonStyle(reservation.status);
 
-    if (mobileContainer) {
-      const mobileCard = createMobileCard(
-        reservation,
-        statusStyle,
-        buttonStyle
-      );
-      mobileContainer.appendChild(mobileCard);
-    }
-
-    if (desktopTableBody) {
-      const tableRow = createTableRow(reservation, statusStyle, buttonStyle);
-      desktopTableBody.appendChild(tableRow);
+    if (container) {
+      const card = createReservationCard(reservation, statusStyle, buttonStyle);
+      container.appendChild(card);
     }
   });
 
-  loadingState.style.display = "none"; // ✅ hide spinner after rendering
+  loadingState.style.display = "none";
+}
+
+// Function to create modern reservation card
+function createReservationCard(reservation, statusStyle, buttonStyle) {
+  const card = document.createElement("div");
+  card.className = "bg-[#2a2a2a] rounded-lg p-5 border border-gray-600 hover:border-[var(--color-primary-600)] transition-all duration-300 hover:shadow-lg";
+
+  card.innerHTML = `
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <!-- Left Section: ID and Date Info -->
+      <div class="flex-1">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="bg-[var(--color-primary-600)] bg-opacity-20 p-2 rounded-lg">
+            <i class="bi bi-calendar-event text-2xl text-[var(--color-primary-600)]"></i>
+          </div>
+          <div>
+            <p class="text-[var(--color-primary-400)] font-bold text-lg">RES${reservation.id}</p>
+            <p class="text-gray-400 text-sm">${reservation.formatted_date}</p>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-3 text-sm">
+          <div class="flex items-center gap-2">
+            <i class="bi bi-clock text-[var(--color-primary-600)]"></i>
+            <div>
+              <p class="text-gray-400 text-xs">Time</p>
+              <p class="text-[#fffeee] font-medium">${reservation.formatted_time}</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="bi bi-people text-[var(--color-primary-600)]"></i>
+            <div>
+              <p class="text-gray-400 text-xs">Guests</p>
+              <p class="text-[#fffeee] font-medium">${reservation.guests} people</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Section: Status and Action -->
+      <div class="flex flex-col items-stretch sm:items-end gap-3 sm:min-w-[180px]">
+        <span class="${statusStyle.bgClass} text-white px-4 py-2 rounded-lg text-sm font-semibold text-center">
+          ${reservation.status}
+        </span>
+        <button
+          onclick="cancelReservation(${reservation.id})"
+          class="w-full sm:w-auto ${buttonStyle.bgClass} text-[#fffeee] px-4 py-2 rounded-lg ${buttonStyle.hoverClass} transition-all duration-300 text-sm font-semibold flex items-center justify-center gap-2"
+          ${reservation.status === "Cancelled" ? "disabled" : ""}
+        >
+          <i class="bi bi-x-circle"></i>
+          Cancel
+        </button>
+      </div>
+    </div>
+  `;
+
+  return card;
 }
 
 // Function to create mobile reservation card
@@ -292,36 +350,24 @@ function getButtonStyle(status) {
 
 // Function to show empty state
 function showEmptyState() {
-  const mobileContainer = document.querySelector(".block.md\\:hidden"); // ✅ fixed
-  const desktopTableBody = document.querySelector("tbody");
+  const reserveSection = document.getElementById("reserve_table");
+  const container = reserveSection?.querySelector("#reservations-container");
 
   const emptyMessage = `
-    <div class="text-center py-8 text-gray-400">
-      <i class="bi bi-calendar-x text-4xl mb-3"></i>
-      <p class="text-lg">No reservations found</p>
-      <p class="text-sm">Make your first reservation above!</p>
+    <div class="text-center py-12 text-gray-400">
+      <div class="bg-[#2a2a2a] rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
+        <i class="bi bi-calendar-x text-5xl text-gray-500"></i>
+      </div>
+      <p class="text-xl font-semibold text-[#fffeee] mb-2">No reservations found</p>
+      <p class="text-sm">Make your first reservation to get started!</p>
     </div>
   `;
 
-  if (mobileContainer) {
-    mobileContainer.innerHTML = emptyMessage;
+  if (container) {
+    container.innerHTML = emptyMessage;
   }
 
-  if (desktopTableBody) {
-    desktopTableBody.innerHTML = `
-      <tr>
-        <td colspan="6" class="py-8 text-center text-gray-400">
-          <div>
-            <i class="bi bi-calendar-x text-4xl mb-3 block"></i>
-            <p class="text-lg">No reservations found</p>
-            <p class="text-sm">Make your first reservation above!</p>
-          </div>
-        </td>
-      </tr>
-    `;
-  }
-
-  loadingState.style.display = "none"; // ✅ hide spinner
+  loadingState.style.display = "none";
 }
 
 // Function to cancel a reservation
@@ -386,4 +432,44 @@ async function cancelReservation(reservationId) {
       showConfirmButton: false,
     });
   }
+}
+
+// Function to update dashboard stats
+function updateDashboardStats(reservations) {
+  // Only update if we're on the home page
+  const totalReservationsEl = document.getElementById("total-reservations");
+  if (!totalReservationsEl) return;
+
+  // Safety check for reservations array
+  if (!reservations || !Array.isArray(reservations)) {
+    reservations = [];
+  }
+
+  // Count total reservations
+  totalReservationsEl.textContent = reservations.length;
+
+  // Count pending reservations (Pending status)
+  const pendingReservations = reservations.filter(
+    (res) => res.status === "Pending"
+  ).length;
+
+  // Update the stats (will be combined with pending orders)
+  window.reservationStats = {
+    total: reservations.length,
+    pending: pendingReservations,
+  };
+
+  // Update pending count if orders are already loaded
+  updatePendingCount();
+}
+
+// Function to update the pending count
+function updatePendingCount() {
+  const pendingItemsEl = document.getElementById("pending-items");
+  if (!pendingItemsEl) return;
+
+  const reservationPending = window.reservationStats?.pending || 0;
+  const ordersPending = window.orderStats?.pending || 0;
+
+  pendingItemsEl.textContent = reservationPending + ordersPending;
 }

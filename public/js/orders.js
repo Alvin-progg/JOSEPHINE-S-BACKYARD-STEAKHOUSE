@@ -22,6 +22,7 @@ async function loadOrders() {
 
     if (result.success) {
       renderOrders(result.data);
+      updateOrderStats(result.data);
     } else {
       console.error("Failed to load orders:", result.message);
       showEmptyOrdersState();
@@ -38,8 +39,7 @@ async function loadOrders() {
 
 // Function to render orders in both mobile and desktop views
 function renderOrders(orders) {
-  const mobileContainer = document.querySelector("#order_table .block.md\\:hidden");
-  const desktopTableBody = document.querySelector("#order_table tbody");
+  const container = document.querySelector("#order_table #orders-container");
   const loadingState = document.getElementById("orders-loading-state");
 
   if (!orders || orders.length === 0) {
@@ -49,27 +49,91 @@ function renderOrders(orders) {
   }
 
   // Clear existing content
-  if (mobileContainer) mobileContainer.innerHTML = "";
-  if (desktopTableBody) desktopTableBody.innerHTML = "";
+  if (container) container.innerHTML = "";
 
   orders.forEach((order) => {
     const deliveryStatusStyle = getDeliveryStatusStyle(order.delivery_status);
     const paymentStatusStyle = getPaymentStatusStyle(order.payment_status);
 
-    // Render mobile card
-    if (mobileContainer) {
-      const mobileCard = createMobileOrderCard(order, deliveryStatusStyle, paymentStatusStyle);
-      mobileContainer.appendChild(mobileCard);
-    }
-
-    // Render desktop table row
-    if (desktopTableBody) {
-      const tableRow = createOrderTableRow(order, deliveryStatusStyle, paymentStatusStyle);
-      desktopTableBody.appendChild(tableRow);
+    // Render order card
+    if (container) {
+      const orderCard = createOrderCard(order, deliveryStatusStyle, paymentStatusStyle);
+      container.appendChild(orderCard);
     }
   });
 
   if (loadingState) loadingState.style.display = "none";
+}
+
+// Function to create modern order card
+function createOrderCard(order, deliveryStatusStyle, paymentStatusStyle) {
+  const card = document.createElement("div");
+  card.className = "bg-[#2a2a2a] rounded-lg p-5 border border-gray-600 hover:border-[var(--color-primary-600)] transition-all duration-300 hover:shadow-lg";
+
+  const totalPrice = (parseFloat(order.price) * parseInt(order.quantity)).toFixed(2);
+  const orderDate = order.order_date ? new Date(order.order_date).toLocaleDateString() : 'N/A';
+  const canCancel = order.delivery_status !== "Delivered" && order.delivery_status !== "Cancelled";
+
+  card.innerHTML = `
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <!-- Left Section: Order Info -->
+      <div class="flex-1">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="bg-[var(--color-primary-600)] bg-opacity-20 p-2 rounded-lg">
+            <i class="bi bi-bag-check text-2xl text-[var(--color-primary-600)]"></i>
+          </div>
+          <div>
+            <p class="text-[var(--color-primary-400)] font-bold text-lg">ORD${order.order_id}</p>
+            <p class="text-gray-400 text-sm">${orderDate}</p>
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <p class="text-[#fffeee] font-semibold mb-1">${order.product_name}</p>
+          <div class="flex items-center gap-4 text-sm">
+            <span class="text-gray-400">Qty: <span class="text-[#fffeee] font-medium">${order.quantity}</span></span>
+            <span class="text-[var(--color-primary-600)] font-bold text-lg">₱${totalPrice}</span>
+          </div>
+        </div>
+        
+        ${order.customize ? `
+          <div class="bg-[#1e1e1e] rounded-lg p-2 text-xs">
+            <p class="text-gray-400">Note: <span class="text-[#fffeee]">${order.customize}</span></p>
+          </div>
+        ` : ''}
+      </div>
+
+      <!-- Right Section: Status and Action -->
+      <div class="flex flex-col items-stretch sm:items-end gap-2 sm:min-w-[180px]">
+        <div class="flex gap-2">
+          <span class="${paymentStatusStyle.bgClass} text-white px-3 py-1 rounded-lg text-xs font-semibold">
+            ${order.payment_status || 'N/A'}
+          </span>
+          <span class="${deliveryStatusStyle.bgClass} text-white px-3 py-1 rounded-lg text-xs font-semibold">
+            ${order.delivery_status || 'N/A'}
+          </span>
+        </div>
+        ${canCancel ? `
+          <button
+            onclick="cancelOrder(${order.order_id})"
+            class="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-[#fffeee] px-4 py-2 rounded-lg transition-all duration-300 text-sm font-semibold flex items-center justify-center gap-2"
+          >
+            <i class="bi bi-x-circle"></i>
+            Cancel Order
+          </button>
+        ` : `
+          <button
+            disabled
+            class="w-full sm:w-auto bg-gray-600 text-gray-400 px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed"
+          >
+            ${order.delivery_status === "Delivered" ? "Completed" : "Cancelled"}
+          </button>
+        `}
+      </div>
+    </div>
+  `;
+
+  return card;
 }
 
 // Function to create mobile order card
@@ -239,34 +303,21 @@ function getPaymentStatusStyle(status) {
 
 // Function to show empty state
 function showEmptyOrdersState() {
-  const mobileContainer = document.querySelector("#order_table .block.md\\:hidden");
-  const desktopTableBody = document.querySelector("#order_table tbody");
+  const container = document.querySelector("#order_table #orders-container");
   const loadingState = document.getElementById("orders-loading-state");
 
   const emptyMessage = `
-    <div class="text-center py-8 text-gray-400">
-      <i class="bi bi-cart-x text-4xl mb-3"></i>
-      <p class="text-lg">No orders found</p>
+    <div class="text-center py-12 text-gray-400">
+      <div class="bg-[#2a2a2a] rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
+        <i class="bi bi-cart-x text-5xl text-gray-500"></i>
+      </div>
+      <p class="text-xl font-semibold text-[#fffeee] mb-2">No orders found</p>
       <p class="text-sm">Place your first order from our menu!</p>
     </div>
   `;
 
-  if (mobileContainer) {
-    mobileContainer.innerHTML = emptyMessage;
-  }
-
-  if (desktopTableBody) {
-    desktopTableBody.innerHTML = `
-      <tr>
-        <td colspan="7" class="py-8 text-center text-gray-400">
-          <div>
-            <i class="bi bi-cart-x text-4xl mb-3 block"></i>
-            <p class="text-lg">No orders found</p>
-            <p class="text-sm">Place your first order from our menu!</p>
-          </div>
-        </td>
-      </tr>
-    `;
+  if (container) {
+    container.innerHTML = emptyMessage;
   }
 
   if (loadingState) loadingState.style.display = "none";
@@ -334,5 +385,32 @@ async function cancelOrder(orderId) {
       timerProgressBar: true,
       showConfirmButton: false,
     });
+  }
+}
+// Function to update dashboard stats for orders
+function updateOrderStats(orders) {
+  // Only update if we're on the home page
+  const totalOrdersEl = document.getElementById("total-orders");
+  if (!totalOrdersEl) return;
+
+  // Count total orders
+  totalOrdersEl.textContent = orders.length;
+
+  // Count pending orders (orders that are not delivered or cancelled)
+  const pendingOrders = orders.filter(
+    (order) =>
+      order.delivery_status !== "Delivered" &&
+      order.delivery_status !== "Cancelled"
+  ).length;
+
+  // Store stats globally
+  window.orderStats = {
+    total: orders.length,
+    pending: pendingOrders,
+  };
+
+  // Update pending count if reservations are already loaded
+  if (typeof updatePendingCount === "function") {
+    updatePendingCount();
   }
 }

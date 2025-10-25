@@ -62,7 +62,7 @@
                 href="./order.html"
                 class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full"
               >
-                Order
+                Checkout
               </a>
             </li>
             <li>
@@ -126,7 +126,7 @@
               href="./order.html"
               class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2"
             >
-              <i class="bi bi-cart mr-2"></i>Order
+              <i class="bi bi-cart-check mr-2"></i>Checkout
             </a>
             <a
               href="./reservation.html"
@@ -151,179 +151,83 @@
         </div>
       </nav>
     </header>
-    <main>
-      <section class="flex flex-col">
-        <h1 class="text-4xl text-center text-white font-bold my-10">
-          Order Food
+    <main class="px-4 pb-10">
+      <section class="max-w-5xl mx-auto">
+        <h1 class="text-4xl text-center text-[var(--color-primary-600)] font-['Lobster_Two'] my-10">
+          Checkout
         </h1>
-        <div
-          class="xl:w-1/2 w-full flex justify-center items-center mx-auto mb-10 px-4"
-        >
-          <div
-            class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden w-full max-w-4xl"
+
+        <!-- Back to Menu Button -->
+        <div class="mb-6">
+          <a
+            href="./menu.html"
+            class="inline-flex items-center gap-2 text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300"
           >
-            <div
-              class="bg-[var(--color-primary-600)] px-6 py-4 flex justify-center items-start"
-            >
-              <h2
-                class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center"
-              >
-                <i class="bi bi-calendar-plus mr-3"></i>Order Menu
-              </h2>
-            </div>
-            <div class="p-6">
-              <form id="order-form" class="space-y-4">
-                <div>
-                  <label
-                    for="category"
-                    class="block text-sm font-medium text-[#fffeee]"
-                    >Category</label
-                  >
-                  <select
-                    id="category"
-                    name="category"
-                    required
-                    class="w-full p-2 rounded-md bg-[#2a2a2a] text-[#fffeee] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-600)]"
-                  >
-                    <option value="" disabled selected>
-                      Select a category
-                    </option>
-                  </select>
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-[#fffeee]"
-                    >Selected Category: <span id="selectedCategory"></span
-                  ></label>
-                  <select
-                    id="products"
-                    required
-                    class="w-full p-2 rounded-md bg-[#2a2a2a] text-[#fffeee] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-600)]"
-                  >
-                    <option value="" disabled selected>Select a product</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label
-                    for="quantity"
-                    class="block text-sm font-medium text-[#fffeee]"
-                    >Quantity</label
-                  >
-                  <input
-                    type="number"
-                    value="1"
-                    min="1"
-                    id="quantity"
-                    name="quantity"
-                    required
-                    class="w-full p-2 rounded-md bg-[#2a2a2a] text-[#fffeee] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-600)]"
-                  />
-                </div>
-                <div>
-                  <label
-                    for="total"
-                    class="block text-sm font-medium text-[#fffeee]"
-                    >Total Price</label
-                  >
-                  <input
-                    type="text"
-                    id="total"
-                    disabled
-                    name="total"
-                    readonly
-                    class="w-full p-2 rounded-md bg-[#2a2a2a] text-[#fffeee] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-600)]"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    for="customize"
-                    class="block text-sm font-medium text-[#fffeee]"
-                    >Special Instructions / Customizations:
-                  </label>
-                  <textarea
-                    name="customize"
-                    id="customize"
-                    placeholder="Add special instructions or customizations (optional)"
-                    class="w-full p-2 rounded-md bg-[#2a2a2a] text-[#fffeee] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-600)] h-60 resize-none"
-                  >
-                  </textarea>
-                </div>
-                <button
-                  type="button"
-                  id="add-to-order"
-                  class="w-full bg-[var(--color-primary-600)] text-[#121212] py-2 rounded-md hover:bg-[var(--color-primary-700)] transition-colors duration-300 font-semibold"
-                >
-                  <i class="bi bi-plus-circle mr-2"></i>Add to Order
-                </button>
-              </form>
-            </div>
-          </div>
+            <i class="bi bi-arrow-left text-xl"></i>
+            <span>Continue Shopping</span>
+          </a>
         </div>
-        <div
-          id="order_table"
-          class="xl:w-1/2 w-full flex justify-center items-center mx-auto mb-10 px-4"
-        >
-          <div
-            class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden w-full max-w-4xl"
-          >
-            <div
-              class="bg-[var(--color-primary-600)] px-6 py-4 flex justify-center items-start"
-            >
-              <h2
-                class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center"
+
+        <!-- Cart Summary Section -->
+        <div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden mb-6">
+          <div class="bg-[var(--color-primary-600)] px-6 py-4">
+            <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center justify-between">
+              <span><i class="bi bi-cart3 mr-3"></i>Your Order</span>
+              <span id="cart-item-count" class="text-lg">0 items</span>
+            </h2>
+          </div>
+          
+          <div class="p-6">
+            <!-- Empty Cart Message -->
+            <div id="empty-cart-checkout" class="hidden text-center py-12 text-gray-400">
+              <i class="bi bi-cart-x text-6xl mb-4 block"></i>
+              <p class="text-xl mb-2">Your cart is empty</p>
+              <p class="text-sm mb-6">Add items from the menu to continue</p>
+              <a
+                href="./menu.html"
+                class="inline-block bg-[var(--color-primary-600)] text-[#121212] py-3 px-6 rounded-md hover:bg-[var(--color-primary-700)] transition-colors duration-300 font-semibold"
               >
-                <i class="bi bi-cart mr-3"></i>Your Transaction
-              </h2>
+                <i class="bi bi-arrow-left mr-2"></i>Browse Menu
+              </a>
             </div>
-            <div class="p-6 overflow-x-auto">
-              <table class="min-w-full max-w-full">
-                <thead>
-                  <tr class="border-b border-gray-600">
-                    <th
-                      class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
-                    >
-                      Product
-                    </th>
-                    <th
-                      class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
-                    >
-                      Qty
-                    </th>
-                    <th
-                      class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
-                    >
-                      Price
-                    </th>
-                    <th
-                      class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
-                    >
-                      Total
-                    </th>
-                    <th
-                      class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]"
-                    >
-                      customize
-                    </th>
-                    <th
-                      class="py-3 px-4 text-center text-sm font-bold text-[#fffeee]"
-                    >
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody id="order-items">
-                  <!-- Dynamic rows here -->
-                </tbody>
-              </table>
-              <div class="p-6">
+
+            <!-- Cart Items -->
+            <div id="cart-items-section">
+              <div class="overflow-x-auto">
+                <table class="min-w-full">
+                  <thead>
+                    <tr class="border-b border-gray-600">
+                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Product</th>
+                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Qty</th>
+                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Price</th>
+                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Total</th>
+                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Notes</th>
+                      <th class="py-3 px-4 text-center text-sm font-bold text-[#fffeee]">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="order-items">
+                    <!-- Dynamic rows here -->
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Order Summary -->
+              <div class="mt-6 pt-6 border-t border-gray-600">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="text-[#fffeee]">Subtotal:</span>
+                  <span id="subtotal" class="text-[#fffeee] font-semibold">₱0.00</span>
+                </div>
+                <div class="flex justify-between items-center mb-4">
+                  <span class="text-lg font-semibold text-[#fffeee]">Grand Total:</span>
+                  <span id="grand-total" class="text-2xl font-bold text-[var(--color-primary-600)]">₱0.00</span>
+                </div>
+                
                 <button
                   type="button"
                   id="submit-order"
-                  class="w-full bg-[var(--color-primary-600)] text-[#121212] py-2 rounded-md hover:bg-[var(--color-primary-700)] transition-colors duration-300 font-semibold"
+                  class="w-full bg-[var(--color-primary-600)] text-[#121212] py-3 rounded-md hover:bg-[var(--color-primary-700)] transition-colors duration-300 font-semibold text-lg"
                 >
-                  <i class="bi bi-plus-circle mr-2"></i>Submit Order
+                  <i class="bi bi-credit-card mr-2"></i>Proceed to Payment
                 </button>
               </div>
             </div>
@@ -335,8 +239,10 @@
     <!-- Payment Modal -->
     <div
       id="payment-modal"
-      class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4"
+      class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 p-4"
+      style="display: none;"
     >
+      <div class="flex items-center justify-center min-h-screen">
       <div
         class="bg-[#1e1e1e] rounded-lg border border-gray-700 w-full max-w-2xl max-h-[90vh] overflow-y-auto"
       >

@@ -167,6 +167,12 @@ document.addEventListener("DOMContentLoaded", () => {
   userElements.forEach((el) => {
     el.innerText = username;
   });
+  
+  // Also update welcome-user element on home page
+  const welcomeUser = document.getElementById("welcome-user");
+  if (welcomeUser) {
+    welcomeUser.innerText = username;
+  }
 });
 
 // domcontent for logout function

@@ -46,7 +46,7 @@
             </li>
             <li>
               <a href="./order.html" class="relative text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-[var(--color-primary-600)] after:transition-all after:duration-300 hover:after:w-full">
-                Order
+                Checkout
               </a>
             </li>
             <li>
@@ -88,7 +88,7 @@
               <i class="bi bi-journal-text mr-2"></i>Menu
             </a>
             <a href="./order.html" class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2">
-              <i class="bi bi-cart mr-2"></i>Order
+              <i class="bi bi-cart-check mr-2"></i>Checkout
             </a>
             <a href="./reservation.html" class="block text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 py-2">
               <i class="bi bi-calendar-event mr-2"></i>Reserve Table
@@ -109,13 +109,59 @@
 
     <main class="min-h-screen">
       <!-- Welcome Section -->
-      <section class="bg-gradient-to-r from-[var(--color-primary-900)] to-[var(--color-primary-800)] py-8 mb-8">
+      <section class="bg-gradient-to-r from-[var(--color-primary-900)] to-[var(--color-primary-800)] py-12 mb-8">
         <div class="max-w-7xl mx-auto px-4">
           <div class="text-center">
-             
-            <h1 class="text-4xl font-['Lobster_Two'] text-[#fffeee] mb-2" >Welcome back, <span id="user"></span>  </h1>
-            <p class="text-[var(--color-primary-200)] text-lg">Here's your dashboard overview</p>
+            <h1 class="text-5xl font-['Lobster_Two'] text-[#fffeee] mb-3" >
+              Welcome back, <span id="welcome-user"></span>!
+            </h1>
+            <p class="text-[var(--color-primary-200)] text-lg mb-8">Manage your orders and reservations</p>
+            
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              <!-- Total Orders Card -->
+              <div class="bg-[#1e1e1e] bg-opacity-80 rounded-lg p-6 border border-[var(--color-primary-600)] transform hover:scale-105 transition-all duration-300">
+                <i class="bi bi-cart3 text-4xl text-[var(--color-primary-600)] mb-2"></i>
+                <p class="text-3xl font-bold text-[#fffeee]" id="total-orders">0</p>
+                <p class="text-sm text-gray-400">Total Orders</p>
+              </div>
+              
+              <!-- Total Reservations Card -->
+              <div class="bg-[#1e1e1e] bg-opacity-80 rounded-lg p-6 border border-[var(--color-primary-600)] transform hover:scale-105 transition-all duration-300">
+                <i class="bi bi-calendar-check text-4xl text-[var(--color-primary-600)] mb-2"></i>
+                <p class="text-3xl font-bold text-[#fffeee]" id="total-reservations">0</p>
+                <p class="text-sm text-gray-400">Reservations</p>
+              </div>
+              
+              <!-- Pending Items Card -->
+              <div class="bg-[#1e1e1e] bg-opacity-80 rounded-lg p-6 border border-[var(--color-primary-600)] transform hover:scale-105 transition-all duration-300">
+                <i class="bi bi-clock-history text-4xl text-[var(--color-primary-600)] mb-2"></i>
+                <p class="text-3xl font-bold text-[#fffeee]" id="pending-items">0</p>
+                <p class="text-sm text-gray-400">Pending</p>
+              </div>
+            </div>
           </div>
+        </div>
+      </section>
+
+      <!-- Quick Actions Section -->
+      <section class="max-w-7xl mx-auto px-4 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <a href="./menu.html" class="bg-gradient-to-r from-[var(--color-primary-700)] to-[var(--color-primary-600)] rounded-lg p-6 flex items-center justify-between hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div>
+              <h3 class="text-2xl font-bold text-[#121212] mb-2 font-['Lobster_Two']">Order Food</h3>
+              <p class="text-[#121212] text-opacity-80">Browse our delicious menu</p>
+            </div>
+            <i class="bi bi-arrow-right-circle text-5xl text-[#121212]"></i>
+          </a>
+          
+          <a href="./reservation.html" class="bg-[#2a2a2a] rounded-lg p-6 flex items-center justify-between border-2 border-[var(--color-primary-600)] hover:bg-[#333333] hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div>
+              <h3 class="text-2xl font-bold text-[#fffeee] mb-2 font-['Lobster_Two']">Reserve Table</h3>
+              <p class="text-gray-400">Book your dining experience</p>
+            </div>
+            <i class="bi bi-arrow-right-circle text-5xl text-[var(--color-primary-600)]"></i>
+          </a>
         </div>
       </section>
 
@@ -127,11 +173,12 @@
             
             <!-- Reservations Section -->
             <div id="reserve_table" class="xl:w-1/2 w-full">
-              <div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden w-full">
-            <div class="bg-[var(--color-primary-600)] px-6 py-4 flex justify-center items-center">
+              <div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden w-full shadow-xl">
+            <div class="bg-[var(--color-primary-600)] px-6 py-4 flex justify-between items-center">
               <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
-                <i class="bi bi-calendar-event mr-3"></i>Your Reservations
+                <i class="bi bi-calendar-event mr-3"></i>Recent Reservations
               </h2>
+
             </div>
 
             <div class="p-6">
@@ -141,40 +188,9 @@
                 <p class="text-lg">Loading your reservations...</p>
               </div>
 
-              <!-- Mobile Cards View -->
-              <div class="block md:hidden space-y-4">
+              <!-- Reservations Cards (All Screen Sizes) -->
+              <div class="space-y-4" id="reservations-container">
                 <!-- Dynamic content will be inserted here -->
-              </div>
-
-              <!-- Desktop Table View -->
-              <div class="hidden md:block overflow-x-auto">
-                <table class="w-full">
-                  <thead>
-                    <tr class="border-b border-gray-600">
-                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">
-                        Reservation ID
-                      </th>
-                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">
-                        Date
-                      </th>
-                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">
-                        Time
-                      </th>
-                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">
-                        Guests
-                      </th>
-                      <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">
-                        Status
-                      </th>
-                      <th class="py-3 px-4 text-center text-sm font-bold text-[#fffeee]">
-                        Action
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <!-- Dynamic content will be inserted here -->
-                  </tbody>
-                </table>
               </div>
             </div>
           </div>
@@ -182,11 +198,12 @@
 
             <!-- Orders Section -->
             <div id="order_table" class="xl:w-1/2 w-full">
-              <div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden w-full">
-                <div class="bg-[var(--color-primary-600)] px-6 py-4 flex justify-center items-center">
+              <div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden w-full shadow-xl">
+                <div class="bg-[var(--color-primary-600)] px-6 py-4 flex justify-between items-center">
                   <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
-                    <i class="bi bi-cart mr-3"></i>Your Orders
+                    <i class="bi bi-cart3 mr-3"></i>Recent Orders
                   </h2>
+
                 </div>
                 
                 <div class="p-6">
@@ -196,29 +213,9 @@
                     <p class="text-lg">Loading your orders...</p>
                   </div>
 
-                  <!-- Mobile Cards View -->
-                  <div class="block md:hidden space-y-4">
+                  <!-- Orders Cards (All Screen Sizes) -->
+                  <div class="space-y-4" id="orders-container">
                     <!-- Dynamic content will be inserted here by JavaScript -->
-                  </div>
-                  
-                  <!-- Desktop Table View -->
-                  <div class="hidden md:block overflow-x-auto">
-                    <table class="w-full">
-                      <thead>
-                        <tr class="border-b border-gray-600">
-                          <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Order ID</th>
-                          <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Product</th>
-                          <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Qty</th>
-                          <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Total</th>
-                          <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Payment</th>
-                          <th class="py-3 px-4 text-left text-sm font-bold text-[#fffeee]">Delivery</th>
-                          <th class="py-3 px-4 text-center text-sm font-bold text-[#fffeee]">Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <!-- Dynamic content will be inserted here -->
-                      </tbody>
-                    </table>
                   </div>
                 </div>
               </div>

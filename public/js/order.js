@@ -71,7 +71,9 @@ function updateOrderTypeNotice(type) {
 
 // Payment Modal Functions
 function openPaymentModal() {
-  document.getElementById('payment-modal').classList.remove('hidden');
+  const modal = document.getElementById('payment-modal');
+  modal.classList.remove('hidden');
+  modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
   
   // Update modal total
@@ -91,7 +93,9 @@ function openPaymentModal() {
 }
 
 function closePaymentModal() {
-  document.getElementById('payment-modal').classList.add('hidden');
+  const modal = document.getElementById('payment-modal');
+  modal.classList.add('hidden');
+  modal.style.display = 'none';
   document.body.style.overflow = 'auto';
   
   // Reset form
@@ -225,7 +229,28 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Load cart from localStorage or initialize empty
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  // fetch the json file
+  // Check if cart is empty and show appropriate message
+  const emptyCartSection = document.getElementById('empty-cart-checkout');
+  const cartItemsSection = document.getElementById('cart-items-section');
+  const cartItemCount = document.getElementById('cart-item-count');
+  
+  if (cart.length === 0) {
+    emptyCartSection.classList.remove('hidden');
+    cartItemsSection.classList.add('hidden');
+  } else {
+    emptyCartSection.classList.add('hidden');
+    cartItemsSection.classList.remove('hidden');
+  }
+
+  // Fetch menu data for adding more items (optional feature - keep the category/product selectors hidden)
+  // We'll keep the functionality but hide the form since users should add from menu page
+  if (category) category.style.display = 'none';
+  if (products) products.style.display = 'none';
+  if (selectedCategory) selectedCategory.style.display = 'none';
+  if (quantity) quantity.style.display = 'none';
+  if (total) total.style.display = 'none';
+
+  // fetch the json file - kept for potential future use
   const menu = await fetch("../../public/json/menu.json");
   const menuData = await menu.json();
 
@@ -286,24 +311,39 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function renderCart() {
     const tbody = document.getElementById("order-items");
+    const emptyCartSection = document.getElementById('empty-cart-checkout');
+    const cartItemsSection = document.getElementById('cart-items-section');
+    const cartItemCount = document.getElementById('cart-item-count');
+    const subtotal = document.getElementById('subtotal');
+    const grandTotal = document.getElementById('grand-total');
+    
     tbody.innerHTML = "";
 
     if (cart.length === 0) {
+      if (emptyCartSection) emptyCartSection.classList.remove('hidden');
+      if (cartItemsSection) cartItemsSection.classList.add('hidden');
       tbody.innerHTML = `<tr><td colspan="6" class="text-center text-gray-400 py-4">No products added</td></tr>`;
       return;
     }
 
+    if (emptyCartSection) emptyCartSection.classList.add('hidden');
+    if (cartItemsSection) cartItemsSection.classList.remove('hidden');
+    
+    // Update item count
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    if (cartItemCount) cartItemCount.textContent = `${totalItems} ${totalItems === 1 ? 'item' : 'items'}`;
+
     cart.forEach((item, index) => {
       const row = document.createElement("tr");
-      row.classList.add("border-b", "border-gray-600");
+      row.classList.add("border-b", "border-gray-600", "hover:bg-[#2a2a2a]", "transition-colors");
       row.innerHTML = `
-        <td class="py-2 px-4 text-[#fffeee]">${item.name}</td>
-        <td class="py-2 px-4 text-[#fffeee]">${item.quantity}</td>
-        <td class="py-2 px-4 text-[#fffeee]">₱${item.price.toFixed(2)}</td>
-        <td class="py-2 px-4 text-[#fffeee]">₱${(item.price * item.quantity).toFixed(2)}</td>
-        <td class="py-2 px-4 text-[#fffeee]">${item.customize || 'No Customization'}</td>
-        <td class="py-2 px-4 text-center">
-          <button class="text-red-500 hover:text-red-400">
+        <td class="py-3 px-4 text-[#fffeee]">${item.name}</td>
+        <td class="py-3 px-4 text-[#fffeee]">${item.quantity}</td>
+        <td class="py-3 px-4 text-[#fffeee]">₱${item.price.toFixed(2)}</td>
+        <td class="py-3 px-4 text-[#fffeee] font-semibold">₱${(item.price * item.quantity).toFixed(2)}</td>
+        <td class="py-3 px-4 text-[#fffeee] text-sm">${item.customize && item.customize !== 'No Customization' ? `<span class="italic text-gray-400"><i class="bi bi-pencil mr-1"></i>${item.customize}</span>` : '<span class="text-gray-500">None</span>'}</td>
+        <td class="py-3 px-4 text-center">
+          <button class="text-red-500 hover:text-red-400 transition-colors p-2">
             <i class="bi bi-trash"></i>
           </button>
         </td>
@@ -315,6 +355,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       tbody.appendChild(row);
     });
+    
+    // Update totals
+    const total = calculateGrandTotal();
+    if (subtotal) subtotal.textContent = `₱${total}`;
+    if (grandTotal) grandTotal.textContent = `₱${total}`;
   }
 
   function removeFromCart(index) {
