@@ -1,6 +1,25 @@
+// Global variable to store all orders
+let allOrdersHomeData = [];
+
+// Filter function for home page orders
+window.filterOrders = function(status) {
+  if (status === 'all') {
+    renderOrders(allOrdersHomeData);
+  } else {
+    const filtered = allOrdersHomeData.filter(order => order.payment_status.toLowerCase() === status);
+    renderOrders(filtered);
+  }
+};
+
 // Load and display orders when page loads
 document.addEventListener("DOMContentLoaded", () => {
   loadOrders();
+  
+  // Initialize filter to pending
+  const filterSelect = document.getElementById("order-filter");
+  if (filterSelect) {
+    filterSelect.value = "pending";
+  }
 });
 
 // Function to load orders from the API
@@ -21,8 +40,13 @@ async function loadOrders() {
     console.log("Orders API Response:", result);
 
     if (result.success) {
-      renderOrders(result.data);
+      allOrdersHomeData = result.data; // Store all data
       updateOrderStats(result.data);
+      
+      // Apply default filter (pending)
+      const filterSelect = document.getElementById("order-filter");
+      const currentFilter = filterSelect ? filterSelect.value : 'pending';
+      window.filterOrders(currentFilter);
     } else {
       console.error("Failed to load orders:", result.message);
       showEmptyOrdersState();
@@ -42,14 +66,26 @@ function renderOrders(orders) {
   const container = document.querySelector("#order_table #orders-container");
   const loadingState = document.getElementById("orders-loading-state");
 
+  // Clear existing content
+  if (container) container.innerHTML = "";
+
   if (!orders || orders.length === 0) {
-    showEmptyOrdersState();
+    if (container) {
+      const filterSelect = document.getElementById("order-filter");
+      const currentFilter = filterSelect ? filterSelect.value : 'all';
+      const filterText = currentFilter === 'all' ? '' : ` with status "${currentFilter}"`;
+      
+      container.innerHTML = `
+        <div class="text-center py-12 text-gray-400">
+          <i class="bi bi-inbox text-6xl mb-4 block"></i>
+          <p class="text-xl mb-2">No orders found${filterText}</p>
+          <p class="text-sm">Try adjusting the filter or place a new order</p>
+        </div>
+      `;
+    }
     if (loadingState) loadingState.style.display = "none";
     return;
   }
-
-  // Clear existing content
-  if (container) container.innerHTML = "";
 
   orders.forEach((order) => {
     const deliveryStatusStyle = getDeliveryStatusStyle(order.delivery_status);

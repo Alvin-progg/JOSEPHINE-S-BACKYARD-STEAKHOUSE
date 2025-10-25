@@ -173,12 +173,24 @@ document.addEventListener("DOMContentLoaded", () => {
   if (welcomeUser) {
     welcomeUser.innerText = username;
   }
+  
+  // Update welcome-admin element on admin dashboard
+  const welcomeAdmin = document.getElementById("welcome-admin");
+  if (welcomeAdmin) {
+    welcomeAdmin.innerText = username;
+  }
+  
+  // Update mobile-user element
+  const mobileUser = document.getElementById("mobile-user");
+  if (mobileUser) {
+    mobileUser.innerText = username;
+  }
 });
 
 // domcontent for logout function
 document.addEventListener("DOMContentLoaded", () => {
-  // get the logout buttons
-  const logoutButtons = document.querySelectorAll("#logout");
+  // get the logout buttons (includes both #logout and #mobile-logout)
+  const logoutButtons = document.querySelectorAll("#logout, #mobile-logout");
   logoutButtons.forEach((btn) => {
     btn.addEventListener("click", async () => {
       // fetch the data first before clearing local storage

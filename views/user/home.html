@@ -178,7 +178,16 @@
               <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
                 <i class="bi bi-calendar-event mr-3"></i>Recent Reservations
               </h2>
-
+              <select 
+                id="reservation-filter" 
+                onchange="filterReservations(this.value)"
+                class="bg-[#121212] text-[#fffeee] px-3 py-1.5 rounded-md border border-gray-600 focus:border-[var(--color-primary-600)] focus:outline-none text-sm cursor-pointer"
+              >
+                <option value="all">All Status</option>
+                <option value="pending" selected>Pending</option>
+                <option value="verified">Verified</option>
+                <option value="rejected">Rejected</option>
+              </select>
             </div>
 
             <div class="p-6">
@@ -203,7 +212,16 @@
                   <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
                     <i class="bi bi-cart3 mr-3"></i>Recent Orders
                   </h2>
-
+                  <select 
+                    id="order-filter" 
+                    onchange="filterOrders(this.value)"
+                    class="bg-[#121212] text-[#fffeee] px-3 py-1.5 rounded-md border border-gray-600 focus:border-[var(--color-primary-600)] focus:outline-none text-sm cursor-pointer"
+                  >
+                    <option value="all">All Status</option>
+                    <option value="pending" selected>Pending</option>
+                    <option value="verified">Verified</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
                 </div>
                 
                 <div class="p-6">

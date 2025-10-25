@@ -1,5 +1,18 @@
 
 
+// Global cart variable
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Save cart to localStorage
+function saveCart() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// Calculate grand total
+function calculateGrandTotal() {
+  return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+}
+
 // Helper function to copy text to clipboard
 function copyToClipboard(text, label) {
   navigator.clipboard.writeText(text).then(() => {
@@ -220,26 +233,31 @@ function previewScreenshot(input) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  console.log('Order page DOMContentLoaded');
+  console.log('Global cart from localStorage:', localStorage.getItem('cart'));
+  console.log('Parsed cart:', cart);
+  
   const category = document.getElementById("category");
   const products = document.getElementById("products");
   const selectedCategory = document.getElementById("selectedCategory");
   const quantity = document.getElementById("quantity");
   const total = document.getElementById("total");
-  
-  // Load cart from localStorage or initialize empty
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   // Check if cart is empty and show appropriate message
   const emptyCartSection = document.getElementById('empty-cart-checkout');
   const cartItemsSection = document.getElementById('cart-items-section');
   const cartItemCount = document.getElementById('cart-item-count');
   
+  console.log('Initial cart length:', cart.length);
+  
   if (cart.length === 0) {
-    emptyCartSection.classList.remove('hidden');
-    cartItemsSection.classList.add('hidden');
+    console.log('Showing empty cart message');
+    if (emptyCartSection) emptyCartSection.classList.remove('hidden');
+    if (cartItemsSection) cartItemsSection.classList.add('hidden');
   } else {
-    emptyCartSection.classList.add('hidden');
-    cartItemsSection.classList.remove('hidden');
+    console.log('Showing cart items');
+    if (emptyCartSection) emptyCartSection.classList.add('hidden');
+    if (cartItemsSection) cartItemsSection.classList.remove('hidden');
   }
 
   // Fetch menu data for adding more items (optional feature - keep the category/product selectors hidden)
@@ -254,16 +272,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   const menu = await fetch("../../public/json/menu.json");
   const menuData = await menu.json();
 
-  // populate category select
-  Object.keys(menuData).forEach((cat) => {
-    const option = document.createElement("option");
-    option.value = cat;
-    option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
-    category.appendChild(option);
-  });
+  // populate category select - only if element exists
+  if (category) {
+    Object.keys(menuData).forEach((cat) => {
+      const option = document.createElement("option");
+      option.value = cat;
+      option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+      category.appendChild(option);
+    });
+  }
 
   // render products based on category
   function renderProducts(cat) {
+    if (!selectedCategory || !products) return;
     selectedCategory.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
     products.innerHTML =
       '<option value="" disabled selected>Select a product</option>';
@@ -278,6 +299,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // update total price
   function updateTotal() {
+    if (!products || !quantity || !total) return;
     if (!products.value || !quantity.value) {
       total.value = "₱0.00";
       return;
@@ -291,75 +313,139 @@ document.addEventListener("DOMContentLoaded", async () => {
     total.value = `₱${totalPrice.toFixed(2)}`;
   }
 
-  category.addEventListener("change", (e) => {
-    renderProducts(e.target.value);
-    total.value = "₱0.00";
-  });
-
-  products.addEventListener("change", updateTotal);
-  quantity.addEventListener("input", updateTotal);
-
-  // Save cart to localStorage
-  function saveCart() {
-    localStorage.setItem('cart', JSON.stringify(cart));
+  if (category) {
+    category.addEventListener("change", (e) => {
+      renderProducts(e.target.value);
+      if (total) total.value = "₱0.00";
+    });
   }
 
-  // Calculate grand total
-  window.calculateGrandTotal = function() {
-    return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
-  }
+  if (products) products.addEventListener("change", updateTotal);
+  if (quantity) quantity.addEventListener("input", updateTotal);
 
   function renderCart() {
-    const tbody = document.getElementById("order-items");
+    console.log('=== renderCart START ===');
+    console.log('renderCart called, cart:', cart);
+    console.log('Cart length:', cart.length);
+    
+    const container = document.getElementById("order-items");
     const emptyCartSection = document.getElementById('empty-cart-checkout');
     const cartItemsSection = document.getElementById('cart-items-section');
     const cartItemCount = document.getElementById('cart-item-count');
     const subtotal = document.getElementById('subtotal');
     const grandTotal = document.getElementById('grand-total');
     
-    tbody.innerHTML = "";
+    console.log('Elements found:', {
+      container: container ? 'FOUND' : 'NULL',
+      emptyCartSection: emptyCartSection ? 'FOUND' : 'NULL',
+      cartItemsSection: cartItemsSection ? 'FOUND' : 'NULL'
+    });
+    
+    if (!container) {
+      console.error('Container element not found!');
+      return;
+    }
+    
+    container.innerHTML = "";
+    console.log('Container cleared');
 
     if (cart.length === 0) {
-      if (emptyCartSection) emptyCartSection.classList.remove('hidden');
-      if (cartItemsSection) cartItemsSection.classList.add('hidden');
-      tbody.innerHTML = `<tr><td colspan="6" class="text-center text-gray-400 py-4">No products added</td></tr>`;
+      console.log('Cart is empty - showing empty message');
+      if (emptyCartSection) {
+        emptyCartSection.classList.remove('hidden');
+        console.log('Empty section shown');
+      }
+      if (cartItemsSection) {
+        cartItemsSection.classList.add('hidden');
+        console.log('Cart section hidden');
+      }
       return;
     }
 
-    if (emptyCartSection) emptyCartSection.classList.add('hidden');
-    if (cartItemsSection) cartItemsSection.classList.remove('hidden');
+    console.log('Cart has items - rendering', cart.length, 'items');
+    if (emptyCartSection) {
+      emptyCartSection.classList.add('hidden');
+      console.log('Empty section hidden');
+    }
+    if (cartItemsSection) {
+      cartItemsSection.classList.remove('hidden');
+      console.log('Cart section shown');
+    }
     
     // Update item count
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    console.log('Total items:', totalItems);
     if (cartItemCount) cartItemCount.textContent = `${totalItems} ${totalItems === 1 ? 'item' : 'items'}`;
 
     cart.forEach((item, index) => {
-      const row = document.createElement("tr");
-      row.classList.add("border-b", "border-gray-600", "hover:bg-[#2a2a2a]", "transition-colors");
-      row.innerHTML = `
-        <td class="py-3 px-4 text-[#fffeee]">${item.name}</td>
-        <td class="py-3 px-4 text-[#fffeee]">${item.quantity}</td>
-        <td class="py-3 px-4 text-[#fffeee]">₱${item.price.toFixed(2)}</td>
-        <td class="py-3 px-4 text-[#fffeee] font-semibold">₱${(item.price * item.quantity).toFixed(2)}</td>
-        <td class="py-3 px-4 text-[#fffeee] text-sm">${item.customize && item.customize !== 'No Customization' ? `<span class="italic text-gray-400"><i class="bi bi-pencil mr-1"></i>${item.customize}</span>` : '<span class="text-gray-500">None</span>'}</td>
-        <td class="py-3 px-4 text-center">
-          <button class="text-red-500 hover:text-red-400 transition-colors p-2">
-            <i class="bi bi-trash"></i>
-          </button>
-        </td>
+      console.log(`Creating card for item ${index}:`, item.name);
+      const card = document.createElement("div");
+      card.classList.add(
+        "bg-[#2a2a2a]", 
+        "border", 
+        "border-gray-700", 
+        "rounded-lg", 
+        "p-4", 
+        "hover:border-[var(--color-primary-600)]", 
+        "transition-all", 
+        "duration-300",
+        "hover:shadow-lg",
+        "hover:shadow-[var(--color-primary-600)]/10"
+      );
+      
+      const itemTotal = (item.price * item.quantity).toFixed(2);
+      const hasCustomization = item.customize && item.customize !== 'No Customization';
+      
+      card.innerHTML = `
+        <div class="flex items-start justify-between gap-4">
+          <!-- Left: Product Info -->
+          <div class="flex-1 min-w-0">
+            <h3 class="text-lg font-semibold text-[#fffeee] mb-2 truncate">${item.name}</h3>
+            <div class="flex flex-wrap gap-3 text-sm mb-2">
+              <div class="flex items-center gap-1 text-gray-400">
+                <i class="bi bi-tag"></i>
+                <span>₱${item.price.toFixed(2)}</span>
+              </div>
+              <div class="flex items-center gap-1 text-gray-400">
+                <i class="bi bi-box"></i>
+                <span>x${item.quantity}</span>
+              </div>
+            </div>
+            ${hasCustomization ? `
+              <div class="flex items-start gap-2 mt-2 text-sm">
+                <i class="bi bi-pencil text-[var(--color-primary-600)] mt-0.5"></i>
+                <span class="text-gray-300 italic line-clamp-2">${item.customize}</span>
+              </div>
+            ` : '<div class="text-sm text-gray-500 italic">No customization</div>'}
+          </div>
+          
+          <!-- Right: Total & Actions -->
+          <div class="flex flex-col items-end gap-3">
+            <div class="text-right">
+              <div class="text-xs text-gray-400 mb-1">Total</div>
+              <div class="text-2xl font-bold text-[var(--color-primary-600)]">₱${itemTotal}</div>
+            </div>
+            <button 
+              onclick="removeFromCart(${index})"
+              class="flex items-center gap-2 px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors duration-300 text-sm font-medium"
+            >
+              <i class="bi bi-trash"></i>
+              <span>Remove</span>
+            </button>
+          </div>
+        </div>
       `;
-
-      row.querySelector("button").addEventListener("click", () => {
-        removeFromCart(index);
-      });
-
-      tbody.appendChild(row);
+      
+      container.appendChild(card);
+      console.log(`Card ${index} added to container`);
     });
     
     // Update totals
     const total = calculateGrandTotal();
     if (subtotal) subtotal.textContent = `₱${total}`;
     if (grandTotal) grandTotal.textContent = `₱${total}`;
+    
+    console.log('=== renderCart END ===');
   }
 
   function removeFromCart(index) {
@@ -368,14 +454,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderCart();
   }
 
-  // Add to cart button
-  document.getElementById("add-to-order").addEventListener("click", async () => {
-    if (!products.value || !quantity.value) {
-      alertMessage("warning", "Input Warning", "Please input all fields");
-      return;
-    }
+  // Add to cart button (only if element exists - deprecated since we add from menu)
+  const addToOrderBtn = document.getElementById("add-to-order");
+  if (addToOrderBtn) {
+    addToOrderBtn.addEventListener("click", async () => {
+      if (!products.value || !quantity.value) {
+        alertMessage("warning", "Input Warning", "Please input all fields");
+        return;
+      }
 
-    let customize = document.getElementById("customize").value.trim();
+      let customize = document.getElementById("customize").value.trim();
     if (!customize) {
       customize = "No Customization";
     }
@@ -403,16 +491,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     successMessage("Add to Cart Successfully", `${name} x${qty} added!`);
     renderCart();
     document.getElementById("order-form").reset();
-  });
+    });
+  }
 
   // Submit Order - Opens Payment Modal
   document.getElementById("submit-order")?.addEventListener("click", async () => {
+    console.log('Submit order clicked, cart:', cart);
+    
     if (cart.length === 0) {
       alertMessage("warning", "Invalid Cart", "Please add some items to the cart");
       return;
     }
     
     // Open payment modal instead of directly submitting
+    console.log('Opening payment modal...');
     openPaymentModal();
   });
 

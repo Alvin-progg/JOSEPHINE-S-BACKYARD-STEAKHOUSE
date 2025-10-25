@@ -18,225 +18,238 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class="bg-[#121212] min-h-screen">
     <header>
-      <nav
-        class="flex items-center justify-between px-4 py-5 bg-[#121212] sticky top-0 z-50 border-b border-gray-800"
-      >
-        <div
-          class="mx-auto flex w-full max-w-7xl items-center justify-between max-lg:px-4 max-md:px-0"
-        >
+      <nav class="flex items-center justify-between px-4 py-5 bg-[#1e1e1e] sticky top-0 z-50 border-b border-gray-700 shadow-lg">
+        <div class="mx-auto flex w-full max-w-7xl items-center justify-between max-lg:px-4 max-md:px-0">
           <!-- Logo -->
-          <a
-            href="/index.html"
-            class="text-3xl font-bold text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 max-sm:text-xl font-['Lobster_Two']"
-          >
-            JOSEPHINE'S
-          </a>
-          <div class="text-center">
-            <h1 class="text-4xl font-['Lobster_Two'] text-[#fffeee] mb-2">
-              Welcome back, <span id="user"></span>
-            </h1>
+          <div class="flex items-center gap-3">
+            <a href="/index.html" class="text-3xl font-bold text-[#fffeee] hover:text-[var(--color-primary-600)] transition-colors duration-300 max-sm:text-xl font-['Lobster_Two']">
+              JOSEPHINE'S
+            </a>
+            <span class="bg-[var(--color-primary-600)] text-[#121212] text-xs font-bold px-2 py-1 rounded-full">ADMIN</span>
           </div>
+
           <!-- Mobile Menu Button -->
-          <button
-            id="mobile-menu-btn"
-            class="lg:hidden text-[#fffeee] text-2xl"
-          >
+          <button id="mobile-menu-btn" class="lg:hidden text-[#fffeee] text-2xl">
             <i class="bi bi-list"></i>
           </button>
 
-
           <!-- User Dropdown -->
           <div class="relative hidden lg:block">
-            <button
-              onclick="toggleDropdown()"
-              class="flex items-center gap-2 text-xl text-[#fffeee] px-4 py-2 rounded-md hover:bg-[#2a2a2a] transition-colors duration-300"
-            >
-              <i class="bi bi-person-circle mr-1"></i>
-
-              <span id="user"></span>
-              <i class="bi bi-chevron-down"></i>
+            <button onclick="toggleDropdown()" class="flex items-center gap-2 text-xl text-[#fffeee] px-4 py-2 rounded-md hover:bg-[#2a2a2a] transition-all duration-300 border border-transparent hover:border-[var(--color-primary-600)]">
+              <i class="bi bi-person-circle text-2xl"></i>
+              <span id="user" class="font-medium"></span>
+              <i class="bi bi-chevron-down text-sm transition-transform duration-300" id="dropdown-icon"></i>
             </button>
-            <div
-              id="dropdown-menu"
-              class="absolute right-0 mt-2 w-48 bg-[#1e1e1e] rounded-md shadow-lg hidden z-10 border border-gray-700"
-            >
-              <hr class="border-gray-600" />
-              <button
-                id="logout"
-                class="w-full px-4 py-2 text-sm text-[#fffeee] hover:bg-red-600 hover:text-white transition-colors duration-300 rounded-b-md"
-              >
-                <i class="bi bi-box-arrow-right mr-2"></i>Logout
-              </button>
+            <div id="dropdown-menu" class="absolute right-0 mt-2 w-56 bg-[#1e1e1e] rounded-lg shadow-2xl hidden z-50 border border-gray-700 overflow-hidden transition-all duration-300 opacity-0">
+              <div class="py-2">
+                <div class="px-4 py-3 border-b border-gray-700">
+                  <p class="text-xs text-gray-400 uppercase tracking-wide">Admin Account</p>
+                  <p class="text-sm text-[#fffeee] font-medium mt-1" id="dropdown-user"></p>
+                </div>
+                <button id="logout" class="w-full px-4 py-3 text-sm text-left text-[#fffeee] hover:bg-red-600 hover:text-white transition-all duration-300 flex items-center gap-3">
+                  <i class="bi bi-box-arrow-right text-lg"></i>
+                  <span class="font-medium">Logout</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Mobile Navigation Menu -->
-        <div
-          id="mobile-nav"
-          class="hidden lg:hidden absolute top-full left-0 w-full bg-[#1e1e1e] border-b border-gray-700 z-40"
-        >
+        <div id="mobile-nav" class="hidden lg:hidden absolute top-full left-0 w-full bg-[#1e1e1e] border-b border-gray-700 z-40">
           <div class="px-4 py-4 space-y-3">
-           
-            <div class="flex items-center gap-2 text-[#fffeee] py-2">
-              <i class="bi bi-person-circle"></i>
-              <span id="user"></span>
+            <div class="flex items-center gap-2 text-[#fffeee] py-2 px-2 bg-[#2a2a2a] rounded-md">
+              <i class="bi bi-person-circle text-xl"></i>
+              <span id="mobile-user" class="font-medium"></span>
             </div>
-            <button
-              id="logout"
-              class=" text-red-400 hover:text-red-300 transition-colors duration-300 py-2 pl-4 flex items-start justify-start"
-              href="/views/auth/login.html"
-            >
-              <i class="bi bi-box-arrow-right mr-2"></i>Logout
+            <button id="mobile-logout" class="w-full text-left flex items-center gap-3 text-red-400 hover:text-white hover:bg-red-600 transition-all duration-300 py-3 px-4 rounded-md">
+              <i class="bi bi-box-arrow-right text-lg"></i>
+              <span class="font-medium">Logout</span>
             </button>
           </div>
         </div>
       </nav>
     </header>
+
     <!-- Welcome Section -->
-    <main class="p-6 space-y-10">
-      <!-- Users Table -->
-      <div
-        class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden"
-      >
-        <div class="bg-[var(--color-primary-600)] px-6 py-4">
-          <h2
-            class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center"
-          >
-            <i class="bi bi-people mr-3"></i>Users
-          </h2>
-        </div>
-        <div class="p-6 overflow-x-auto">
-          <table class="min-w-full text-left">
-            <thead>
-              <tr class="border-b border-gray-600">
-                <th class="py-3 px-4">User ID</th>
-                <th class="py-3 px-4">Username</th>
-                <th class="py-3 px-4">Email</th>
-                <th class="py-3 px-4">Created At</th>
-                <th class="py-3 px-4">Action</th>
-              </tr>
-            </thead>
-            <tbody id="users-table-body" class="text-[#fffeee]"></tbody>
-          </table>
+    <section class="bg-gradient-to-r from-[var(--color-primary-900)] to-[var(--color-primary-800)] py-12 mb-8">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center">
+          <h1 class="text-5xl font-['Lobster_Two'] text-[#fffeee] mb-3">
+            Welcome back, <span id="welcome-admin"></span>!
+          </h1>
+          <p class="text-[var(--color-primary-200)] text-lg mb-8">Manage your restaurant operations</p>
+          
+          <!-- Quick Stats -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            <!-- Total Users -->
+            <div class="bg-[#1e1e1e] bg-opacity-80 rounded-lg p-6 border border-[var(--color-primary-600)] transform hover:scale-105 transition-all duration-300">
+              <i class="bi bi-people text-4xl text-[var(--color-primary-600)] mb-2"></i>
+              <p class="text-3xl font-bold text-[#fffeee]" id="total-users">0</p>
+              <p class="text-sm text-gray-400">Total Users</p>
+            </div>
+            
+            <!-- Total Reservations -->
+            <div class="bg-[#1e1e1e] bg-opacity-80 rounded-lg p-6 border border-blue-500 transform hover:scale-105 transition-all duration-300">
+              <i class="bi bi-calendar-check text-4xl text-blue-500 mb-2"></i>
+              <p class="text-3xl font-bold text-[#fffeee]" id="total-reservations-admin">0</p>
+              <p class="text-sm text-gray-400">Reservations</p>
+            </div>
+            
+            <!-- Total Orders -->
+            <div class="bg-[#1e1e1e] bg-opacity-80 rounded-lg p-6 border border-green-500 transform hover:scale-105 transition-all duration-300">
+              <i class="bi bi-cart3 text-4xl text-green-500 mb-2"></i>
+              <p class="text-3xl font-bold text-[#fffeee]" id="total-orders-admin">0</p>
+              <p class="text-sm text-gray-400">Orders</p>
+            </div>
+            
+            <!-- Total Revenue -->
+            <div class="bg-[#1e1e1e] bg-opacity-80 rounded-lg p-6 border border-purple-500 transform hover:scale-105 transition-all duration-300">
+              <i class="bi bi-currency-dollar text-4xl text-purple-500 mb-2"></i>
+              <p class="text-3xl font-bold text-[#fffeee]" id="total-revenue">₱0</p>
+              <p class="text-sm text-gray-400">Total Revenue</p>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-     <!-- Reservations Table -->
-<div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden">
-  <div class="bg-[var(--color-primary-600)] px-6 py-4">
-    <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
-      <i class="bi bi-calendar-event mr-3"></i>Reservations
-    </h2>
-  </div>
-  <div class="p-6 overflow-x-auto">
-    <table class="min-w-full text-left">
-      <thead>
-        <tr class="border-b border-gray-600">
-          <th class="py-3 px-4">Reservation ID</th>
-          <th class="py-3 px-4">Username</th>
-          <th class="py-3 px-4">Date</th>
-          <th class="py-3 px-4">Time</th>
-          <th class="py-3 px-4">People</th>
-          <th class="py-3 px-4">Status</th>
-          <th class="py-3 px-4">Created At</th>
-          <th class="py-3 px-4">Action</th>
-        </tr>
-      </thead>
-      <tbody id="reservations-table-body" class="text-[#fffeee]"></tbody>
-    </table>
-  </div>
-</div>
+    <main class="max-w-7xl mx-auto px-4 pb-8 space-y-8">
+      <!-- Users Section -->
+      <section id="users-section" class="bg-[#1e1e1e] rounded-xl p-6 shadow-2xl border border-gray-700">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+            <i class="bi bi-people text-3xl text-[var(--color-primary-600)]"></i>
+            <h2 class="text-3xl font-bold text-[#fffeee] font-['Lobster_Two']">Users Management</h2>
+          </div>
+          <div class="bg-[var(--color-primary-600)] text-[#121212] px-3 py-1 rounded-full text-sm font-bold">
+            <span id="users-count">0</span> Users
+          </div>
+        </div>
+        <div id="users-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- User cards will be inserted here -->
+        </div>
+        <div id="users-empty" class="hidden text-center py-16">
+          <i class="bi bi-people text-6xl text-gray-600 mb-4"></i>
+          <p class="text-gray-400 text-lg">No users found</p>
+        </div>
+      </section>
 
-<!-- Orders Table -->
-<div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden">
-  <div class="bg-[var(--color-primary-600)] px-6 py-4">
-    <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
-      <i class="bi bi-cart mr-3"></i>Orders
-    </h2>
-  </div>
-  <div class="p-6 overflow-x-auto">
-    <table class="min-w-full text-left">
-      <thead>
-        <tr class="border-b border-gray-600">
-          <th class="py-3 px-4">Order ID</th>
-          <th class="py-3 px-4">Username</th>
-          <th class="py-3 px-4">Product</th>
-          <th class="py-3 px-4">Quantity</th>
-          <th class="py-3 px-4">Price</th>
-          <th class="py-3 px-4">Customize</th>
-          <th class="py-3 px-4">Payment ID</th>
-          <th class="py-3 px-4">Payment Status</th>
-          <th class="py-3 px-4">Order Date</th>
-          <th class="py-3 px-4">Action</th>
-        </tr>
-      </thead>
-      <tbody id="orders-table-body" class="text-[#fffeee]"></tbody>
-    </table>
-  </div>
-</div>
+      <!-- Reservations Section -->
+      <section id="reservations-section" class="bg-[#1e1e1e] rounded-xl p-6 shadow-2xl border border-gray-700">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+            <i class="bi bi-calendar-event text-3xl text-blue-500"></i>
+            <h2 class="text-3xl font-bold text-[#fffeee] font-['Lobster_Two']">Reservations</h2>
+          </div>
+          <div class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+            <span id="reservations-count">0</span> Reservations
+          </div>
+        </div>
+        <div id="reservations-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Reservation cards will be inserted here -->
+        </div>
+        <div id="reservations-empty" class="hidden text-center py-16">
+          <i class="bi bi-calendar-event text-6xl text-gray-600 mb-4"></i>
+          <p class="text-gray-400 text-lg">No reservations found</p>
+        </div>
+      </section>
 
-<!-- Payments Table -->
-<div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden">
-  <div class="bg-[var(--color-primary-600)] px-6 py-4">
-    <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
-      <i class="bi bi-credit-card mr-3"></i>Payments
-    </h2>
-  </div>
-  <div class="p-6 overflow-x-auto">
-    <table class="min-w-full text-left">
-      <thead>
-        <tr class="border-b border-gray-600">
-          <th class="py-3 px-4">Payment ID</th>
-          <th class="py-3 px-4">Username</th>
-          <th class="py-3 px-4">Reference No.</th>
-          <th class="py-3 px-4">Screenshot</th>
-          <th class="py-3 px-4">Amount</th>          
-          <th class="py-3 px-4">Status</th>
-          <th class="py-3 px-4">MOP</th>
-          <th class="py-3 px-4">Payment Date</th>
-          <th class="py-3 px-4">Action</th>
-        </tr>
-      </thead>
-      <tbody id="payments-table-body" class="text-[#fffeee]"></tbody>
-    </table>
-  </div>
-</div>
-<!-- delivery table -->
- <div class="bg-[#1e1e1e] rounded-lg border border-gray-700 overflow-hidden mt-8">
-  <div class="bg-[var(--color-primary-600)] px-6 py-4">
-    <h2 class="text-2xl font-bold text-[#121212] font-['Lobster_Two'] flex items-center">
-      <i class="bi bi-truck mr-3"></i>Deliveries
-    </h2>
-  </div>
-  <div class="p-6 overflow-x-auto">
-    <table class="min-w-full text-left">
-      <thead>
-        <tr class="border-b border-gray-600">
-          <th class="py-3 px-4">Customer</th>
-          <th class="py-3 px-4">Delivery Type</th>
-          <th class="py-3 px-4">Delivery Address</th>
-          <th class="py-3 px-4">Delivery  Status</th>
-          <th class="py-3 px-4">MOP</th>
-          <th class="py-3 px-4">Payment Date</th>
-        </tr>
-      </thead>
-      <tbody id="delivery-table-body" class="text-[#fffeee]"></tbody>
-    </table>
-  </div>
-</div>
+      <!-- Orders Section -->
+      <section id="orders-section" class="bg-[#1e1e1e] rounded-xl p-6 shadow-2xl border border-gray-700">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
+          <div class="flex items-center gap-3">
+            <i class="bi bi-cart text-3xl text-green-500"></i>
+            <div>
+              <h2 class="text-3xl font-bold text-[#fffeee] font-['Lobster_Two']">Orders</h2>
+              <p class="text-sm text-gray-400 mt-1">Manage customer orders and track payments</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <select id="order-filter" class="bg-[#121212] border border-gray-600 text-white px-3 py-2 rounded-lg text-sm focus:border-green-500 focus:outline-none">
+              <option value="all">All Orders</option>
+              <option value="pending" selected>Pending</option>
+              <option value="verified">Verified</option>
+              <option value="rejected">Rejected</option>
+            </select>
+            <div class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+              <i class="bi bi-bag-check-fill mr-1"></i>
+              <span id="orders-count">0</span> Orders
+            </div>
+          </div>
+        </div>
+        <div id="orders-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <!-- Order cards will be inserted here -->
+        </div>
+        <div id="orders-empty" class="hidden text-center py-16">
+          <i class="bi bi-cart text-6xl text-gray-600 mb-4"></i>
+          <p class="text-gray-400 text-lg">No orders found</p>
+        </div>
+      </section>
 
-      </div>
+      <!-- Payments Section -->
+      <section id="payments-section" class="bg-[#1e1e1e] rounded-xl p-6 shadow-2xl border border-gray-700">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
+          <div class="flex items-center gap-3">
+            <i class="bi bi-credit-card text-3xl text-purple-500"></i>
+            <div>
+              <h2 class="text-3xl font-bold text-[#fffeee] font-['Lobster_Two']">Payments</h2>
+              <p class="text-sm text-gray-400 mt-1">Verify payments and manage transactions</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <select id="payment-filter" class="bg-[#121212] border border-gray-600 text-white px-3 py-2 rounded-lg text-sm focus:border-purple-500 focus:outline-none">
+              <option value="all">All Payments</option>
+              <option value="pending" selected>Pending</option>
+              <option value="verified">Verified</option>
+              <option value="rejected">Rejected</option>
+            </select>
+            <div class="bg-purple-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+              <i class="bi bi-cash-stack mr-1"></i>
+              <span id="payments-count">0</span> Payments
+            </div>
+          </div>
+        </div>
+        <div id="payments-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Payment cards will be inserted here -->
+        </div>
+        <div id="payments-empty" class="hidden text-center py-16">
+          <i class="bi bi-credit-card text-6xl text-gray-600 mb-4"></i>
+          <p class="text-gray-400 text-lg">No payments found</p>
+        </div>
+      </section>
+
+      <!-- Deliveries Section -->
+      <section id="deliveries-section" class="bg-[#1e1e1e] rounded-xl p-6 shadow-2xl border border-gray-700">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+            <i class="bi bi-truck text-3xl text-orange-500"></i>
+            <h2 class="text-3xl font-bold text-[#fffeee] font-['Lobster_Two']">Deliveries</h2>
+          </div>
+          <div class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+            <span id="deliveries-count">0</span> Deliveries
+          </div>
+        </div>
+        <div id="deliveries-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Delivery cards will be inserted here -->
+        </div>
+        <div id="deliveries-empty" class="hidden text-center py-16">
+          <i class="bi bi-truck text-6xl text-gray-600 mb-4"></i>
+          <p class="text-gray-400 text-lg">No deliveries found</p>
+        </div>
+      </section>
     </main>
-<!-- Screenshot Modal --> 
- <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-50"> 
-  <div class="bg-[#1e1e1e] rounded-lg shadow-lg p-4 max-w-lg relative">
-     <button id="closeModal" class="absolute top-2 right-2 text-red-500 text-xl font-bold">✖</button>
-      <img id="modalImage" src="" alt="Payment Screenshot" class="max-h-[80vh] max-w-full rounded"> 
-    </div> 
-</div>
+
+    <!-- Screenshot Modal --> 
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center z-50"> 
+      <div class="bg-[#1e1e1e] rounded-lg shadow-lg p-4 max-w-lg relative border border-[var(--color-primary-600)]">
+        <button id="closeModal" class="absolute top-2 right-2 text-red-500 text-xl font-bold hover:text-red-400 transition-colors">✖</button>
+        <img id="modalImage" src="" alt="Payment Screenshot" class="max-h-[80vh] max-w-full rounded"> 
+      </div> 
+    </div>
+
     <script src="../../public/js/main.js"></script>
     <script src="../../public/js/admin.js"></script>
     <script src="../../public/js/authguard.js"></script>

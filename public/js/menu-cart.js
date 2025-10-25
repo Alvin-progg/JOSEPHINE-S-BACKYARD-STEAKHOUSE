@@ -12,7 +12,7 @@ let currentItem = {
 let isCartPanelOpen = false;
 
 // Toggle cart panel
-function toggleCartPanel() {
+window.toggleCartPanel = function() {
   const cartPanel = document.getElementById('cart-panel');
   const toggleBtn = document.getElementById('cart-toggle-btn');
   
@@ -25,7 +25,7 @@ function toggleCartPanel() {
     cartPanel.style.transform = 'translateY(100%)';
     toggleBtn.style.transform = 'scale(1)';
   }
-}
+};
 
 // Alert helper functions
 const alertMessage = (type, title, text, timer = 1500) => {
@@ -53,7 +53,7 @@ const successMessage = async (title, text, timer = 1500) => {
 };
 
 // Open customization modal
-function openCustomizeModal(productName, productPrice) {
+window.openCustomizeModal = function(productName, productPrice) {
   currentItem = {
     name: productName,
     price: productPrice
@@ -68,20 +68,25 @@ function openCustomizeModal(productName, productPrice) {
   modal.classList.remove('hidden');
   modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
-}
+};
 
 // Close customization modal
-function closeCustomizeModal() {
+window.closeCustomizeModal = function() {
   const modal = document.getElementById('customize-modal');
   modal.classList.add('hidden');
   modal.style.display = 'none';
   document.body.style.overflow = 'auto';
   
+  // Reset form fields
+  document.getElementById('customize-quantity').value = 1;
+  document.getElementById('customize-notes').value = '';
+  
+  // Reset current item
   currentItem = { name: '', price: 0 };
-}
+};
 
 // Quick add to cart (without customization)
-function quickAddToCart(productName, productPrice) {
+window.quickAddToCart = function(productName, productPrice) {
   const item = {
     name: productName,
     price: productPrice,
@@ -92,24 +97,27 @@ function quickAddToCart(productName, productPrice) {
   addItemToCart(item);
   successMessage("Added to Cart!", `${productName} x1 added successfully`);
   
-  // Auto-open cart panel briefly to show the item was added
+  // Open cart panel immediately to show the item
   if (!isCartPanelOpen) {
-    toggleCartPanel();
-    setTimeout(() => {
-      if (isCartPanelOpen) {
-        toggleCartPanel();
-      }
-    }, 2000);
+    window.toggleCartPanel();
   }
-}
+};
 
 // Add customized item to cart from modal
-function addCustomizedItemToCart() {
+window.addCustomizedItemToCart = function() {
+  console.log('addCustomizedItemToCart called');
   const quantity = parseInt(document.getElementById('customize-quantity').value);
   const notes = document.getElementById('customize-notes').value.trim();
   
+  console.log('Quantity:', quantity, 'Notes:', notes, 'Current Item:', currentItem);
+  
   if (quantity < 1) {
     alertMessage("warning", "Invalid Quantity", "Quantity must be at least 1");
+    return;
+  }
+  
+  if (!currentItem.name || currentItem.price === 0) {
+    alertMessage("error", "Error", "Please select an item first");
     return;
   }
   
@@ -120,41 +128,59 @@ function addCustomizedItemToCart() {
     customize: notes || 'No Customization'
   };
   
+  console.log('Adding item to cart:', item);
+  
+  // Add item to cart
   addItemToCart(item);
-  closeCustomizeModal();
+  
+  // Close modal first
+  window.closeCustomizeModal();
+  
+  // Force render again to make sure it's updated
+  renderCart();
+  
+  // Show success message
   successMessage("Added to Cart!", `${currentItem.name} x${quantity} added successfully`);
   
-  // Auto-open cart panel briefly to show the item was added
-  if (!isCartPanelOpen) {
-    toggleCartPanel();
-    setTimeout(() => {
-      if (isCartPanelOpen) {
-        toggleCartPanel();
-      }
-    }, 2000);
-  }
-}
+  // Open cart panel immediately to show the item - use setTimeout to ensure DOM is ready
+  setTimeout(() => {
+    if (!isCartPanelOpen) {
+      window.toggleCartPanel();
+    }
+    // Force render one more time after panel opens
+    renderCart();
+  }, 50);
+};
 
 // Add item to cart
 function addItemToCart(item) {
+  console.log('Adding item to cart array:', item);
+  console.log('Current cart before add:', cart);
+  
   // Check if item with same customization already exists
   const existingItem = cart.find(
     (cartItem) => cartItem.name === item.name && cartItem.customize === item.customize
   );
   
   if (existingItem) {
+    console.log('Item exists, updating quantity');
     existingItem.quantity += item.quantity;
   } else {
+    console.log('New item, adding to cart');
     cart.push(item);
   }
   
+  console.log('Cart after add:', cart);
   saveCart();
   renderCart();
+  console.log('Cart rendered');
 }
 
 // Save cart to localStorage
 function saveCart() {
+  console.log('Saving cart to localStorage:', cart);
   localStorage.setItem('cart', JSON.stringify(cart));
+  console.log('Saved. Verifying:', localStorage.getItem('cart'));
 }
 
 // Calculate cart total
@@ -164,17 +190,27 @@ function calculateCartTotal() {
 
 // Render cart
 function renderCart() {
+  console.log('renderCart called, current cart:', cart);
+  
   const cartItemsContainer = document.getElementById('cart-items-container');
-  const emptyMessage = document.getElementById('empty-cart-message');
   const cartSummary = document.getElementById('cart-summary');
   const cartCountPanel = document.getElementById('cart-count-panel');
   const floatingCartCount = document.getElementById('floating-cart-count');
   const cartTotal = document.getElementById('cart-total');
   
+  console.log('Cart container element:', cartItemsContainer);
+  
+  if (!cartItemsContainer || !cartSummary || !cartCountPanel || !floatingCartCount || !cartTotal) {
+    console.error('One or more cart elements not found!');
+    return;
+  }
+  
   // Update cart count
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   cartCountPanel.textContent = totalItems;
   floatingCartCount.textContent = totalItems;
+  
+  console.log('Total items:', totalItems);
   
   // Show/hide badge
   if (totalItems > 0) {
@@ -184,23 +220,30 @@ function renderCart() {
   }
   
   if (cart.length === 0) {
-    // Show empty message
-    emptyMessage.classList.remove('hidden');
+    console.log('Cart is empty, showing empty message');
+    // Show empty message - recreate it since it might not exist
     cartSummary.classList.add('hidden');
-    cartItemsContainer.innerHTML = '';
-    cartItemsContainer.appendChild(emptyMessage);
+    cartItemsContainer.innerHTML = `
+      <div id="empty-cart-message" class="text-center py-8 text-gray-400">
+        <i class="bi bi-cart-x text-5xl mb-3 block"></i>
+        <p class="text-lg">Your cart is empty</p>
+        <p class="text-sm">Add items from the menu!</p>
+      </div>
+    `;
     return;
   }
   
-  // Hide empty message
-  emptyMessage.classList.add('hidden');
+  console.log('Cart has items, rendering...');
+  
+  // Show summary and clear container
   cartSummary.classList.remove('hidden');
   
-  // Clear container
+  // Clear container (this will remove the empty message if it exists)
   cartItemsContainer.innerHTML = '';
   
   // Render cart items
   cart.forEach((item, index) => {
+    console.log('Rendering item:', item);
     const itemDiv = document.createElement('div');
     itemDiv.className = 'bg-[#2a2a2a] rounded-lg p-4 mb-3 border border-gray-600';
     
@@ -249,25 +292,27 @@ function renderCart() {
   // Update total
   const total = calculateCartTotal();
   cartTotal.textContent = `₱${total.toFixed(2)}`;
+  
+  console.log('Cart rendered successfully, total:', total);
 }
 
 // Update item quantity
-function updateQuantity(index, change) {
+window.updateQuantity = function(index, change) {
   if (cart[index]) {
     cart[index].quantity += change;
     
     if (cart[index].quantity < 1) {
-      removeFromCart(index);
+      window.removeFromCart(index);
       return;
     }
     
     saveCart();
     renderCart();
   }
-}
+};
 
 // Remove item from cart
-function removeFromCart(index) {
+window.removeFromCart = function(index) {
   Swal.fire({
     title: 'Remove Item?',
     text: 'Are you sure you want to remove this item from your cart?',
@@ -302,14 +347,14 @@ function proceedToCheckout() {
 document.addEventListener('click', function(event) {
   const modal = document.getElementById('customize-modal');
   if (event.target === modal) {
-    closeCustomizeModal();
+    window.closeCustomizeModal();
   }
 });
 
 // Close modal on Escape key
 document.addEventListener('keydown', function(event) {
   if (event.key === 'Escape') {
-    closeCustomizeModal();
+    window.closeCustomizeModal();
   }
 });
 

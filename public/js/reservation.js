@@ -5,6 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Load reservations when page loads
   loadReservations();
+  
+  // Initialize filter to pending
+  const filterSelect = document.getElementById("reservation-filter");
+  if (filterSelect) {
+    filterSelect.value = "pending";
+  }
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -123,6 +129,19 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// Global variable to store all reservations
+let allReservationsData = [];
+
+// Filter function
+window.filterReservations = function(status) {
+  if (status === 'all') {
+    renderReservations(allReservationsData);
+  } else {
+    const filtered = allReservationsData.filter(res => res.status.toLowerCase() === status);
+    renderReservations(filtered);
+  }
+};
+
 // Function to load and display reservations
 async function loadReservations() {
   try {
@@ -139,8 +158,13 @@ async function loadReservations() {
     console.log("Reservations API Response:", result);
 
     if (result.success) {
-      renderReservations(result.data); // Changed from result.reservations to result.data
-      updateDashboardStats(result.data); // Changed from result.reservations to result.data
+      allReservationsData = result.data; // Store all data
+      updateDashboardStats(result.data);
+      
+      // Apply default filter (pending)
+      const filterSelect = document.getElementById("reservation-filter");
+      const currentFilter = filterSelect ? filterSelect.value : 'pending';
+      window.filterReservations(currentFilter);
     } else {
       console.error("Failed to load reservations:", result.message);
       showEmptyState();
@@ -167,13 +191,25 @@ function renderReservations(reservations) {
     container: container
   });
 
+  if (container) container.innerHTML = "";
+
   if (!reservations || reservations.length === 0) {
-    showEmptyState();
+    if (container) {
+      const filterSelect = document.getElementById("reservation-filter");
+      const currentFilter = filterSelect ? filterSelect.value : 'all';
+      const filterText = currentFilter === 'all' ? '' : ` with status "${currentFilter}"`;
+      
+      container.innerHTML = `
+        <div class="text-center py-12 text-gray-400">
+          <i class="bi bi-inbox text-6xl mb-4 block"></i>
+          <p class="text-xl mb-2">No reservations found${filterText}</p>
+          <p class="text-sm">Try adjusting the filter or make a new reservation</p>
+        </div>
+      `;
+    }
     loadingState.style.display = "none";
     return;
   }
-
-  if (container) container.innerHTML = "";
 
   reservations.forEach((reservation) => {
     const statusStyle = getStatusStyle(reservation.status);
